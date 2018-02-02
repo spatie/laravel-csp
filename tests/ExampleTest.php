@@ -1,14 +1,14 @@
 <?php
 
-namespace Spatie\LaravelCsp\Tests;
-
-use PHPUnit\Framework\TestCase;
+namespace Spatie\LaravelCsp\Test;
 
 class ExampleTest extends TestCase
 {
     /** @test */
-    public function true_is_true()
+    public function it_sets_a_default_csp_header_to_a_web_request()
     {
-        $this->assertTrue(true);
+//        $this->app['config']->set('csp.', '');
+        $response = $this->get('/');
+        $response->assertHeader('Content-Security-Policy', '');
     }
 }
