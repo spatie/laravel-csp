@@ -1,0 +1,55 @@
+{
+    "name": "spatie/laravel-csp",
+    "description": "A package to make setting up the Content Security Policy header simple.",
+    "keywords": [
+        "spatie",
+        "laravel-csp",
+        "content-security-policy"
+    ],
+    "homepage": "https://github.com/spatie/laravel-csp",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas",
+            "email": "tvke91@gmail.com",
+            "homepage": "https://spatie.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "larapack/dd": "^1.0",
+        "phpunit/phpunit": "^7.0",
+        "orchestra/testbench": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Spatie\\LaravelCsp\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spatie\\LaravelCsp\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Spatie\\LaravelCsp\\LaravelCspServiceProvider"
+            ],
+            "aliases": {
+                "LaravelCsp": "Spatie\\LaravelCsp\\LaravelCspFacade"
+            }
+        }
+    }
+}
