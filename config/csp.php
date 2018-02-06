@@ -7,40 +7,104 @@ return [
     | Content Security Policy Setups
     |--------------------------------------------------------------------------
     |
-    | Here are the most common Content Security Policy setups you can use
-    | in your application. The default setting is the strictest to be
-    | safe. Specific variables can be set in the environment file.
+    | Here are some common Content Security Policy setups you can use in your
+    | application. The default setup is the strictest to be safe. A custom
+    | setup can be declared here below and controlled in the .env file.
     |
     */
 
-    'options' => [
-        'Content-Security-Policy' => env('', 'none'),
-        'base-uri' => env('', 'none'),
-        'block-all-mixed-content' => env('', 'none'),
-        'child-src' => env('', 'none'),
-        'connect-src' => env('', 'none'),
-        'default-src' => env('', 'none'),
-        'disown-opener' => env('', 'none'),
-        'font-src' => env('', 'none'),
-        'form-action' => env('', 'none'),
-        'frame-ancestors' => env('', 'none'),
-        'frame-src' => env('', 'none'),
-        'img-src' => env('', 'none'),
-        'manifest-src' => env('', 'none'),
-        'media-src' => env('', 'none'),
-        'navigation-to' => env('', 'none'),
-        'object-src' => env('', 'none'),
-        'plugin-types' => env('', 'none'),
-        'referrer' => env('', 'none'),
-        'report-sample' => env('', 'none'),
-        'report-to' => env('', 'none'),
-        'report-uri' => env('', 'none'),
-        'require-sri-for' => env('', 'none'),
-        'sandbox' => env('', 'none'),
-        'script-src' => env('', 'none'),
-        'strict-dynamic' => env('', 'none'),
-        'style-src' => env('', 'none'),
-        'upgrade-insecure-requests' => env('', 'none'),
-        'worker-src' => env('', 'none'),
+    'default' => env('CSP_SETUP', 'strict'),
+
+    'setups' => [
+        'strict' => ['base'],
+        'basic' => ['base', 'media', 'google analytics', 'google fonts', 'youtube'],
+        'custom' => ['base', 'media', 'pdf', 'google analytics', 'font awesome fonts', 'codepen', 'pusher'],
     ],
+
+    'setup-parts' => [
+
+        'base' => [
+            'default-src' => ['none'],
+            'connect-src' => ['self'],
+            'form-action' => ['self'],
+            'img-src' => ['self'],
+            'script-src' => ['self'],
+            'style-src' => ['self'],
+        ],
+
+        /*
+         * content from the main domain
+         */
+        'media' => [
+            'media-src' => ['self'],
+        ],
+        'pdf' => [
+            'plugin-types' => ['application/pdf'],
+        ],
+        'java-applet' => [
+            'plugin-types' => ['application/x-java-applet'],
+        ],
+
+        /*
+         * analytics
+         */
+        'google analytics' => [
+            'connect-src' => ['www.google-analytics.com'],
+            'script-src' => ['www.google-analytics.com', 'www.googletagmanager.com'],
+        ],
+
+        /*
+         * fonts
+         */
+        'base64 fonts' => [
+            'font-src' => ['data:'],
+        ],
+
+        'google fonts' => [
+            'font-src' => ['fonts.gstatic.com'],
+            'style-src' => ['fonts.googleapis.com'],
+        ],
+
+        'font awesome fonts' => [
+            'font-src' => ['use.fontawesome.com'],
+            'style-src' => ['use.fontawesome.com'],
+        ],
+
+        /*
+         * embeds
+         */
+        'youtube' => [
+            'frame-src' => ['www.youtube.com'],
+            'worker-src' => ['codepen.io'],
+            'child-src' => ['codepen.io'],
+        ],
+
+        'codepen' => [
+            'frame-src' => ['codepen.io'],
+            'worker-src' => ['codepen.io'],
+            'child-src' => ['codepen.io'],
+        ],
+
+        /*
+         * web sockets
+         */
+        'pusher' => [
+            'connect-src' => ['*.pusher.com'],
+            'script-src' => ['stats.pusher.com'],
+        ],
+
+        /*
+         * CDNs (Warning) try avoiding CDNs in combination with CSP
+         * google API: https://github.com/cure53/XSSChallengeWiki/wiki/H5SC-Minichallenge-3:-%22Sh*t,-it%27s-CSP!%22#submissions
+         */
+        'google API' => [
+            'connect-src' => ['ajax.googleapis.com'],
+        ],
+
+        'yahoo API' => [
+            'connect-src' => ['query.yahooapis.com'],
+        ],
+
+    ],
+
 ];

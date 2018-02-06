@@ -1,7 +1,8 @@
 <?php
 
-namespace Spatie\LaravelCsp\Test;
+namespace Spatie\LaravelCsp\Tests;
 
+use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\Router;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\LaravelCsp\LaravelCspServiceProvider;
@@ -19,6 +20,8 @@ class TestCase extends Orchestra
         $this->registerMiddleWare();
 
         $this->config = $this->app['config']->get('csp');
+
+        $this->setupRoutes($this->app);
     }
 
     /**
@@ -28,7 +31,7 @@ class TestCase extends Orchestra
     {
         $app['config']->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
 
-//        $app['config']->set('csp.', '');
+        $app['config']->set('csp.default', 'strict');
     }
 
     /**
@@ -46,5 +49,14 @@ class TestCase extends Orchestra
     protected function registerMiddleware()
     {
         $this->app[Router::class]->aliasMiddleware('web', CSPHeaderMiddleware::class);
+    }
+
+    function setupRoutes($app)
+    {
+        $this->app->get('router')->setRoutes(new RouteCollection());
+
+        Route::any('/secret-page', ['middleware' => 'web', function () {
+            return 'secret content';
+        }]);
     }
 }
