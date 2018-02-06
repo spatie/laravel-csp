@@ -13,7 +13,7 @@ class LaravelCspServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/LaravelCsp.php' => config_path('LaravelCsp.php'),
+                __DIR__.'/../config/csp.php' => config_path('csp.php'),
             ], 'config');
 
             /*
@@ -31,6 +31,6 @@ class LaravelCspServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'LaravelCsp');
+        $this->mergeConfigFrom(__DIR__.'/../config/csp.php', 'csp');
     }
 }

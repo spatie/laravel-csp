@@ -13,8 +13,7 @@ composer require spatie/laravel-csp
 ## Usage
 
 ``` php
-$LaravelCsp = new Spatie\LaravelCsp();
-echo $LaravelCsp->echoPhrase('Hello, Spatie!');
+
 ```
 
 ### Testing
@@ -45,7 +44,7 @@ We publish all received postcards [on our company website](https://spatie.be/en/
 
 ## Credits
 
-- [Thomas](https://github.com/TVke)
+- [Thomas Verhelst](https://github.com/TVke)
 - [All Contributors](../../contributors)
 
 ## Support us
