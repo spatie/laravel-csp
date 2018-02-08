@@ -47,6 +47,10 @@ return [
 
         /*
          * analytics
+         *
+         * google analytics standard uses the image approach, this contains some risk,
+         * consider using google analytics XHR approach and delete the img-src below
+         * how-to implement: https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits#specifying_different_transport_mechanisms
          */
         'google analytics' => [
             'connect-src' => ['www.google-analytics.com'],

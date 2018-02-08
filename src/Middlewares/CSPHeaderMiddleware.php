@@ -11,6 +11,8 @@ class CSPHeaderMiddleware extends CspHeader
 {
     public function handle(Request $request, Closure $next): Response
     {
-        return $this->addCSPHeaderToResponse($next($request));
+        $this->addCSPHeaderToResponse($request);
+
+        return $next($request);
     }
 }

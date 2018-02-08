@@ -15,14 +15,6 @@ class LaravelCspServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/csp.php' => config_path('csp.php'),
             ], 'config');
-
-            /*
-            $this->loadViewsFrom(__DIR__.'/../resources/views', 'LaravelCsp');
-
-            $this->publishes([
-                __DIR__.'/../resources/views' => base_path('resources/views/vendor/LaravelCsp'),
-            ], 'views');
-            */
         }
     }
 
