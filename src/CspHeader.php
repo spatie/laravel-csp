@@ -20,6 +20,7 @@ class CspHeader
     public function __construct(Repository $config)
     {
         $this->config = $config->get('csp');
+
         $this->policy = $this->createPolicyFromConfig();
     }
 
@@ -37,7 +38,7 @@ class CspHeader
         $this->response->headers->set('Content-Security-Policy', $this->policy, false);
     }
 
-    protected function getSetupToUse():string
+    protected function getSetupToUse(): string
     {
         if (!array_has($this->config['setups'], $this->config['default'])) {
             $this->config['default'] = 'strict';
@@ -55,7 +56,7 @@ class CspHeader
         return false;
     }
 
-    protected function createPolicyFromConfig(): string
+    protected function createSetup(): array
     {
         $setupToUse = $this->getSetupToUse();
 
@@ -69,7 +70,47 @@ class CspHeader
             return $this->config['setup-parts'][$setupPart];
         }, $filteredSetup);
 
-        /** TODO: creating actual policy */
-        return implode(" ", array_flatten($setup));
+        return $setup;
+    }
+
+    protected function policyFromSetup(array $setup): array
+    {
+        $alreadyUsed = [];
+
+        $policy = [];
+
+        foreach ($setup as $setupPart) {
+            foreach ($setupPart as $key => $value) {
+                if (in_array($key, $alreadyUsed)) {
+                    array_push(
+                        $policy[$key],
+                        implode(" ", array_flatten($value))
+                    );
+                }
+
+                if (!in_array($key, $alreadyUsed)) {
+                    array_push($alreadyUsed, $key);
+
+                    $policy[$key][0] = implode(" ", array_flatten($value));
+                }
+            }
+        }
+
+        return $policy;
+    }
+
+    protected function createPolicyFromConfig(): string
+    {
+        $setup = $this->createSetup();
+
+        $policy = $this->policyFromSetup($setup);
+
+        $policyKeys = array_keys($policy);
+
+        $policy = array_map(function ($key, $value) {
+            return $key.': '.implode(' ', $value).';';
+        }, $policyKeys, $policy);
+
+        return implode(' ', $policy);
     }
 }

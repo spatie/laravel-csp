@@ -29,6 +29,8 @@ class TestCase extends Orchestra
 
     protected function getEnvironmentSetUp($app)
     {
+        $app['config']->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
+
         $app['config']->set('csp.default', 'strict');
     }
 
@@ -44,30 +46,13 @@ class TestCase extends Orchestra
         $this->app[Router::class]->aliasMiddleware('csp', CSPHeaderMiddleware::class);
     }
 
-    public function setupRoutes($app)
+    public function setupDummyRoutes()
     {
-        $app['router']->setRoutes(new RouteCollection());
-
-        Route::any('/', ['middleware' => 'csp', function () {
-            return 'secret content';
-        }]);
-    }
-
-    public function setupDummyRoutes(){
         $this->app['router']->group(
             ['middleware' => CSPHeaderMiddleware::class],
             function () {
                 $this->app['router']->get('test', function () {
                     return 'Hello world!';
-                });
-                $this->app['router']->get('behold-me', function () {
-                    return 'Hello world!';
-                });
-                $this->app['router']->get('go-away', function () {
-                    return 'Hello world!';
-                });
-                $this->app['router']->get('dont-follow-me', function () {
-                    return response('Hello world!')->header('x-robots-tag', 'nofollow');
                 });
             }
         );
