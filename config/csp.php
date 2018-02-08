@@ -51,6 +51,7 @@ return [
         'google analytics' => [
             'connect-src' => ['www.google-analytics.com'],
             'script-src' => ['www.google-analytics.com', 'www.googletagmanager.com'],
+            'img-src' => ['www.google-analytics.com'],
         ],
 
         /*
