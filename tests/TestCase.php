@@ -7,7 +7,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\LaravelCsp\LaravelCspServiceProvider;
-use Spatie\LaravelCsp\Middlewares\CSPHeaderMiddleware;
+use Spatie\LaravelCsp\MiddleWare\CSPHeaderMiddleware;
 
 class TestCase extends Orchestra
 {
@@ -18,17 +18,17 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->registerMiddleWare();
+//        $this->registerMiddleWare();
+
+        $this->setupDummyRoutes();
 
         $this->config = $this->app['config']->get('csp');
 
-        $this->setupRoutes($this->app);
+//        $this->setupRoutes($this->app);
     }
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
-
         $app['config']->set('csp.default', 'strict');
     }
 
@@ -51,5 +51,25 @@ class TestCase extends Orchestra
         Route::any('/', ['middleware' => 'csp', function () {
             return 'secret content';
         }]);
+    }
+
+    public function setupDummyRoutes(){
+        $this->app['router']->group(
+            ['middleware' => CSPHeaderMiddleware::class],
+            function () {
+                $this->app['router']->get('test', function () {
+                    return 'Hello world!';
+                });
+                $this->app['router']->get('behold-me', function () {
+                    return 'Hello world!';
+                });
+                $this->app['router']->get('go-away', function () {
+                    return 'Hello world!';
+                });
+                $this->app['router']->get('dont-follow-me', function () {
+                    return response('Hello world!')->header('x-robots-tag', 'nofollow');
+                });
+            }
+        );
     }
 }

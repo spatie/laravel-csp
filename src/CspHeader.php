@@ -3,12 +3,14 @@
 namespace Spatie\LaravelCsp;
 
 use Closure;
-use http\Env\Request;
-use http\Env\Response;
 use Illuminate\Config\Repository;
+use Illuminate\Http\Request;
 
 class CspHeader
 {
+    /** @var \Illuminate\Http\Response */
+    protected $response;
+
     /** @var array */
     protected $config;
 
@@ -18,20 +20,21 @@ class CspHeader
     public function __construct(Repository $config)
     {
         $this->config = $config->get('csp');
+        $this->policy = $this->createPolicyFromConfig();
     }
 
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        $this->addCSPHeaderToResponse($request);
+        $this->response = $next($request);
 
-        return $next($request);
+        $this->addCSPHeaderToResponse();
+
+        return $this->response;
     }
 
-    protected function addCSPHeaderToResponse($content): Response
+    protected function addCSPHeaderToResponse()
     {
-        $this->createPolicyFromConfig();
-
-        return response($content)->header('Content-Security-Policy', $this->policy);
+        $this->response->headers->set('Content-Security-Policy', $this->policy, false);
     }
 
     protected function getSetupToUse():string
@@ -52,21 +55,21 @@ class CspHeader
         return false;
     }
 
-    protected function createPolicyFromConfig()
+    protected function createPolicyFromConfig(): string
     {
         $setupToUse = $this->getSetupToUse();
 
-        $setupArray = $this->config['setups.' . $setupToUse];
+        $setupArray = $this->config['setups'][$setupToUse];
 
         $filteredSetup = array_where($setupArray, function ($setupPart) {
             return $this->setupPartExists($setupPart);
         });
 
         $setup = array_map(function ($setupPart) {
-            return $this->config['setup-parts.'.$setupPart];
+            return $this->config['setup-parts'][$setupPart];
         }, $filteredSetup);
 
         /** TODO: creating actual policy */
-        $this->policy = implode(" ", array_flatten($setup));
+        return implode(" ", array_flatten($setup));
     }
 }
