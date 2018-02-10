@@ -45,11 +45,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\LaravelCsp\\LaravelCspServiceProvider"
-            ],
-            "aliases": {
-                "LaravelCsp": "Spatie\\LaravelCsp\\LaravelCspFacade"
-            }
+                "Spatie\\LaravelCsp\\CspServiceProvider"
+            ]
         }
     }
 }
