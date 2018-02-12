@@ -17,8 +17,8 @@ return [
 
     'setups' => [
         'strict' => ['base'],
-        'basic' => ['base', 'media', 'google analytics', 'google fonts', 'youtube'],
-        'custom' => ['base', 'media', 'pdf', 'google analytics', 'font awesome fonts', 'codepen', 'pusher'],
+        'basic' => ['base', 'google analytics', 'google fonts', 'youtube'],
+        'custom' => ['base', 'pdf', 'google analytics', 'font awesome fonts', 'codepen', 'pusher'],
     ],
 
     'setup-parts' => [
@@ -30,14 +30,12 @@ return [
             'img-src' => ['self'],
             'script-src' => ['self'],
             'style-src' => ['self'],
+            'media-src' => ['self'],
         ],
 
         /*
          * content from the main domain
          */
-        'media' => [
-            'media-src' => ['self'],
-        ],
         'pdf' => [
             'plugin-types' => ['application/pdf'],
         ],

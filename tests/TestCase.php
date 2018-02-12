@@ -2,12 +2,9 @@
 
 namespace Spatie\LaravelCsp\Tests;
 
-use Illuminate\Routing\RouteCollection;
-use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Route;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\LaravelCsp\CspServiceProvider;
-use Spatie\LaravelCsp\MiddleWare\CSPHeaderMiddleware;
+use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\LaravelCsp\MiddleWare\CspHeaderMiddleware;
 
 class TestCase extends Orchestra
 {
@@ -40,7 +37,7 @@ class TestCase extends Orchestra
     public function setupDummyRoutes()
     {
         $this->app['router']->group(
-            ['middleware' => CSPHeaderMiddleware::class],
+            ['middleware' => CspHeaderMiddleware::class],
             function () {
                 $this->app['router']->get('test', function () {
                     return 'Hello world!';

@@ -3,9 +3,8 @@
 namespace Spatie\LaravelCsp;
 
 use Closure;
-use Illuminate\Config\Repository;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Config\Repository;
 
 class CspHeader
 {

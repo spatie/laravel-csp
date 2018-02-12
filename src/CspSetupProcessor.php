@@ -1,9 +1,7 @@
 <?php
 
-
 namespace Spatie\LaravelCsp;
 
-use Illuminate\Config\Repository;
 use Illuminate\Support\Collection;
 
 class CspSetupProcessor

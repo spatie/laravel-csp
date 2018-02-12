@@ -24,6 +24,7 @@ class HeaderTest extends TestCase
                     'img-src' => ['self'],
                     'script-src' => ['self'],
                     'style-src' => ['self'],
+                    'media-src' => ['self'],
                 ],
             ],
             $setupCollection->toArray()
@@ -43,8 +44,6 @@ class HeaderTest extends TestCase
                     'img-src' => ['self'],
                     'script-src' => ['self'],
                     'style-src' => ['self'],
-                ],
-                [
                     'media-src' => ['self'],
                 ],
                 [
@@ -82,7 +81,8 @@ class HeaderTest extends TestCase
             'form-action: self; '.
             'img-src: self; '.
             'script-src: self; '.
-            'style-src: self;',
+            'style-src: self; '.
+            'media-src: self;',
             $policy
         );
 
@@ -141,7 +141,8 @@ class HeaderTest extends TestCase
             'form-action: self; '.
             'img-src: self; '.
             'script-src: self; '.
-            'style-src: self;',
+            'style-src: self; '.
+            'media-src: self;',
             $headers['content-security-policy'][0]
         );
 

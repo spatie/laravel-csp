@@ -1,7 +1,12 @@
 # Set up the Content Security Policy header with ease.
 
 Safety on the web is an ever growing topic and the `Content-Security-Policy` header is a way to block outsiders from getting on your site.
-This package is not a one-size-fit-all solution, but it makes the setup easier. 
+This package is not a one-size-fit-all solution, but it makes the setup easier by having a few common setups: 
+
+- `strict`: A strict setup where you have no outside dependencies.
+- `basic`: A setup with the most common needed parts like google analytics, youtube and google fonts. 
+- `custom`: Of course you can create your own setups. [Usage](https://github.com/spatie/laravel-csp#usage)
+
 
 ## Installation
 
@@ -11,15 +16,13 @@ You can install the package via composer:
 composer require spatie/laravel-csp
 ```
 
-## Usage
-
-You can install the config-file with:
+You can publish the config-file with:
 
 ```bash
 php artisan vendor:publish --provider="Spatie\LaravelCsp\LaravelCspServiceProvider" --tag="config"
 ```
 
-This is the contents of the file which will be published at `config/csp.php`
+This is the contents of the file which will be published at `config/csp.php`:
 
 ``` php
 return [
@@ -39,8 +42,8 @@ return [
 
     'setups' => [
         'strict' => ['base'],
-        'basic' => ['base', 'media', 'google analytics', 'google fonts', 'youtube'],
-        'custom' => ['base', 'media', 'pdf', 'google analytics', 'font awesome fonts', 'codepen', 'pusher'],
+        'basic' => ['base', 'google analytics', 'google fonts', 'youtube'],
+        'custom' => ['base', 'pdf', 'google analytics', 'font awesome fonts', 'codepen', 'pusher'],
     ],
 
     'setup-parts' => [
@@ -52,14 +55,12 @@ return [
             'img-src' => ['self'],
             'script-src' => ['self'],
             'style-src' => ['self'],
+            'media-src' => ['self'],
         ],
 
         /*
          * content from the main domain
          */
-        'media' => [
-            'media-src' => ['self'],
-        ],
         'pdf' => [
             'plugin-types' => ['application/pdf'],
         ],
@@ -137,10 +138,27 @@ return [
 ];
 ```
 
+And finally you should install the provided middleware \Spatie\LaravelCsp\Middleware\CspHeaderMiddleware::class in the http kernel.
+
+```php
+// app/Http/Kernel.php
+
+...
+
+protected $middlewareGroups = [
+   'web' => [
+       ...
+       \Spatie\LaravelCsp\MiddleWare\CspHeaderMiddleware::class,
+   ],
+```
+ 
+## Usage
+
+You can create your custom CSP setup very easy by declaring your `CustomCSP` class that uses the `CspSetup` trait.
+
 You can put your own custom setups together in the `setups` array, with a suitable name, or you can use one of the prefabs.
 
 The setup used is the one declared in your `.env` file with the name `CSP_SETUP`.
- 
 
 ### Testing
 

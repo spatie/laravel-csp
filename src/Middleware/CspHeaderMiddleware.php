@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Spatie\LaravelCsp\CspHeader;
 
-class CSPHeaderMiddleware extends CspHeader
+class CspHeaderMiddleware extends CspHeader
 {
     protected $response;
 
