@@ -6,7 +6,7 @@ use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\LaravelCsp\LaravelCspServiceProvider;
+use Spatie\LaravelCsp\CspServiceProvider;
 use Spatie\LaravelCsp\MiddleWare\CSPHeaderMiddleware;
 
 class TestCase extends Orchestra
@@ -18,13 +18,9 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-//        $this->registerMiddleWare();
-
         $this->setupDummyRoutes();
 
         $this->config = $this->app['config']->get('csp');
-
-//        $this->setupRoutes($this->app);
     }
 
     protected function getEnvironmentSetUp($app)
@@ -37,13 +33,8 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            LaravelCspServiceProvider::class,
+            CspServiceProvider::class,
         ];
-    }
-
-    protected function registerMiddleware()
-    {
-        $this->app[Router::class]->aliasMiddleware('csp', CSPHeaderMiddleware::class);
     }
 
     public function setupDummyRoutes()

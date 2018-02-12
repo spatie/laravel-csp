@@ -4,7 +4,7 @@ namespace Spatie\LaravelCsp;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelCspServiceProvider extends ServiceProvider
+class CspServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
