@@ -22,7 +22,7 @@ class CspHeaderSetter
     {
         $profile = $this->getCspProfileClass();
 
-        $this->profile = $profile->profileSetup();
+        $profile->profileSetup();
 
         $this->profile = $profile->profile;
     }
@@ -56,6 +56,6 @@ class CspHeaderSetter
 
     protected function getCspProfileClass(): Csp
     {
-        return config('csp.csp_profile');
+        return get_class(config('csp.csp_profile'));
     }
 }

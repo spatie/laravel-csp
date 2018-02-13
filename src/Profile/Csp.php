@@ -2,7 +2,7 @@
 
 namespace Spatie\LaravelCsp\Profile;
 
-class Csp
+class Csp implements CspInterface
 {
     use Allows;
 
@@ -38,5 +38,14 @@ class Csp
             $this->profile->put($directive, collect($value));
         }
         return $this;
+    }
+
+    /**
+     * Fill this method with the $this->allows methods ||
+     * add your own headers with $this->addHeader()
+     */
+    public function profileSetup()
+    {
+        //
     }
 }
