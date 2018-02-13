@@ -148,7 +148,7 @@ And finally you should install the provided middleware \Spatie\LaravelCsp\Middle
 protected $middlewareGroups = [
    'web' => [
        ...
-       \Spatie\LaravelCsp\MiddleWare\CspHeaderMiddleware::class,
+       \Spatie\LaravelCsp\Middlewares\CSPHeaderMiddleware::class,
    ],
 ```
  
