@@ -4,9 +4,9 @@ namespace Spatie\LaravelCsp\MiddleWare;
 
 use Closure;
 use Illuminate\Http\Request;
-use Spatie\LaravelCsp\CspHeader;
+use Spatie\LaravelCsp\CspHeaderSetter;
 
-class CspHeaderMiddleware extends CspHeader
+class CspHeader extends CspHeaderSetter
 {
     protected $response;
 
@@ -14,7 +14,9 @@ class CspHeaderMiddleware extends CspHeader
     {
         $this->response = $next($request);
 
-        $this->addCSPHeaderToResponse();
+        if (config('csp.enabled')) {
+            $this->addCspHeaderToResponse();
+        }
 
         return $this->response;
     }
