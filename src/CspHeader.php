@@ -34,7 +34,13 @@ class CspHeader
 
         $this->profileToPolicy();
 
-        $this->response->headers->set('Content-Security-Policy', $this->policy, false);
+        if (config('csp.report_mode')) {
+            $this->response->headers->set('Content-Security-Policy-Report-Only', $this->policy, false);
+        }
+
+        if (! config('csp.report_mode')) {
+            $this->response->headers->set('Content-Security-Policy', $this->policy, false);
+        }
     }
 
     protected function getCspProfileClass(): string
@@ -47,7 +53,7 @@ class CspHeader
         $policy = $this->profile->map(function (Collection $value, string $key) {
             $value = $value->implode(' ');
 
-            return "{$key}: {$value};";
+            return "{$key} {$value};";
         });
 
         $this->policy = $policy->implode(' ');

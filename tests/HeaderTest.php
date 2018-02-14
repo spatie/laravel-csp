@@ -23,13 +23,13 @@ class HeaderTest extends TestCase
         $csp->profileSetup();
 
         $this->assertEquals([
-            'default-src' => ['none'],
-            'connect-src' => ['self'],
-            'form-action' => ['self'],
-            'img-src' => ['self'],
-            'script-src' => ['self'],
-            'style-src' => ['self'],
-            'media-src' => ['self'],
+            'default-src' => ["'none'"],
+            'connect-src' => ["'self'"],
+            'form-action' => ["'self'"],
+            'img-src' => ["'self'"],
+            'script-src' => ["'self'"],
+            'style-src' => ["'self'"],
+            'media-src' => ["'self'"],
         ], $csp->profile->toArray());
     }
 
@@ -41,13 +41,13 @@ class HeaderTest extends TestCase
         $csp->profileSetup();
 
         $this->assertEquals([
-            'default-src' => ['none'],
-            'connect-src' => ['self', 'https://www.google-analytics.com'],
-            'form-action' => ['self'],
-            'img-src' => ['self'],
-            'script-src' => ['self', 'https://www.google-analytics.com', 'https://www.googletagmanager.com'],
-            'style-src' => ['self', 'https://fonts.googleapis.com'],
-            'media-src' => ['self'],
+            'default-src' => ["'none'"],
+            'connect-src' => ["'self'", 'https://www.google-analytics.com'],
+            'form-action' => ["'self'"],
+            'img-src' => ["'self'"],
+            'script-src' => ["'self'", 'https://www.google-analytics.com', 'https://www.googletagmanager.com'],
+            'style-src' => ["'self'", 'https://fonts.googleapis.com'],
+            'media-src' => ["'self'"],
             'font-src' => ['https://fonts.gstatic.com'],
             'frame-src' => ['https://www.youtube.com'],
             'worker-src' => ['https://www.youtube.com'],
@@ -63,13 +63,13 @@ class HeaderTest extends TestCase
         $this->assertArrayHasKey('content-security-policy', $headers);
 
         $this->assertEquals(
-            'default-src: none; '.
-            'connect-src: self; '.
-            'form-action: self; '.
-            'img-src: self; '.
-            'script-src: self; '.
-            'style-src: self; '.
-            'media-src: self;',
+            "default-src 'none'; ".
+            "connect-src 'self'; ".
+            "form-action 'self'; ".
+            "img-src 'self'; ".
+            "script-src 'self'; ".
+            "style-src 'self'; ".
+            "media-src 'self';",
             $headers['content-security-policy'][0]
         );
     }
@@ -84,17 +84,17 @@ class HeaderTest extends TestCase
         $this->assertArrayHasKey('content-security-policy', $headers);
 
         $this->assertEquals(
-            'default-src: none; '.
-            'connect-src: self https://www.google-analytics.com; '.
-            'form-action: self; '.
-            'img-src: self; '.
-            'script-src: self https://www.google-analytics.com https://www.googletagmanager.com; '.
-            'style-src: self https://fonts.googleapis.com; '.
-            'media-src: self; '.
-            'font-src: https://fonts.gstatic.com; '.
-            'child-src: https://www.youtube.com; '.
-            'frame-src: https://www.youtube.com; '.
-            'worker-src: https://www.youtube.com;',
+            "default-src 'none'; ".
+            "connect-src 'self' https://www.google-analytics.com; ".
+            "form-action 'self'; ".
+            "img-src 'self'; ".
+            "script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; ".
+            "style-src 'self' https://fonts.googleapis.com; ".
+            "media-src 'self'; ".
+            "font-src https://fonts.gstatic.com; ".
+            "child-src https://www.youtube.com; ".
+            "frame-src https://www.youtube.com; ".
+            "worker-src https://www.youtube.com;",
             $headers['content-security-policy'][0]
         );
     }
@@ -109,18 +109,18 @@ class HeaderTest extends TestCase
         $this->assertArrayHasKey('content-security-policy', $headers);
 
         $this->assertEquals(
-            'default-src: none; '.
-            'connect-src: self https://www.google-analytics.com https://*.pusher.com https://ajax.googleapis.com https://query.yahooapis.com; '.
-            'form-action: self; '.
-            'img-src: self; '.
-            'script-src: self https://www.google-analytics.com https://www.googletagmanager.com https://stats.pusher.com; '.
-            'style-src: self https://fonts.googleapis.com https://use.fontawesome.com; '.
-            'media-src: self; '.
-            'font-src: data: https://fonts.gstatic.com https://use.fontawesome.com; '.
-            'child-src: https://www.youtube.com https://codepen.io https://application/x-java-applet; '.
-            'frame-src: https://www.youtube.com https://codepen.io; '.
-            'worker-src: https://www.youtube.com https://codepen.io; '.
-            'plugin-types: https://application/pdf;',
+            "default-src 'none'; ".
+            "connect-src 'self' https://www.google-analytics.com https://*.pusher.com https://ajax.googleapis.com https://query.yahooapis.com; ".
+            "form-action 'self'; ".
+            "img-src 'self'; ".
+            "script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://stats.pusher.com; ".
+            "style-src 'self' https://fonts.googleapis.com https://use.fontawesome.com; ".
+            "media-src 'self'; ".
+            "font-src data: https://fonts.gstatic.com https://use.fontawesome.com; ".
+            "child-src https://www.youtube.com https://codepen.io https://application/x-java-applet; ".
+            "frame-src https://www.youtube.com https://codepen.io; ".
+            "worker-src https://www.youtube.com https://codepen.io; ".
+            "plugin-types https://application/pdf;",
             $headers['content-security-policy'][0]
         );
     }

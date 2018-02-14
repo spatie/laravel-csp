@@ -22,7 +22,7 @@ composer require spatie/laravel-csp
 You can publish the config-file with:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\LaravelCsp\LaravelCspServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\LaravelCsp\CspServiceProvider" --tag="config"
 ```
 
 This is the contents of the file which will be published at `config/csp.php`:
@@ -44,6 +44,8 @@ return [
     'enabled' => env('CSP', true),
 
     'csp_profile' => \Spatie\LaravelCsp\Profile\Strict::class,
+
+    'report_mode' => env('CSP_REPORT', false),
 
 ];
 ```
@@ -99,6 +101,13 @@ class CustomCsp extends Csp implements CspInterface
 - `$this->allowsGoogleApi;`: Avoid using this without reading the [Warnings](https://github.com/spatie/laravel-csp#warnings)
 - `$this->allowsYahooApi;`: Avoid using this without reading the [Warnings](https://github.com/spatie/laravel-csp#warnings)
 
+### Warnings
+
+- `img-src: https://analytics.google.be` is unsafe, use beacon or XHR method instead of the default image method. ([How-to](https://developers.google.com/analytics/devguides/collection/gtagjs/sending-data#specify_different_transport_mechanisms) [exploit info](https://githubengineering.com/githubs-post-csp-journey/#img-src---how-scary-can-an-image-really-be))
+
+- try avoiding unsafe CDNs ([exploit info](https://github.com/cure53/XSSChallengeWiki/wiki/H5SC-Minichallenge-3:-%22Sh*t,-it%27s-CSP!%22#conclusion))
+Sadly, the Google API is not strict enough in terms of scripts and data that can be pulled from it. So it classifies as insecure CDN. 
+
 ### Directives
 
 - `Directive::base`: `'base-uri'`
@@ -115,21 +124,16 @@ class CustomCsp extends Csp implements CspInterface
 - `Directive::mixed`: `'block-all-mixed-content'`
 - `Directive::object`: `'object-src'`
 - `Directive::plugin`: `'plugin-types'`
-- `Directive::report`: `'report-uri'`
+- `Directive::report`: `'report-uri'` (sends any violation in a `POST` request to the specified location)
 - `Directive::sandbox`: `'sandbox'`
 - `Directive::script`: `'script-src'`
 - `Directive::style`: `'style-src'`
 - `Directive::upgrade`: `'upgrade-insecure-requests'`
 - `Directive::worker`: `'worker-src'`
 
-### Warnings
-
-- `img-src: https://analytics.google.be` is unsafe, use beacon or XHR method instead of the default image method. ([How-to](https://developers.google.com/analytics/devguides/collection/gtagjs/sending-data#specify_different_transport_mechanisms) [exploit info](https://githubengineering.com/githubs-post-csp-journey/#img-src---how-scary-can-an-image-really-be))
-
-- try avoiding unsafe CDNs ([exploit info](https://github.com/cure53/XSSChallengeWiki/wiki/H5SC-Minichallenge-3:-%22Sh*t,-it%27s-CSP!%22#conclusion))
-Sadly, the Google API is not strict enough in terms of scripts and data that can be pulled from it. So it classifies as insecure CDN. 
-
 ### Testing
+
+To test your `Content-Security-Policy` there is a `CSP_REPORT` toggle that can be set in the .env file, don't forget to disable it when your CSP header is ready.
 
 ``` bash
 composer test

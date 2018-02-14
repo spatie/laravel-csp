@@ -7,13 +7,13 @@ trait Allows
     private function allowsBasics()
     {
         $this
-            ->addHeader(Directive::default, 'none')
-            ->addHeader(Directive::connect, 'self')
-            ->addHeader(Directive::form, 'self')
-            ->addHeader(Directive::img, 'self')
-            ->addHeader(Directive::script, 'self')
-            ->addHeader(Directive::style, 'self')
-            ->addHeader(Directive::media, 'self');
+            ->addHeader(Directive::default, "'none'")
+            ->addHeader(Directive::connect, "'self'")
+            ->addHeader(Directive::form, "'self'")
+            ->addHeader(Directive::img, "'self'")
+            ->addHeader(Directive::script, "'self'")
+            ->addHeader(Directive::style, "'self'")
+            ->addHeader(Directive::media, "'self'");
     }
 
     public function allowsGoogleAnalytics()

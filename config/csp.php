@@ -17,4 +17,6 @@ return [
 
     'csp_profile' => \Spatie\LaravelCsp\Profiles\Strict::class,
 
+    'report_mode' => env('CSP_REPORT', false),
+
 ];
