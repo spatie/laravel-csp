@@ -43,7 +43,7 @@ return [
 
     'enabled' => env('CSP', true),
 
-    'csp_profile' => \Spatie\LaravelCsp\Profile\Strict::class,
+    'csp_profile' => \Spatie\LaravelCsp\Profiles\Strict::class,
 
     'report_mode' => env('CSP_REPORT', false),
 
@@ -60,7 +60,7 @@ And finally you should install the provided middleware \Spatie\LaravelCsp\Middle
 protected $middlewareGroups = [
    'web' => [
        ...
-       \Spatie\LaravelCsp\Middleware\CSPHeader::class,
+       \Spatie\LaravelCsp\CSPHeader::class,
    ],
 ```
  
