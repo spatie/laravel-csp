@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelCsp\Profile;
+namespace Spatie\LaravelCsp\Profiles;
 
 abstract class Directive
 {
@@ -34,7 +34,7 @@ abstract class Directive
 
     const plugin = 'plugin-types';
 
-    const reportUri = 'report-uri';
+    const report = 'report-uri';
 
     const sandbox = 'sandbox';
 

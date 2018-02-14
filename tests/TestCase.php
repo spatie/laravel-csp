@@ -2,8 +2,8 @@
 
 namespace Spatie\LaravelCsp\Tests;
 
+use Spatie\LaravelCsp\CspHeader;
 use Spatie\LaravelCsp\CspServiceProvider;
-use Spatie\LaravelCsp\MiddleWare\CspHeader;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

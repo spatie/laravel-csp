@@ -15,6 +15,6 @@ return [
 
     'enabled' => env('CSP', true),
 
-    'csp_profile' => \Spatie\LaravelCsp\Profile\Strict::class,
+    'csp_profile' => \Spatie\LaravelCsp\Profiles\Strict::class,
 
 ];

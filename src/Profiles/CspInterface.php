@@ -1,15 +1,12 @@
 <?php
 
-namespace Spatie\LaravelCsp\Profile;
+namespace Spatie\LaravelCsp\Profiles;
 
-class Strict extends Csp
+interface CspInterface
 {
     /**
      * Fill this method with the $this->allows methods ||
      * add your own headers with $this->addHeader()
      */
-    public function profileSetup()
-    {
-        //
-    }
+    public function profileSetup();
 }

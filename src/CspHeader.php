@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class CspHeaderSetter
+class CspHeader
 {
     /** @var \Illuminate\Http\Response */
     protected $response;
@@ -16,7 +16,6 @@ class CspHeaderSetter
 
     /** @var string */
     protected $policy;
-
 
     public function handle(Request $request, Closure $next)
     {
@@ -29,7 +28,7 @@ class CspHeaderSetter
         return $this->response;
     }
 
-    public function addCspHeaderToResponse()
+    protected function addCspHeaderToResponse()
     {
         $this->setupProfile();
 

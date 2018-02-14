@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelCsp\Profile;
+namespace Spatie\LaravelCsp\Profiles;
 
 class Csp
 {
@@ -22,7 +22,7 @@ class Csp
     /**
      * @param string $directive
      * @param string|array $value
-     * @return \Spatie\LaravelCsp\Profile\Csp
+     * @return \Spatie\LaravelCsp\Profiles\Csp
      */
     public function addHeader(string $directive, $value): self
     {

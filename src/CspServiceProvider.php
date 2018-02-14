@@ -6,9 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 class CspServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     */
     public function boot()
     {
         if ($this->app->runningInConsole()) {
@@ -18,9 +15,6 @@ class CspServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register the application services.
-     */
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/csp.php', 'csp');

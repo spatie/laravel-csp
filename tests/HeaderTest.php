@@ -2,7 +2,8 @@
 
 namespace Spatie\LaravelCsp\Tests;
 
-use Spatie\LaravelCsp\Profile\Strict;
+use Spatie\LaravelCsp\Profiles\Csp;
+use Spatie\LaravelCsp\Profiles\Strict;
 
 class HeaderTest extends TestCase
 {
@@ -41,16 +42,16 @@ class HeaderTest extends TestCase
 
         $this->assertEquals([
             'default-src' => ['none'],
-            'connect-src' => ['self', 'www.google-analytics.com'],
+            'connect-src' => ['self', 'https://www.google-analytics.com'],
             'form-action' => ['self'],
             'img-src' => ['self'],
-            'script-src' => ['self', 'www.google-analytics.com', 'www.googletagmanager.com'],
-            'style-src' => ['self', 'fonts.googleapis.com'],
+            'script-src' => ['self', 'https://www.google-analytics.com', 'https://www.googletagmanager.com'],
+            'style-src' => ['self', 'https://fonts.googleapis.com'],
             'media-src' => ['self'],
-            'font-src' => ['fonts.gstatic.com'],
-            'frame-src' => ['www.youtube.com'],
-            'worker-src' => ['www.youtube.com'],
-            'child-src' => ['www.youtube.com'],
+            'font-src' => ['https://fonts.gstatic.com'],
+            'frame-src' => ['https://www.youtube.com'],
+            'worker-src' => ['https://www.youtube.com'],
+            'child-src' => ['https://www.youtube.com'],
         ], $csp->profile->toArray());
     }
 
@@ -85,16 +86,42 @@ class HeaderTest extends TestCase
 
         $this->assertEquals(
             'default-src: none; '.
-            'connect-src: self www.google-analytics.com; '.
+            'connect-src: self https://www.google-analytics.com; '.
             'form-action: self; '.
             'img-src: self; '.
-            'script-src: self www.google-analytics.com www.googletagmanager.com; '.
-            'style-src: self fonts.googleapis.com; '.
+            'script-src: self https://www.google-analytics.com https://www.googletagmanager.com; '.
+            'style-src: self https://fonts.googleapis.com; '.
             'media-src: self; '.
-            'font-src: fonts.gstatic.com; '.
-            'child-src: www.youtube.com; '.
-            'frame-src: www.youtube.com; '.
-            'worker-src: www.youtube.com;',
+            'font-src: https://fonts.gstatic.com; '.
+            'child-src: https://www.youtube.com; '.
+            'frame-src: https://www.youtube.com; '.
+            'worker-src: https://www.youtube.com;',
+            $headers['content-security-policy'][0]
+        );
+    }
+
+    /** @test */
+    public function it_can_handle_all_the_allows()
+    {
+        $this->app['config']->set('csp.csp_profile', '\Spatie\LaravelCsp\Tests\AllAllowsTest');
+
+        $headers = $this->call('get', 'test')->headers->all();
+
+        $this->assertArrayHasKey('content-security-policy', $headers);
+
+        $this->assertEquals(
+            'default-src: none; '.
+            'connect-src: self https://www.google-analytics.com https://*.pusher.com https://ajax.googleapis.com https://query.yahooapis.com; '.
+            'form-action: self; '.
+            'img-src: self; '.
+            'script-src: self https://www.google-analytics.com https://www.googletagmanager.com https://stats.pusher.com; '.
+            'style-src: self https://fonts.googleapis.com https://use.fontawesome.com; '.
+            'media-src: self; '.
+            'font-src: data: https://fonts.gstatic.com https://use.fontawesome.com; '.
+            'child-src: https://www.youtube.com https://codepen.io https://application/x-java-applet; '.
+            'frame-src: https://www.youtube.com https://codepen.io; '.
+            'worker-src: https://www.youtube.com https://codepen.io; '.
+            'plugin-types: https://application/pdf;',
             $headers['content-security-policy'][0]
         );
     }
