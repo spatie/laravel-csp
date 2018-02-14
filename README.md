@@ -28,18 +28,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Content Security Policy Setups
+    | Content Security Policy Setup
     |--------------------------------------------------------------------------
     |
-    | Here are some common Content Security Policy setups you can use in your
-    | application. The default setup is the strictest to be safe. A custom
-    | setup can be declared here below and controlled in the .env file.
+    | Here are you can specify a Content Security Policy profile class that
+    | will be used by the middleware. The default setup is the strictest
+    | setup. By setting CSP in the .env file to false you disable it.
     |
     */
 
     'enabled' => env('CSP', true),
-    
-    'csp_profile' => \Spatie\LaravelCsp\Profile\Basic::class,
+
+    'csp_profile' => \Spatie\LaravelCsp\Profile\Strict::class,
 
 ];
 ```
