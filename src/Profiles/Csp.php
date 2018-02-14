@@ -37,6 +37,7 @@ class Csp
 
             $this->profile->put($directive, collect($value));
         }
+
         return $this;
     }
 }

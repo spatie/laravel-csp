@@ -60,7 +60,6 @@ class HeaderTest extends TestCase
     {
         $headers = $this->call('get', 'test')->headers->all();
 
-
         $this->assertArrayHasKey('content-security-policy', $headers);
 
         $this->assertEquals(

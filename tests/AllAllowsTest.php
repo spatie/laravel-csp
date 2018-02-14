@@ -9,7 +9,7 @@ class AllAllowsTest extends Csp implements CspInterface
 {
     /**
      * Fill this method with the $this->allows methods ||
-     * add your own headers with $this->addHeader()
+     * add your own headers with $this->addHeader().
      */
     public function profileSetup()
     {
