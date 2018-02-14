@@ -2,11 +2,9 @@
 
 namespace Spatie\LaravelCsp\Tests;
 
-use Illuminate\Routing\RouteCollection;
-use Illuminate\Routing\Router;
+use Spatie\LaravelCsp\CspHeader;
+use Spatie\LaravelCsp\CspServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\LaravelCsp\LaravelCspServiceProvider;
-use Spatie\LaravelCsp\Middlewares\CSPHeaderMiddleware;
 
 class TestCase extends Orchestra
 {
@@ -17,46 +15,32 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->registerMiddleWare();
-
-        $this->config = $this->app['config']->get('csp');
-
-        $this->setupRoutes($this->app);
+        $this->setupDummyRoutes();
     }
 
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     */
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
 
-        $app['config']->set('csp.default', 'strict');
+        $app['config']->set('csp.enabled', true);
     }
 
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     *
-     * @return array
-     */
     protected function getPackageProviders($app)
     {
         return [
-            LaravelCspServiceProvider::class,
+            CspServiceProvider::class,
         ];
     }
 
-    protected function registerMiddleware()
+    public function setupDummyRoutes()
     {
-        $this->app[Router::class]->aliasMiddleware('web', CSPHeaderMiddleware::class);
-    }
-
-    function setupRoutes($app)
-    {
-        $this->app->get('router')->setRoutes(new RouteCollection());
-
-        Route::any('/secret-page', ['middleware' => 'web', function () {
-            return 'secret content';
-        }]);
+        $this->app['router']->group(
+            ['middleware' => CspHeader::class],
+            function () {
+                $this->app['router']->get('test', function () {
+                    return 'Hello world!';
+                });
+            }
+        );
     }
 }

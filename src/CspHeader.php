@@ -3,68 +3,64 @@
 namespace Spatie\LaravelCsp;
 
 use Closure;
-use http\Env\Request;
-use http\Env\Response;
-use Illuminate\Config\Repository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class CspHeader
 {
-    /** @var array */
-    protected $config;
+    /** @var \Illuminate\Http\Response */
+    protected $response;
+
+    /** @var \Illuminate\Support\Collection */
+    protected $profile;
 
     /** @var string */
     protected $policy;
 
-    public function __construct(Repository $config)
+    public function handle(Request $request, Closure $next)
     {
-        $this->config = $config->get('csp');
-    }
+        $this->response = $next($request);
 
-    public function handle(Request $request, Closure $next): Response
-    {
-        return $this->addCSPHeaderToResponse($next($request));
-    }
-
-    protected function addCSPHeaderToResponse($content): Response
-    {
-        $this->createPolicyFromConfig();
-
-        return response($content)->header('Content-Security-Policy', $this->policy);
-    }
-
-    protected function getSetupToUse():string
-    {
-        if (!array_has($this->config['setups'], $this->config['default'])) {
-            $this->config['default'] = 'strict';
+        if (config('csp.enabled')) {
+            $this->addCspHeaderToResponse();
         }
 
-        return $this->config['default'];
+        return $this->response;
     }
 
-    protected function setupPartExists(string $setupPart): bool
+    protected function addCspHeaderToResponse()
     {
-        if (array_has($this->config['setup-parts'], $setupPart)) {
-            return true;
-        }
+        $this->setupProfile();
 
-        return false;
+        $this->profileToPolicy();
+
+        $this->response->headers->set('Content-Security-Policy', $this->policy, false);
     }
 
-    protected function createPolicyFromConfig()
+    protected function getCspProfileClass(): string
     {
-        $setupToUse = $this->getSetupToUse();
+        return config('csp.csp_profile');
+    }
 
-        $setupArray = $this->config['setups.' . $setupToUse];
+    protected function profileToPolicy()
+    {
+        $policy = $this->profile->map(function (Collection $value, string $key) {
+            $value = $value->implode(' ');
 
-        $filteredSetup = array_where($setupArray, function ($setupPart) {
-            return $this->setupPartExists($setupPart);
+            return "{$key}: {$value};";
         });
 
-        $setup = array_map(function ($setupPart) {
-            return $this->config['setup-parts.'.$setupPart];
-        }, $filteredSetup);
+        $this->policy = $policy->implode(' ');
+    }
 
-        /** TODO: creating actual policy */
-        $this->policy = implode(" ", array_flatten($setup));
+    protected function setupProfile()
+    {
+        $classToUse = $this->getCspProfileClass();
+
+        $profileClass = new $classToUse;
+
+        $profileClass->profileSetup();
+
+        $this->profile = $profileClass->profile;
     }
 }
