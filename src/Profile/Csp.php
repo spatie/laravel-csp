@@ -2,13 +2,13 @@
 
 namespace Spatie\LaravelCsp\Profile;
 
-class Csp implements CspInterface
+class Csp
 {
     use Allows;
 
     public $profile = [];
 
-    protected $keys = [];
+    private $keys = [];
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ class Csp implements CspInterface
     /**
      * @param string $directive
      * @param string|array $value
-     * @return Csp
+     * @return \Spatie\LaravelCsp\Profile\Csp
      */
     public function addHeader(string $directive, $value): self
     {
@@ -38,14 +38,5 @@ class Csp implements CspInterface
             $this->profile->put($directive, collect($value));
         }
         return $this;
-    }
-
-    /**
-     * Fill this method with the $this->allows methods ||
-     * add your own headers with $this->addHeader()
-     */
-    public function profileSetup()
-    {
-        //
     }
 }

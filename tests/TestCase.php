@@ -3,8 +3,8 @@
 namespace Spatie\LaravelCsp\Tests;
 
 use Spatie\LaravelCsp\CspServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\LaravelCsp\MiddleWare\CspHeader;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
@@ -16,15 +16,13 @@ class TestCase extends Orchestra
         parent::setUp();
 
         $this->setupDummyRoutes();
-
-        $this->config = $this->app['config']->get('csp');
     }
 
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
 
-        $app['config']->set('csp.default', 'strict');
+        $app['config']->set('csp.enabled', true);
     }
 
     protected function getPackageProviders($app)

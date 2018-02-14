@@ -4,46 +4,46 @@ namespace Spatie\LaravelCsp;
 
 use Closure;
 use Illuminate\Http\Request;
-use Spatie\LaravelCsp\Profile\Csp;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class CspHeaderSetter
 {
     /** @var \Illuminate\Http\Response */
     protected $response;
 
+    /** @var \Illuminate\Support\Collection */
+    protected $profile;
+
     /** @var string */
     protected $policy;
 
-    /** @var Collection */
-    protected $profile;
-
-    public function __construct()
-    {
-        $profile = $this->getCspProfileClass();
-
-        $profile->profileSetup();
-
-        $this->profile = $profile->profile;
-    }
 
     public function handle(Request $request, Closure $next)
     {
         $this->response = $next($request);
 
-        $this->addCspHeaderToResponse();
+        if (config('csp.enabled')) {
+            $this->addCspHeaderToResponse();
+        }
 
         return $this->response;
     }
 
-    protected function addCspHeaderToResponse()
+    public function addCspHeaderToResponse()
     {
+        $this->setupProfile();
+
         $this->profileToPolicy();
 
         $this->response->headers->set('Content-Security-Policy', $this->policy, false);
     }
 
-    public function profileToPolicy()
+    protected function getCspProfileClass(): string
+    {
+        return config('csp.csp_profile');
+    }
+
+    protected function profileToPolicy()
     {
         $policy = $this->profile->map(function (Collection $value, string $key) {
             $value = $value->implode(' ');
@@ -54,8 +54,14 @@ class CspHeaderSetter
         $this->policy = $policy->implode(' ');
     }
 
-    protected function getCspProfileClass(): Csp
+    protected function setupProfile()
     {
-        return get_class(config('csp.csp_profile'));
+        $classToUse = $this->getCspProfileClass();
+
+        $profileClass = new $classToUse;
+
+        $profileClass->profileSetup();
+
+        $this->profile = $profileClass->profile;
     }
 }
