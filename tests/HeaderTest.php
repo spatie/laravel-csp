@@ -2,8 +2,9 @@
 
 namespace Spatie\LaravelCsp\Tests;
 
-use Spatie\LaravelCsp\Profiles\Csp;
+use Spatie\LaravelCsp\Csp;
 use Spatie\LaravelCsp\Profiles\Strict;
+use Spatie\LaravelCsp\Exceptions\InvalidDirective;
 
 class HeaderTest extends TestCase
 {
@@ -23,13 +24,13 @@ class HeaderTest extends TestCase
         $csp->profileSetup();
 
         $this->assertEquals([
-            'default-src' => ["'none'"],
-            'connect-src' => ["'self'"],
-            'form-action' => ["'self'"],
-            'img-src' => ["'self'"],
-            'script-src' => ["'self'"],
-            'style-src' => ["'self'"],
-            'media-src' => ["'self'"],
+            'default-src' => ['none'],
+            'connect-src' => ['self'],
+            'form-action' => ['self'],
+            'img-src' => ['self'],
+            'script-src' => ['self'],
+            'style-src' => ['self'],
+            'media-src' => ['self'],
         ], $csp->profile->toArray());
     }
 
@@ -41,13 +42,13 @@ class HeaderTest extends TestCase
         $csp->profileSetup();
 
         $this->assertEquals([
-            'default-src' => ["'none'"],
-            'connect-src' => ["'self'", 'https://www.google-analytics.com'],
-            'form-action' => ["'self'"],
-            'img-src' => ["'self'"],
-            'script-src' => ["'self'", 'https://www.google-analytics.com', 'https://www.googletagmanager.com'],
-            'style-src' => ["'self'", 'https://fonts.googleapis.com'],
-            'media-src' => ["'self'"],
+            'default-src' => ['none'],
+            'connect-src' => ['self', 'https://www.google-analytics.com'],
+            'form-action' => ['self'],
+            'img-src' => ['self'],
+            'script-src' => ['self', 'https://www.google-analytics.com', 'https://www.googletagmanager.com'],
+            'style-src' => ['self', 'https://fonts.googleapis.com'],
+            'media-src' => ['self'],
             'font-src' => ['https://fonts.gstatic.com'],
             'frame-src' => ['https://www.youtube.com'],
             'worker-src' => ['https://www.youtube.com'],
@@ -123,5 +124,33 @@ class HeaderTest extends TestCase
             "plugin-types https://application/pdf;",
             $headers['content-security-policy'][0]
         );
+    }
+
+    //** @test */
+    public function it_can_create_a_nonce_string()
+    {
+        //
+    }
+
+    //** @test */
+    public function it_can_set_a_nonce_to_the_CSP_header_and_return_the_same_key()
+    {
+        //
+    }
+
+    //** @test */
+    public function it_can_throw_an_exception_when_trying_to_add_a_nonce_to_a_not_script_or_style_directive()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_can_throw_an_exception_when_trying_to_add_a_directive_that_is_not_provided()
+    {
+        $profile = new Csp();
+
+        $this->expectException(InvalidDirective::class);
+
+        $profile->addHeader('wrong-directive', 'self');
     }
 }

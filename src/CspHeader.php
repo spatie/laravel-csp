@@ -5,6 +5,7 @@ namespace Spatie\LaravelCsp;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Spatie\LaravelCsp\Exceptions\InvalidCspProfileClass;
 
 class CspHeader
 {
@@ -43,14 +44,32 @@ class CspHeader
         }
     }
 
+    /**
+     * @return string
+     * @throws \Spatie\LaravelCsp\Exceptions\InvalidCspProfileClass
+     */
     protected function getCspProfileClass(): string
     {
-        return config('csp.csp_profile');
+        $className = config('csp.csp_profile');
+
+        if (! is_a($className, Csp::class, true)) {
+            throw InvalidCspProfileClass::create($className);
+        }
+
+        return $className;
     }
 
     protected function profileToPolicy()
     {
         $policy = $this->profile->map(function (Collection $value, string $key) {
+            $value->transform(function ($content) {
+                if (strpos($content, ':') === false) {
+                    return "'{$content}'";
+                }
+
+                return $content;
+            });
+
             $value = $value->implode(' ');
 
             return "{$key} {$value};";

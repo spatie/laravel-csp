@@ -2,6 +2,7 @@
 
 namespace Spatie\LaravelCsp\Tests;
 
+use Spatie\LaravelCsp\Csp;
 use Spatie\LaravelCsp\CspHeader;
 use Spatie\LaravelCsp\CspServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -23,6 +24,15 @@ class TestCase extends Orchestra
         $app['config']->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
 
         $app['config']->set('csp.enabled', true);
+
+//        $app['config']->set('csp.csp_profile', '\Spatie\LaravelCsp\Tests\InvalidCspProfile');
+    }
+
+    protected function getPackageAliases($app)
+    {
+        return [
+            'Csp' => Csp::class,
+        ];
     }
 
     protected function getPackageProviders($app)

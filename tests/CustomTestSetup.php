@@ -2,7 +2,7 @@
 
 namespace Spatie\LaravelCsp\Tests;
 
-use Spatie\LaravelCsp\Profiles\Csp;
+use Spatie\LaravelCsp\Csp;
 use Spatie\LaravelCsp\Profiles\CspInterface;
 
 class CustomTestSetup extends Csp implements CspInterface

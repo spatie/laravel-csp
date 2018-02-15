@@ -2,6 +2,8 @@
 
 namespace Spatie\LaravelCsp\Profiles;
 
+use Illuminate\Support\Collection;
+
 abstract class Directive
 {
     // Details at: https://www.w3.org/TR/CSP3/#csp-directives
@@ -45,4 +47,30 @@ abstract class Directive
     const upgrade = 'upgrade-insecure-requests';
 
     const worker = 'worker-src';
+
+    public static function all(): Collection
+    {
+        return collect([
+            self::base,
+            self::child,
+            self::connect,
+            self::default,
+            self::font,
+            self::form,
+            self::frame,
+            self::frameAncestors,
+            self::img,
+            self::manifest,
+            self::media,
+            self::mixed,
+            self::object,
+            self::plugin,
+            self::report,
+            self::sandbox,
+            self::script,
+            self::style,
+            self::upgrade,
+            self::worker,
+        ]);
+    }
 }

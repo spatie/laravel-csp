@@ -4,16 +4,16 @@ namespace Spatie\LaravelCsp\Profiles;
 
 trait Allows
 {
-    private function allowsBasics()
+    protected function allowsBasics()
     {
         $this
-            ->addHeader(Directive::default, "'none'")
-            ->addHeader(Directive::connect, "'self'")
-            ->addHeader(Directive::form, "'self'")
-            ->addHeader(Directive::img, "'self'")
-            ->addHeader(Directive::script, "'self'")
-            ->addHeader(Directive::style, "'self'")
-            ->addHeader(Directive::media, "'self'");
+            ->addHeader(Directive::default, 'none')
+            ->addHeader(Directive::connect, 'self')
+            ->addHeader(Directive::form, 'self')
+            ->addHeader(Directive::img, 'self')
+            ->addHeader(Directive::script, 'self')
+            ->addHeader(Directive::style, 'self')
+            ->addHeader(Directive::media, 'self');
     }
 
     public function allowsGoogleAnalytics()
@@ -84,5 +84,23 @@ trait Allows
     public function allowsYahooApi()
     {
         $this->addHeader(Directive::connect, 'https://query.yahooapis.com');
+    }
+
+    public function allowsInlineScript(int $amount = 1)
+    {
+        for ($i = 0; $i < $amount; ++$i) {
+            $nonce = $this->createScriptNonce();
+
+            $this->addHeader(Directive::script, "nonce-{$nonce}");
+        }
+    }
+
+    public function allowsInlineStyle(int $amount = 1)
+    {
+        for ($i = 0; $i < $amount; ++$i) {
+            $nonce = $this->createScriptNonce();
+
+            $this->addHeader(Directive::script, "nonce-{$nonce}");
+        }
     }
 }
