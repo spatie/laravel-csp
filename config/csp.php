@@ -3,20 +3,26 @@
 return [
 
     /*
-    |--------------------------------------------------------------------------
-    | Content Security Policy Setup
-    |--------------------------------------------------------------------------
-    |
-    | Here are you can specify a Content Security Policy profile class that
-    | will be used by the middleware. The default setup is the strictest
-    | setup. By setting CSP in the .env file to false you disable it.
-    |
-    */
+     * A csp profile will determine which csp headers will be set.
+     */
+    'profile' => \Spatie\Csp\Profiles\Strict::class,
 
-    'enabled' => env('CSP', true),
+    /*
+     * Headers will only be added if this setting is enabled
+     */
+    'enabled' => env('CSP_ENABLED', true),
 
-    'csp_profile' => \Spatie\LaravelCsp\Profiles\Strict::class,
+    /*
+     * All violations against the csp policy will be report to this url.
+     * A great server you could use for this is https://report-uri.com/
+     */
+    'report_uri' => env('CSP_REPORT_URI', ''),
 
-    'report_mode' => env('CSP_REPORT', false),
+    /*
+     * To test your policy you can turn on the report only mode.
+     * The policy will not be enforced by the browser, but any violations
+     * are reported to the given uri
+     */
+    'report_only' => env('CSP_ONLY_REPORT', false),
 
 ];

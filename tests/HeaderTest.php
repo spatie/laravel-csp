@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\LaravelCsp\Tests;
+namespace Spatie\Csp\Tests;
 
-use Spatie\LaravelCsp\Csp;
-use Spatie\LaravelCsp\Profiles\Strict;
-use Spatie\LaravelCsp\Exceptions\InvalidDirective;
+use Spatie\Csp\Csp;
+use Spatie\Csp\Profiles\Strict;
+use Spatie\Csp\Exceptions\InvalidDirective;
 
 class HeaderTest extends TestCase
 {
@@ -78,7 +78,7 @@ class HeaderTest extends TestCase
     /** @test */
     public function it_can_create_the_policy_from_a_custom_class()
     {
-        $this->app['config']->set('csp.csp_profile', '\Spatie\LaravelCsp\Tests\CustomTestSetup');
+        $this->app['config']->set('csp.csp_profile', '\Spatie\Csp\Tests\CustomTestSetup');
 
         $headers = $this->call('get', 'test')->headers->all();
 
@@ -103,7 +103,7 @@ class HeaderTest extends TestCase
     /** @test */
     public function it_can_handle_all_the_allows()
     {
-        $this->app['config']->set('csp.csp_profile', '\Spatie\LaravelCsp\Tests\AllAllowsTest');
+        $this->app['config']->set('csp.csp_profile', '\Spatie\Csp\Tests\AllAllowsTest');
 
         $headers = $this->call('get', 'test')->headers->all();
 

@@ -1,4 +1,8 @@
-# Set up the Content Security Policy header with ease.
+**WORK IN PROGRESS, DO NOT USE YET**
+
+TODO: mention https://www.w3.org/TR/CSP3/#csp-directives somewhere
+
+# Add CSP headers to the responses of a Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
 [![Build Status](https://img.shields.io/travis/spatie/laravel-csp/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-csp)
@@ -22,7 +26,7 @@ composer require spatie/laravel-csp
 You can publish the config-file with:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\LaravelCsp\CspServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\Csp\CspServiceProvider" --tag="config"
 ```
 
 This is the contents of the file which will be published at `config/csp.php`:
@@ -31,26 +35,32 @@ This is the contents of the file which will be published at `config/csp.php`:
 return [
 
     /*
-    |--------------------------------------------------------------------------
-    | Content Security Policy Setup
-    |--------------------------------------------------------------------------
-    |
-    | Here are you can specify a Content Security Policy profile class that
-    | will be used by the middleware. The default setup is the strictest
-    | setup. By setting CSP in the .env file to false you disable it.
-    |
-    */
+     * A csp profile will determine which csp headers will be set.
+     */
+    'profile' => \Spatie\Csp\Profiles\Strict::class,
 
-    'enabled' => env('CSP', true),
+    /*
+     * Headers will only be added if this setting is enabled
+     */
+    'enabled' => env('CSP_ENABLED', true),
 
-    'csp_profile' => \Spatie\LaravelCsp\Profiles\Strict::class,
+    /*
+     * All violations against the csp policy will be report to this url.
+     * A great server you could use for this is https://report-uri.com/
+     */
+    'report_uri' => env('CSP_REPORT_URI', ''),
 
-    'report_mode' => env('CSP_REPORT', false),
+    /*
+     * To test your policy you can turn on the report only mode.
+     * The policy will not be enforced by the browser, but any violations
+     * are reported to the given uri
+     */
+    'report_only' => env('CSP_ONLY_REPORT', false),
 
 ];
 ```
 
-And finally you should install the provided middleware \Spatie\LaravelCsp\Middleware\CspHeader::class in the http kernel.
+And finally you should install the provided middleware \Spatie\Csp\AddCspHeaders::class in the http kernel.
 
 ```php
 // app/Http/Kernel.php
@@ -60,7 +70,7 @@ And finally you should install the provided middleware \Spatie\LaravelCsp\Middle
 protected $middlewareGroups = [
    'web' => [
        ...
-       \Spatie\LaravelCsp\CSPHeader::class,
+       \Spatie\Csp\AddCspHeaders::class,
    ],
 ```
  

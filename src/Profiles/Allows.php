@@ -1,106 +1,80 @@
 <?php
 
-namespace Spatie\LaravelCsp\Profiles;
+namespace Spatie\Csp\Profiles;
 
 trait Allows
 {
-    protected function allowsBasics()
+    protected function allowsBasics(): self
     {
-        $this
-            ->addHeader(Directive::default, 'none')
-            ->addHeader(Directive::connect, 'self')
-            ->addHeader(Directive::form, 'self')
-            ->addHeader(Directive::img, 'self')
-            ->addHeader(Directive::script, 'self')
-            ->addHeader(Directive::style, 'self')
-            ->addHeader(Directive::media, 'self');
+        return $this
+            ->addHeader(Directive::DEFAULT, 'none')
+            ->addHeader(Directive::CONNECT, 'self')
+            ->addHeader(Directive::FORM, 'self')
+            ->addHeader(Directive::IMG, 'self')
+            ->addHeader(Directive::SCRIPT, 'self')
+            ->addHeader(Directive::STYLE, 'self')
+            ->addHeader(Directive::MEDIA, 'self');
     }
 
-    public function allowsGoogleAnalytics()
+    public function allowsGoogleAnalytics(): self
     {
-        $this
-            ->addHeader(Directive::connect, 'https://www.google-analytics.com')
-            ->addHeader(Directive::script, 'https://www.google-analytics.com')
-            ->addHeader(Directive::script, 'https://www.googletagmanager.com');
+        return $this
+            ->addHeader(Directive::CONNECT, 'https://www.google-analytics.com')
+            ->addHeader(Directive::SCRIPT, 'https://www.google-analytics.com')
+            ->addHeader(Directive::SCRIPT, 'https://www.googletagmanager.com');
     }
 
-    public function allowsBase64Fonts()
+    public function allowsBase64Fonts(): self
     {
-        $this->addHeader(Directive::font, 'data:');
+        return $this->addHeader(Directive::FONT, 'data:');
     }
 
     public function allowsGoogleFonts()
     {
         $this
-            ->addHeader(Directive::font, 'https://fonts.gstatic.com')
-            ->addHeader(Directive::style, 'https://fonts.googleapis.com');
+            ->addHeader(Directive::FONT, 'https://fonts.gstatic.com')
+            ->addHeader(Directive::STYLE, 'https://fonts.googleapis.com');
     }
 
     public function allowsFontAwesomeFonts()
     {
         $this
-            ->addHeader(Directive::font, 'https://use.fontawesome.com')
-            ->addHeader(Directive::style, 'https://use.fontawesome.com');
+            ->addHeader(Directive::FONT, 'https://use.fontawesome.com')
+            ->addHeader(Directive::STYLE, 'https://use.fontawesome.com');
     }
 
     public function allowsYoutube()
     {
         $this
-            ->addHeader(Directive::child, 'https://www.youtube.com')
-            ->addHeader(Directive::frame, 'https://www.youtube.com')
-            ->addHeader(Directive::worker, 'https://www.youtube.com');
-    }
-
-    public function allowsCodepen()
-    {
-        $this
-            ->addHeader(Directive::child, 'https://codepen.io')
-            ->addHeader(Directive::frame, 'https://codepen.io')
-            ->addHeader(Directive::worker, 'https://codepen.io');
+            ->addHeader(Directive::CHILD, 'https://www.youtube.com')
+            ->addHeader(Directive::FRAME, 'https://www.youtube.com')
+            ->addHeader(Directive::WORKER, 'https://www.youtube.com');
     }
 
     public function allowsPusher()
     {
         $this
-            ->addHeader(Directive::connect, 'https://*.pusher.com')
-            ->addHeader(Directive::script, 'https://stats.pusher.com');
+            ->addHeader(Directive::CONNECT, 'https://*.pusher.com')
+            ->addHeader(Directive::SCRIPT, 'https://stats.pusher.com');
     }
 
     public function allowsPdfs()
     {
-        $this->addHeader(Directive::plugin, 'https://application/pdf');
+        $this->addHeader(Directive::PLUGIN, 'https://application/pdf');
     }
 
     public function allowsJavaApplets()
     {
-        $this->addHeader(Directive::child, 'https://application/x-java-applet');
+        $this->addHeader(Directive::CHILD, 'https://application/x-java-applet');
     }
 
     public function allowsGoogleApi()
     {
-        $this->addHeader(Directive::connect, 'https://ajax.googleapis.com');
+        $this->addHeader(Directive::CONNECT, 'https://ajax.googleapis.com');
     }
 
     public function allowsYahooApi()
     {
-        $this->addHeader(Directive::connect, 'https://query.yahooapis.com');
-    }
-
-    public function allowsInlineScript(int $amount = 1)
-    {
-        for ($i = 0; $i < $amount; ++$i) {
-            $nonce = $this->createScriptNonce();
-
-            $this->addHeader(Directive::script, "nonce-{$nonce}");
-        }
-    }
-
-    public function allowsInlineStyle(int $amount = 1)
-    {
-        for ($i = 0; $i < $amount; ++$i) {
-            $nonce = $this->createScriptNonce();
-
-            $this->addHeader(Directive::style, "nonce-{$nonce}");
-        }
+        $this->addHeader(Directive::CONNECT, 'https://query.yahooapis.com');
     }
 }

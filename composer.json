@@ -1,10 +1,14 @@
 {
     "name": "spatie/laravel-csp",
-    "description": "A package to make setting up the Content Security Policy header simple.",
+    "description": "Add CSP headers to the responses of a Laravel app",
     "keywords": [
         "spatie",
         "laravel-csp",
-        "content-security-policy"
+        "content-security-policy",
+        "security",
+        "headers",
+        "csp",
+        "laravel"
     ],
     "homepage": "https://github.com/spatie/laravel-csp",
     "license": "MIT",
@@ -12,6 +16,12 @@
         {
             "name": "Thomas Verhelst",
             "email": "tvke91@gmail.com",
+            "homepage": "https://spatie.be",
+            "role": "Developer"
+        },
+        {
+            "name": "Freek Van der Herten",
+            "email": "freek@spatie.be",
             "homepage": "https://spatie.be",
             "role": "Developer"
         }
@@ -27,15 +37,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\LaravelCsp\\": "src"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+            "Spatie\\Csp\\": "src"
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\LaravelCsp\\Tests\\": "tests"
+            "Spatie\\Csp\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -49,7 +56,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\LaravelCsp\\CspServiceProvider"
+                "Spatie\\Csp\\CspServiceProvider"
             ]
         }
     }
