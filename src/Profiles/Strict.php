@@ -12,6 +12,6 @@ class Strict extends Csp implements CspInterface
      */
     public function profileSetup()
     {
-        //
+        $this->allowsInlineScript();
     }
 }

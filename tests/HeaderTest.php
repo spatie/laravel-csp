@@ -126,24 +126,6 @@ class HeaderTest extends TestCase
         );
     }
 
-    //** @test */
-    public function it_can_create_a_nonce_string()
-    {
-        //
-    }
-
-    //** @test */
-    public function it_can_set_a_nonce_to_the_CSP_header_and_return_the_same_key()
-    {
-        //
-    }
-
-    //** @test */
-    public function it_can_throw_an_exception_when_trying_to_add_a_nonce_to_a_not_script_or_style_directive()
-    {
-        //
-    }
-
     /** @test */
     public function it_can_throw_an_exception_when_trying_to_add_a_directive_that_is_not_provided()
     {

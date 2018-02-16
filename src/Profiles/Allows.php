@@ -100,7 +100,7 @@ trait Allows
         for ($i = 0; $i < $amount; ++$i) {
             $nonce = $this->createScriptNonce();
 
-            $this->addHeader(Directive::script, "nonce-{$nonce}");
+            $this->addHeader(Directive::style, "nonce-{$nonce}");
         }
     }
 }

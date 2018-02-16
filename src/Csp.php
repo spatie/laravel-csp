@@ -61,41 +61,6 @@ class Csp
         return $this;
     }
 
-//    /**
-//     * @param string $directive
-//     * @return string
-//     * @throws \Spatie\LaravelCsp\Exceptions\InvalidDirective
-//     */
-//    public static function nonce(string $directive): string
-//    {
-//        if ($directive !== Directive::script && $directive !== Directive::style) {
-//            throw InvalidDirective::inline($directive);
-//        }
-//
-//        $nonce = base64_encode(random_bytes(16));
-//
-//        self::$nonceKeys = collect();
-//
-//        self::$nonce = collect();
-//
-//        self::addNonceToNonceCollection($directive, "nonce-{$nonce}");
-//
-//        return "nonce='{$nonce}'";
-//    }
-
-//    public static function addNonceToNonceCollection(string $directive, string $value)
-//    {
-//        if (self::$nonceKeys->contains($directive)) {
-//            self::$nonce[$directive]->push($value);
-//        }
-//
-//        if (! self::$nonceKeys->contains($directive)) {
-//            self::$nonceKeys->push($directive);
-//
-//            self::$nonce->put($directive, collect($value));
-//        }
-//    }
-
     protected function createScriptNonce(): string
     {
         self::$scriptNonce ?: collect();
