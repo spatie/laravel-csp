@@ -2,8 +2,8 @@
 
 namespace Spatie\Csp\Profiles\Profile;
 
-use Spatie\Csp\Exceptions\InvalidDirective;
 use Spatie\Csp\Profiles\Directive;
+use Spatie\Csp\Exceptions\InvalidDirective;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Profile
@@ -55,12 +55,12 @@ abstract class Profile
             ? 'Content-Security-Policy-Report-Only'
             : 'Content-Security-Policy';
 
-        $response->headers->set($headerName, (string)$this);
+        $response->headers->set($headerName, (string) $this);
     }
 
     protected function guardAgainstInvalidDirectives(string $directive)
     {
-        if (!Directive::isValid($directive)) {
+        if (! Directive::isValid($directive)) {
             throw InvalidDirective::notSupported($directive);
         }
     }
@@ -68,7 +68,7 @@ abstract class Profile
     public function __toString()
     {
         return collect($this->directives)
-            ->map(function(array $values, string $directive) {
+            ->map(function (array $values, string $directive) {
                 $valueString = implode(' ', $values);
 
                 return "{$directive} {$valueString}";

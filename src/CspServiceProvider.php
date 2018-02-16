@@ -15,7 +15,7 @@ class CspServiceProvider extends ServiceProvider
             ], 'config');
         }
 
-        $this->app->bind(Profile::class, function() {
+        $this->app->bind(Profile::class, function () {
             $profileClass = config('csp.profile');
 
             $profile = app($profileClass);

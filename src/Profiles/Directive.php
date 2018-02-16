@@ -31,6 +31,4 @@ abstract class Directive
 
         return in_array($directive, $constants);
     }
-
-
 }

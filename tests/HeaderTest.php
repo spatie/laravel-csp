@@ -92,10 +92,10 @@ class HeaderTest extends TestCase
             "script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; ".
             "style-src 'self' https://fonts.googleapis.com; ".
             "media-src 'self'; ".
-            "font-src https://fonts.gstatic.com; ".
-            "child-src https://www.youtube.com; ".
-            "frame-src https://www.youtube.com; ".
-            "worker-src https://www.youtube.com;",
+            'font-src https://fonts.gstatic.com; '.
+            'child-src https://www.youtube.com; '.
+            'frame-src https://www.youtube.com; '.
+            'worker-src https://www.youtube.com;',
             $headers['content-security-policy'][0]
         );
     }
@@ -117,11 +117,11 @@ class HeaderTest extends TestCase
             "script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://stats.pusher.com; ".
             "style-src 'self' https://fonts.googleapis.com https://use.fontawesome.com; ".
             "media-src 'self'; ".
-            "font-src data: https://fonts.gstatic.com https://use.fontawesome.com; ".
-            "child-src https://www.youtube.com https://codepen.io https://application/x-java-applet; ".
-            "frame-src https://www.youtube.com https://codepen.io; ".
-            "worker-src https://www.youtube.com https://codepen.io; ".
-            "plugin-types https://application/pdf;",
+            'font-src data: https://fonts.gstatic.com https://use.fontawesome.com; '.
+            'child-src https://www.youtube.com https://codepen.io https://application/x-java-applet; '.
+            'frame-src https://www.youtube.com https://codepen.io; '.
+            'worker-src https://www.youtube.com https://codepen.io; '.
+            'plugin-types https://application/pdf;',
             $headers['content-security-policy'][0]
         );
     }
