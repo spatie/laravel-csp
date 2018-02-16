@@ -2,6 +2,8 @@
 
 namespace Spatie\Csp;
 
+use ReflectionClass;
+
 abstract class Directive
 {
     const BASE = 'base-uri';
