@@ -2,18 +2,17 @@
 
 namespace Spatie\Csp\Profiles\Profile;
 
-use Spatie\Csp\Profiles\Directive;
+use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidDirective;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Profile
 {
-    /** @var array */
     protected $directives = [];
 
     protected $reportOnly = false;
 
-    public function addHeader(string $directive, string $value): self
+    public function addDirective(string $directive, string $value): self
     {
         $this->guardAgainstInvalidDirectives($directive);
 
@@ -21,6 +20,8 @@ abstract class Profile
 
         return $this;
     }
+
+    abstract public function registerDirectives();
 
     public function reportOnly(): self
     {
@@ -49,8 +50,12 @@ abstract class Profile
         return $this;
     }
 
+
+
     public function applyTo(Response $response)
     {
+        $this->registerDirectives();
+
         $headerName = $this->reportOnly
             ? 'Content-Security-Policy-Report-Only'
             : 'Content-Security-Policy';

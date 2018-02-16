@@ -1,10 +1,11 @@
 <?php
 
-namespace Spatie\Csp\Profiles;
+namespace Spatie\Csp;
 
 abstract class Directive
 {
     const BASE = 'base-uri';
+    const BLOCK_ALL_MIXED_CONTENT = 'block-all-mixed-content';
     const CHILD = 'child-src';
     const CONNECT = 'connect-src';
     const DEFAULT = 'default-src';
@@ -15,7 +16,6 @@ abstract class Directive
     const IMG = 'img-src';
     const MANIFEST = 'manifest-src';
     const MEDIA = 'media-src';
-    const BLOCK_ALL_MIXED_CONTENT = 'block-all-mixed-content';
     const OBJECT = 'object-src';
     const PLUGIN = 'plugin-types';
     const REPORT = 'report-uri';
