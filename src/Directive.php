@@ -12,7 +12,7 @@ abstract class Directive
     const CONNECT = 'connect-src';
     const DEFAULT = 'default-src';
     const FONT = 'font-src';
-    const FORM = 'form-action';
+    const FORM_ACTION = 'form-action';
     const FRAME = 'frame-src';
     const FRAME_ANCESTORS = 'frame-ancestors';
     const IMG = 'img-src';

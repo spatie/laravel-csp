@@ -11,7 +11,7 @@ class Basic extends Profile
         $this
             ->addDirective(Directive::CONNECT, "'self'")
             ->addDirective(Directive::DEFAULT, "'self'")
-            ->addDirective(Directive::FORM, "'self'")
+            ->addDirective(Directive::FORM_ACTION, "'self'")
             ->addDirective(Directive::IMG, "'self'")
             ->addDirective(Directive::MEDIA, "'self'")
             ->addDirective(Directive::SCRIPT, "'self'")

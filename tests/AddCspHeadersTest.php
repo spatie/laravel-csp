@@ -4,8 +4,10 @@ namespace Spatie\Csp\Tests;
 
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
+use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidCspProfile;
 use Spatie\Csp\Profiles\Basic;
+use Spatie\Csp\Profiles\Profile;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
 class AddCspHeadersTest extends TestCase
@@ -89,6 +91,31 @@ class AddCspHeadersTest extends TestCase
         $this->expectException(InvalidCspProfile::class);
 
         $this->getResponseHeaders();
+    }
+
+    /** @test */
+    public function it_can_use_multiple_values_for_the_same_directive()
+    {
+        $profile = new class extends Profile
+        {
+            public function registerDirectives()
+            {
+                $this
+                    ->addDirective(Directive::FRAME, 'src-1')
+                    ->addDirective(Directive::FRAME, 'src-2')
+                    ->addDirective(Directive::FORM_ACTION, 'action-1')
+                    ->addDirective(Directive::FORM_ACTION, 'action-2');
+            }
+        };
+
+        config(['csp.profile' => get_class($profile)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            'frame-src src-1 src-2;form-action action-1 action-2',
+            $headers->get('Content-Security-Policy')
+        );
     }
 
     protected function getResponseHeaders(): HeaderBag
