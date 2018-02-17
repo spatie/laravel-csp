@@ -32,15 +32,13 @@ class AddCspHeaders
 
         $profileClass = config('csp.profile');
 
-        if (!empty($profileClass)) {
-
+        if (! empty($profileClass)) {
             $profiles->push(ProfileFactory::create($profileClass));
-
         }
 
         $reportOnlyProfileClass = config('csp.report_only_profile');
 
-        if (!empty($reportOnlyProfileClass)) {
+        if (! empty($reportOnlyProfileClass)) {
             $profile = ProfileFactory::create($reportOnlyProfileClass);
 
             $profile->reportOnly();

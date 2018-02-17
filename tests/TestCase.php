@@ -2,7 +2,6 @@
 
 namespace Spatie\Csp\Tests;
 
-use Spatie\Csp\Csp;
 use Spatie\Csp\CspServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 

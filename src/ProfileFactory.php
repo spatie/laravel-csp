@@ -2,8 +2,8 @@
 
 namespace Spatie\Csp;
 
-use Spatie\Csp\Exceptions\InvalidCspProfile;
 use Spatie\Csp\Profiles\Profile;
+use Spatie\Csp\Exceptions\InvalidCspProfile;
 
 class ProfileFactory
 {
@@ -11,7 +11,7 @@ class ProfileFactory
     {
         $profile = app($className);
 
-        if (!is_a($profile, Profile::class, true)) {
+        if (! is_a($profile, Profile::class, true)) {
             throw InvalidCspProfile::create($profile);
         }
 
