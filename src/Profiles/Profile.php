@@ -42,7 +42,6 @@ abstract class Profile
     {
         $this->directives['report-uri'] = [$uri];
 
-
         $reportToContents = json_encode([
             'url' => $uri,
             'group-name' => class_basename(static::class),
@@ -61,7 +60,7 @@ abstract class Profile
 
     public function addNonceForDirective(string $directive): self
     {
-        return $this->addDirective($directive, "'nonce-" . app('csp-nonce') . "'");
+        return $this->addDirective($directive, "'nonce-".app('csp-nonce')."'");
     }
 
     public function applyTo(Response $response)
