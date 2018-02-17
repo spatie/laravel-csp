@@ -4,6 +4,7 @@ namespace Spatie\Csp\Tests;
 
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
+use Spatie\Csp\Exceptions\InvalidCspProfile;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
 class AddCspHeadersTest extends TestCase
@@ -57,6 +58,20 @@ class AddCspHeadersTest extends TestCase
         $this
             ->assertCspHeaderContains($headers, 'report-uri https://report-uri.com;')
             ->assertCspHeaderContains($headers, 'report-to {"url":"https:\/\/report-uri.com","group-name":"Basic","max-age":18144000};');
+    }
+
+    /** @test */
+    public function using_an_invalid_profile_class_will_throw_an_exception()
+    {
+        $this->withoutExceptionHandling();
+
+        $invalidProfileClassName = get_class(new class {});
+
+        config(['csp.profile' => $invalidProfileClassName]);
+
+        $this->expectException(InvalidCspProfile::class);
+
+        $this->getResponseHeaders();
     }
 
     protected function assertCspHeaderContains(HeaderBag $headerBag, string $needle): self

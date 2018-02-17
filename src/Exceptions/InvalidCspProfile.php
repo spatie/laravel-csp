@@ -7,8 +7,10 @@ use Spatie\Csp\Profiles\Profile\Profile;
 
 class InvalidCspProfile extends Exception
 {
-    public static function create(string $class): self
+    public static function create($class): self
     {
-        return new self("The csp profile `{$class}` is not valid. A valid profile extends ".Profile::class);
+        $className = get_class($class);
+
+        return new self("The csp profile `{$className}` is not valid. A valid profile extends ".Profile::class);
     }
 }
