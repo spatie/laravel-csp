@@ -3,6 +3,7 @@
 namespace Spatie\Csp;
 
 use Illuminate\Support\ServiceProvider;
+use Spatie\Csp\Nonce\NonceGenerator;
 
 class CspServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,12 @@ class CspServiceProvider extends ServiceProvider
                 __DIR__.'/../config/csp.php' => config_path('csp.php'),
             ], 'config');
         }
+
+        $this->app->singleton(NonceGenerator::class, config('csp.nonce_generator'));
+
+        $this->app->singleton('csp-nonce', function() {
+            return app(NonceGenerator::class)->generate();
+        });
     }
 
     public function register()

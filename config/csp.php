@@ -6,7 +6,7 @@ return [
      * A csp profile will determine which csp headers will be set. A valid csp profile is
      * any class that extends `Spatie\Csp\Profiles\Profile`
      */
-    'profile' => \Spatie\Csp\Profiles\Basic::class,
+    'profile' => Spatie\Csp\Profiles\Basic::class,
 
     /*
      * This profile which will be put in report only mode. This is great for testing out
@@ -26,4 +26,9 @@ return [
      * Headers will only be added if this setting is enabled
      */
     'enabled' => env('CSP_ENABLED', true),
+
+    /*
+     * The class is responsible for generating the nonces used in inline tags and headers.
+     */
+    'nonce_generator' => Spatie\Csp\Nonce\RandomString::class,
 ];
