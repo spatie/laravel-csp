@@ -167,10 +167,7 @@ Any violations against to the policy can be reported to a given url. You can set
 
 #### Using multipe profiles
 
-
-
-
-
+To test out changes to your csp policy you can specify a second profile in the `report_only_profile` in the `csp` config key. The profile specified in `profile` will be enforced, the one in `report_only_profile` will not. This is great for testing out a new profile or changes to existing csp policy without breaking anyting.
 
 ### Custom Setup
 
