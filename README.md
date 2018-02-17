@@ -97,7 +97,7 @@ This package allows you to define csp profiles. A csp profile determines which c
 
 An example of a csp directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain of `www.google.com`. You'll find [a list with all csp directives](https://www.w3.org/TR/CSP3/#csp-directives) at Mozilla's excellent developer site.
 
-## Creating custom profiles
+### Creating custom profiles
 
 In the `profile` key of the `csp` config file is set to `\Spatie\Csp\Profiles\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks like.
 
@@ -169,76 +169,12 @@ Any violations against to the policy can be reported to a given url. You can set
 
 To test out changes to your csp policy you can specify a second profile in the `report_only_profile` in the `csp` config key. The profile specified in `profile` will be enforced, the one in `report_only_profile` will not. This is great for testing out a new profile or changes to existing csp policy without breaking anyting.
 
-### Custom Setup
-
-You can create your custom CSP setup very easy by declaring your `CustomCsp` class that extends the `Csp` class and implements the `CspInterface` like this:
-
-```php
-class CustomCsp extends Csp implements CspInterface
-{
-    /**
-     * Fill this method with the $this->allows methods ||
-     * add your own headers with $this->addHeader().
-     */
-    public function profileSetup()
-    {
-        $this->allowsGoogleAnalytics();
-        $this->allowsGoogleFonts();
-        $this->allowsYoutube();
-        $this->addHeader(Directive::style, 'https://example.com');
-        $this->addHeader(Directive::img, ['https://spatie.be', 'https://example.com']);
-    }
-}
-```
-
-### Allow Function
-
-- `$this->allowsGoogleAnalytics;`: There is no `img-src` set because this is unsafe (see [Warnings](https://github.com/spatie/laravel-csp#warnings)) 
-- `$this->allowsBase64Fonts;`
-- `$this->allowsGoogleFonts;`
-- `$this->allowsFontAwesomeFonts;`
-- `$this->allowsCodepen;`
-- `$this->allowsPusher;`
-- `$this->allowsPdfs;`
-- `$this->allowsJavaApplets;`
-- `$this->allowsGoogleApi;`: Avoid using this without reading the [Warnings](https://github.com/spatie/laravel-csp#warnings)
-- `$this->allowsYahooApi;`: Avoid using this without reading the [Warnings](https://github.com/spatie/laravel-csp#warnings)
-
-### Warnings
-
-- `img-src: https://analytics.google.be` is unsafe, use beacon or XHR method instead of the default image method. ([How-to](https://developers.google.com/analytics/devguides/collection/gtagjs/sending-data#specify_different_transport_mechanisms) [exploit info](https://githubengineering.com/githubs-post-csp-journey/#img-src---how-scary-can-an-image-really-be))
-
-- try avoiding unsafe CDNs ([exploit info](https://github.com/cure53/XSSChallengeWiki/wiki/H5SC-Minichallenge-3:-%22Sh*t,-it%27s-CSP!%22#conclusion))
-Sadly, the Google API is not strict enough in terms of scripts and data that can be pulled from it. So it classifies as insecure CDN. 
-
-### Directives
-
-- `Directive::base`: `'base-uri'`
-- `Directive::child`: `'child-src'`
-- `Directive::connect`: `'connect-src'`
-- `Directive::default`: `'default-src'`
-- `Directive::font`: `'font-src'`
-- `Directive::form`: `'form-action'`
-- `Directive::frame`: `'frame-src'`
-- `Directive::frameAncestors`: `'frame-ancestors'`
-- `Directive::img`: `'img-src'`
-- `Directive::manifest`: `'manifest-src'`
-- `Directive::media`: `'media-src'`
-- `Directive::mixed`: `'block-all-mixed-content'`
-- `Directive::object`: `'object-src'`
-- `Directive::plugin`: `'plugin-types'`
-- `Directive::report`: `'report-uri'` (sends any violation in a `POST` request to the specified location)
-- `Directive::sandbox`: `'sandbox'`
-- `Directive::script`: `'script-src'`
-- `Directive::style`: `'style-src'`
-- `Directive::upgrade`: `'upgrade-insecure-requests'`
-- `Directive::worker`: `'worker-src'`
 
 ### Testing
 
-To test your `Content-Security-Policy` there is a `CSP_REPORT` toggle that can be set in the .env file, don't forget to disable it when your CSP header is ready.
+You can run all the tests with:
 
-``` bash
+```bash
 composer test
 ```
 
