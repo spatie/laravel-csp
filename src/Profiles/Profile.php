@@ -42,6 +42,7 @@ abstract class Profile
     {
         $this->directives['report-uri'] = [$uri];
 
+        /*
         $reportToContents = json_encode([
             'url' => $uri,
             'group-name' => class_basename(static::class),
@@ -49,6 +50,7 @@ abstract class Profile
         ]);
 
         $this->directives['report-to'] = [$reportToContents];
+        */
 
         return $this;
     }
