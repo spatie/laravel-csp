@@ -11,7 +11,7 @@ class NonceTest extends TestCase
 
         $this->assertEquals(strlen($nonce), 32);
 
-        foreach(range(1,5) as $i) {
+        foreach (range(1, 5) as $i) {
             $this->assertEquals($nonce, cspNonce());
         }
     }
