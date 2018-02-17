@@ -8,10 +8,11 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-csp.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-csp)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
 
-By default all scripts on a webpage are allowed to fetch and send data to any site they want. This can be a security problem. Imagine on of your JavaScript dependencies sends all keystrokes (so including passwords) to a third party website. It's also very easy to hide this behaviour, make it nearly impossible for you to detect it (unless you manually read all the JavaScript code on your site). To feel why you really need to set content security policy headers read [this excellent blog post](https://hackernoon.com/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5) by [David Gilbertson](https://twitter.com/D__Gilbertson), or head to [Mozilla's Content Security Policy docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). 
+By default all scripts on a webpage are allowed to fetch and send data to any site they want. This can be a security problem. Imagine on of your JavaScript dependencies sends all keystrokes (so including passwords) to a third party website. It's also very easy to hide this behaviour, make it nearly impossible for you to detect it (unless you manually read all the JavaScript code on your site). To feel why you really need to set content security policy headers read [this excellent blog post](https://hackernoon.com/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5) by [David Gilbertson](https://twitter.com/D__Gilbertson).
 
 The solution to this problem is setting Content Security Policy headers. These headers dictate which sites your site is allowed to contact. This package makes it easy for you to set the right headers.
 
+This readme does not aim to fully explain all the possible usages of CSP and it's directives. It's highly recommened dat you read [Mozilla's documentation on the Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) before using this package.
 
 ## Installation
 
@@ -93,9 +94,9 @@ This profile will override the one configured in the config file for that specif
  
 ## Usage
 
-This package allows you to define csp profiles. A csp profile determines which csp directives should be used. 
+This package allows you to define CSP profiles. A CSP profile determines which CSP directives should be used. 
 
-An example of a csp directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain of `www.google.com`. You'll find [a list with all csp directives](https://www.w3.org/TR/CSP3/#csp-directives) at Mozilla's excellent developer site.
+An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain of `www.google.com`. You'll find [a list with all CSP directives](https://www.w3.org/TR/CSP3/#csp-directives) at Mozilla's excellent developer site.
 
 ### Creating custom profiles
 
@@ -143,8 +144,43 @@ class MyCustomProfile extends Profile
 
 Don't forget to set the `profile` key in the `csp` config file to the class name of your profile (in this case it would be `App\Services\CspProfiles\MyCustomProfile`).
 
+### Using inline scripts and styles
 
-### Reporting csp errors
+When using CSP you must specifically allow to use inline scripts or styles. The recommended way of doing that with this package is to use a `nonce`. A nonce is a number that's unique per requests. The nonce must be specified in the CSP headers and in an attribute on the html tag. This way an attacker has no way of injecting malious scripts or styles.
+
+First you must add the nonce to the right directives in your profile    
+
+```php
+// in a directive
+
+public function configure()
+  {
+      $this
+        ->addDirective(Directive::SCRIPT, "'self'")
+        ->addDirective(Directive::STYLE, "'self'")
+        ->addNonceForDirective(Directive::SCRIPT)
+        ->addNonceForDirective(Directive::STYLE)
+        ...
+}
+```
+
+Next you must add the nonce to the html:
+
+```
+{{-- in a view --}}
+<style nonce="{{ cspNonce() }}">
+   ...
+</style>
+
+<script nonce="{{ cspNonce() }}">
+   ...
+</script>
+```
+
+There are few other options to use inline styles and scripts. Take a look at the [CSP docs on the Mozilla developer site](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src) to know more.
+
+
+### Reporting CSP errors
 
 #### In the browser
 
@@ -167,7 +203,7 @@ Any violations against to the policy can be reported to a given url. You can set
 
 #### Using multipe profiles
 
-To test out changes to your csp policy you can specify a second profile in the `report_only_profile` in the `csp` config key. The profile specified in `profile` will be enforced, the one in `report_only_profile` will not. This is great for testing out a new profile or changes to existing csp policy without breaking anyting.
+To test out changes to your CSP policy you can specify a second profile in the `report_only_profile` in the `csp` config key. The profile specified in `profile` will be enforced, the one in `report_only_profile` will not. This is great for testing out a new profile or changes to existing CSP policy without breaking anyting.
 
 
 ### Testing
@@ -200,6 +236,7 @@ We publish all received postcards [on our company website](https://spatie.be/en/
 
 ## Credits
 
+- [Freek Van der Herten](https://github.com/freekmurze)
 - [Thomas Verhelst](https://github.com/TVke)
 - [All Contributors](../../contributors)
 
