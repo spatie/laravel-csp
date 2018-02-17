@@ -13,7 +13,7 @@ abstract class Profile
 
     protected $reportOnly = false;
 
-    abstract public function registerDirectives();
+    abstract public function configure();
 
     public function addDirective(string $directive, string $value): self
     {
@@ -60,7 +60,7 @@ abstract class Profile
 
     public function applyTo(Response $response)
     {
-        $this->registerDirectives();
+        $this->configure();
 
         $headerName = $this->reportOnly
             ? 'Content-Security-Policy-Report-Only'

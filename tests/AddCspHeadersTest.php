@@ -99,7 +99,7 @@ class GlobalMiddlewareTest extends TestCase
     {
         $profile = new class extends Profile
         {
-            public function registerDirectives()
+            public function configure()
             {
                 $this
                     ->addDirective(Directive::FRAME, 'src-1')
@@ -126,7 +126,7 @@ class GlobalMiddlewareTest extends TestCase
 
         $customProfile = new class extends Profile {
 
-            public function registerDirectives()
+            public function configure()
             {
                 $this->addDirective(Directive::BASE, 'custom-profile');
             }

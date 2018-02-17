@@ -108,7 +108,7 @@ use Spatie\Csp\Directive;
 
 class Basic extends Profile
 {
-    public function registerDirectives()
+    public function configure()
     {
         $this
             ->addDirective(Directive::CONNECT, "'self'")
@@ -132,9 +132,9 @@ use Spatie\Csp\Profiles\Profile;
 
 class MyCustomProfile extends Profile
 {
-    public function registerDirectives()
+    public function configure()
     {
-        parent::registerDirectives();
+        parent::configure();
         
         $this->addDirective(Directive::SCRIPT, 'www.google.com');
     }
@@ -142,6 +142,32 @@ class MyCustomProfile extends Profile
 ```
 
 Don't forget to set the `profile` key in the `csp` config file to the class name of your profile (in this case it would be `App\Services\CspProfiles\MyCustomProfile`).
+
+
+### Reporting csp errors
+
+#### In the browser
+
+Instead of downright blocking all violations you can put a profile in report only mode. In this case all requests will be made, but you'll see all violations will be displaying in your favourite browser's console.
+
+To put a profile in report only mode just call `reportOnly()` in the `configure()` function of a report:
+
+```php
+    public function configure()
+    {
+        parent::configure();
+        
+        $this->reportOnly();
+    }
+```
+
+#### To an external url
+
+Any violations against to the policy can be reported to a given url. You can set that url in the `report_uri` key of the `csp` config file. A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/). 
+
+#### Using multipe profiles
+
+
 
 
 

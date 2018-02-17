@@ -6,7 +6,7 @@ use Spatie\Csp\Directive;
 
 class Basic extends Profile
 {
-    public function registerDirectives()
+    public function configure()
     {
         $this
             ->addDirective(Directive::CONNECT, "'self'")
