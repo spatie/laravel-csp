@@ -58,6 +58,11 @@ abstract class Profile
         return config('csp.enabled');
     }
 
+    public function addNonceForDirective(string $directive): self
+    {
+        return $this->addDirective($directive, "nonce-" . app('csp-nonce'));
+    }
+
     public function applyTo(Response $response)
     {
         $this->configure();

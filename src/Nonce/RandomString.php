@@ -6,6 +6,6 @@ class RandomString implements NonceGenerator
 {
     public function generate(): string
     {
-        return str_random(128);
+        return str_random(32);
     }
 }

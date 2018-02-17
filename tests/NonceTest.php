@@ -9,7 +9,7 @@ class NonceTest extends TestCase
     {
         $nonce = cspNonce();
 
-        $this->assertTrue(strlen($nonce) > 50);
+        $this->assertEquals(strlen($nonce), 32);
 
         foreach(range(1,5) as $i) {
             $this->assertEquals($nonce, cspNonce());

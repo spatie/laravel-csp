@@ -15,6 +15,8 @@ class Basic extends Profile
             ->addDirective(Directive::IMG, "'self'")
             ->addDirective(Directive::MEDIA, "'self'")
             ->addDirective(Directive::SCRIPT, "'self'")
-            ->addDirective(Directive::STYLE, "'self'");
+            ->addDirective(Directive::STYLE, "'self'")
+            ->addNonceForDirective(Directive::SCRIPT)
+            ->addNonceForDirective(Directive::STYLE);
     }
 }
