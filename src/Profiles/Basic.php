@@ -16,8 +16,6 @@ class Basic extends Profile
             ->addDirective(Directive::MEDIA, "'self'")
             ->addDirective(Directive::SCRIPT, "'self'")
             ->addDirective(Directive::STYLE, "'self'")
-            ->addDirective(Directive::STYLE, 'fonts.googleapis.com')
-            ->addDirective(Directive::FONT, 'fonts.gstatic.com')
             ->addNonceForDirective(Directive::SCRIPT)
             ->addNonceForDirective(Directive::STYLE);
     }
