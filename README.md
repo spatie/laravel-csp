@@ -1,7 +1,5 @@
 **WORK IN PROGRESS, DO NOT USE YET**
 
-TODO: mention https://www.w3.org/TR/CSP3/#csp-directives somewhere
-
 # Add CSP headers to the responses of a Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
@@ -81,7 +79,17 @@ Alternatively you can apply the middelware on the route of route group level.
 
 Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class);
 ```
+
+You can also pass a profile class as a parameter to the middleware:
  
+```php
+// in a routes file
+
+Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class . ':' . MyProfile::class);
+``` 
+
+This profile will override the one configured in the config file for that specific route or group of routes.
+
  
 ## Usage
 
