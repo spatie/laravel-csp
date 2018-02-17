@@ -2,8 +2,8 @@
 
 namespace Spatie\Csp;
 
-use Illuminate\Support\ServiceProvider;
 use Spatie\Csp\Nonce\NonceGenerator;
+use Illuminate\Support\ServiceProvider;
 
 class CspServiceProvider extends ServiceProvider
 {
@@ -17,7 +17,7 @@ class CspServiceProvider extends ServiceProvider
 
         $this->app->singleton(NonceGenerator::class, config('csp.nonce_generator'));
 
-        $this->app->singleton('csp-nonce', function() {
+        $this->app->singleton('csp-nonce', function () {
             return app(NonceGenerator::class)->generate();
         });
     }

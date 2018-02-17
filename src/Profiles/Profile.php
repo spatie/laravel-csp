@@ -2,8 +2,8 @@
 
 namespace Spatie\Csp\Profiles;
 
-use Illuminate\Http\Request;
 use Spatie\Csp\Directive;
+use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -70,7 +70,7 @@ abstract class Profile
             return;
         }
 
-        $response->headers->set($headerName, (string)$this);
+        $response->headers->set($headerName, (string) $this);
     }
 
     public function __toString()
@@ -86,7 +86,7 @@ abstract class Profile
 
     protected function guardAgainstInvalidDirectives(string $directive)
     {
-        if (!Directive::isValid($directive)) {
+        if (! Directive::isValid($directive)) {
             throw InvalidDirective::notSupported($directive);
         }
     }

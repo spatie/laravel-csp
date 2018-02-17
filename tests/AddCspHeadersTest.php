@@ -2,14 +2,13 @@
 
 namespace Spatie\Csp\Tests;
 
-use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Support\Facades\Route;
-use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Directive;
-use Spatie\Csp\Exceptions\InvalidCspProfile;
+use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Profiles\Basic;
 use Spatie\Csp\Profiles\Profile;
-use Spatie\Csp\Tests\TestCase;
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Support\Facades\Route;
+use Spatie\Csp\Exceptions\InvalidCspProfile;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
 class GlobalMiddlewareTest extends TestCase
@@ -85,7 +84,8 @@ class GlobalMiddlewareTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $invalidProfileClassName = get_class(new class {});
+        $invalidProfileClassName = get_class(new class {
+        });
 
         config(['csp.profile' => $invalidProfileClassName]);
 
@@ -97,8 +97,7 @@ class GlobalMiddlewareTest extends TestCase
     /** @test */
     public function it_can_use_multiple_values_for_the_same_directive()
     {
-        $profile = new class extends Profile
-        {
+        $profile = new class extends Profile {
             public function configure()
             {
                 $this
@@ -125,16 +124,15 @@ class GlobalMiddlewareTest extends TestCase
         $this->withoutExceptionHandling();
 
         $customProfile = new class extends Profile {
-
             public function configure()
             {
                 $this->addDirective(Directive::BASE, 'custom-profile');
             }
         };
 
-        Route::get('other-route', function() {
+        Route::get('other-route', function () {
             return 'ok';
-        })->middleware(AddCspHeaders::class . ':' . get_class($customProfile));
+        })->middleware(AddCspHeaders::class.':'.get_class($customProfile));
 
         $headers = $this->getResponseHeaders('other-route');
 

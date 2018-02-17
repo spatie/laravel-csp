@@ -16,6 +16,5 @@ class Basic extends Profile
             ->addDirective(Directive::MEDIA, "'self'")
             ->addDirective(Directive::SCRIPT, "'self'")
             ->addDirective(Directive::STYLE, "'self'");
-
     }
 }
