@@ -8,7 +8,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-csp.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-csp)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
 
-By default all scripts on a webpage are allowed to fetch and send data to any site they want. This can be a security problem. Imagine on of your JavaScript dependencies sends all keystrokes (so including passwords) to a third party website. It's also very easy to hide this behaviour, make it nearly impossible for you to detect it (unless you manually read all the JavaScript code on your site). For more info on the subject read [this excellent blog post](TODO: add link) by [xxx](TODO: add link). 
+By default all scripts on a webpage are allowed to fetch and send data to any site they want. This can be a security problem. Imagine on of your JavaScript dependencies sends all keystrokes (so including passwords) to a third party website. It's also very easy to hide this behaviour, make it nearly impossible for you to detect it (unless you manually read all the JavaScript code on your site). To feel why you really need to set content security policy headers read [this excellent blog post](https://hackernoon.com/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5) by [David Gilbertson](https://twitter.com/D__Gilbertson), or head to [Mozilla's Content Security Policy docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). 
 
 The solution to this problem is setting Content Security Policy headers. These headers dictate which sites your site is allowed to contact. This package makes it easy for you to set the right headers.
 
