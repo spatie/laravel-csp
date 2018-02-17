@@ -3,7 +3,6 @@
 namespace Spatie\Csp;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\Csp\Profiles\Profile;
 
 class CspServiceProvider extends ServiceProvider
 {
@@ -14,22 +13,6 @@ class CspServiceProvider extends ServiceProvider
                 __DIR__.'/../config/csp.php' => config_path('csp.php'),
             ], 'config');
         }
-
-        $this->app->bind(Profile::class, function () {
-            $profileClass = config('csp.profile');
-
-            $profile = app($profileClass);
-
-            if (! empty(config('csp.report_uri'))) {
-                $profile->reportTo(config('csp.report_uri'));
-            }
-
-            if (config('csp.report_only')) {
-                $profile->reportOnly();
-            }
-
-            return $profile;
-        });
     }
 
     public function register()

@@ -5,6 +5,7 @@ namespace Spatie\Csp\Tests;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Exceptions\InvalidCspProfile;
+use Spatie\Csp\Profiles\Basic;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
 class AddCspHeadersTest extends TestCase
@@ -19,8 +20,24 @@ class AddCspHeadersTest extends TestCase
     }
 
     /** @test */
+    public function the_default_configuration_will_only_set_report_only_headers()
+    {
+        $headers = $this->getResponseHeaders();
+
+        $this->assertNotNull($headers->get('Content-Security-Policy-Report-Only'));
+        $this->assertContains("default-src 'self';", $headers->get('Content-Security-Policy-Report-Only'));
+
+        $this->assertNull($headers->get('Content-Security-Policy'));
+    }
+
+    /** @test */
     public function it_can_set_the_basic_csp_headers()
     {
+        config([
+            'csp.profile' => Basic::class,
+            'csp.report_only_profile' => '',
+        ]);
+
         $headers = $this->getResponseHeaders();
 
         $this->assertContains("default-src 'self';", $headers->get('Content-Security-Policy'));
@@ -29,21 +46,13 @@ class AddCspHeadersTest extends TestCase
     /** @test */
     public function it_wont_set_any_headers_if_not_enabled_in_the_config()
     {
-        config(['csp.enabled' => false]);
+        config([
+            'csp.profile' => Basic::class,
+            'csp.report_only_profile' => '',
+            'csp.enabled' => false,
+        ]);
 
         $headers = $this->getResponseHeaders();
-
-        $this->assertNull($headers->get('Content-Security-Policy'));
-    }
-
-    /** @test */
-    public function it_can_be_set_in_report_only_mode_via_the_config()
-    {
-        config(['csp.report_only' => true]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertNotNull($headers->get('Content-Security-Policy-Report-Only'));
 
         $this->assertNull($headers->get('Content-Security-Policy'));
     }
@@ -55,9 +64,17 @@ class AddCspHeadersTest extends TestCase
 
         $headers = $this->getResponseHeaders();
 
-        $this
-            ->assertCspHeaderContains($headers, 'report-uri https://report-uri.com;')
-            ->assertCspHeaderContains($headers, 'report-to {"url":"https:\/\/report-uri.com","group-name":"Basic","max-age":18144000};');
+        $reportOnlyHeaderContent = $headers->get('Content-Security-Policy-Report-Only');
+
+        $this->assertContains(
+            'report-uri https://report-uri.com',
+            $reportOnlyHeaderContent
+        );
+
+        $this->assertContains(
+            'report-to {"url":"https:\/\/report-uri.com","group-name":"Basic","max-age":18144000};',
+            $reportOnlyHeaderContent
+        );
     }
 
     /** @test */
@@ -72,13 +89,6 @@ class AddCspHeadersTest extends TestCase
         $this->expectException(InvalidCspProfile::class);
 
         $this->getResponseHeaders();
-    }
-
-    protected function assertCspHeaderContains(HeaderBag $headerBag, string $needle): self
-    {
-        $this->assertContains($needle, $headerBag->get('Content-Security-Policy'));
-
-        return $this;
     }
 
     protected function getResponseHeaders(): HeaderBag

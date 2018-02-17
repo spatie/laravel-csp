@@ -4,8 +4,7 @@ namespace Spatie\Csp;
 
 use Closure;
 use Illuminate\Http\Request;
-use Spatie\Csp\Exceptions\InvalidCspProfile;
-use Spatie\Csp\Profiles\Profile;
+use Illuminate\Support\Collection;
 
 class AddCspHeaders
 {
@@ -13,23 +12,34 @@ class AddCspHeaders
     {
         $response = $next($request);
 
-        $profile = $this->getProfile();
-
-        if ($profile->shouldBeApplied($request, $response)) {
-            $profile->applyTo($response);
-        }
+        $this
+            ->getProfiles()
+            ->filter->shouldBeApplied($request, $response)
+            ->each->applyTo($response);
 
         return $response;
     }
 
-    protected function getProfile(): Profile
+    protected function getProfiles(): Collection
     {
-        $profile = app(Profile::class);
+        $profiles = collect();
 
-        if (!is_a($profile, Profile::class, true)) {
-            throw InvalidCspProfile::create($profile);
+        $profileClass = config('csp.profile');
+
+        if (! empty($profileClass)) {
+            $profiles->push(ProfileFactory::create($profileClass));
         }
 
-        return $profile;
+        $reportOnlyProfileClass = config('csp.report_only_profile');
+
+        if (! empty($reportOnlyProfileClass)) {
+            $profile = ProfileFactory::create($reportOnlyProfileClass);
+
+            $profile->reportOnly();
+
+            $profiles->push($profile);
+        }
+
+        return $profiles;
     }
 }
