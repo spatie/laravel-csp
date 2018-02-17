@@ -13,6 +13,8 @@ abstract class Profile
 
     protected $reportOnly = false;
 
+    abstract public function registerDirectives();
+
     public function addDirective(string $directive, string $value): self
     {
         $this->guardAgainstInvalidDirectives($directive);
@@ -21,8 +23,6 @@ abstract class Profile
 
         return $this;
     }
-
-    abstract public function registerDirectives();
 
     public function reportOnly(): self
     {
@@ -69,13 +69,6 @@ abstract class Profile
         $response->headers->set($headerName, (string)$this);
     }
 
-    protected function guardAgainstInvalidDirectives(string $directive)
-    {
-        if (!Directive::isValid($directive)) {
-            throw InvalidDirective::notSupported($directive);
-        }
-    }
-
     public function __toString()
     {
         return collect($this->directives)
@@ -85,5 +78,12 @@ abstract class Profile
                 return "{$directive} {$valueString}";
             })
             ->implode(';');
+    }
+
+    protected function guardAgainstInvalidDirectives(string $directive)
+    {
+        if (!Directive::isValid($directive)) {
+            throw InvalidDirective::notSupported($directive);
+        }
     }
 }
