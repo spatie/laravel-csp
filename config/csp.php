@@ -5,7 +5,7 @@ return [
     /*
      * A csp profile will determine which csp headers will be set.
      */
-    'profile' => \Spatie\Csp\Profiles\Strict::class,
+    'profile' => \Spatie\Csp\Profiles\Basic::class,
 
     /*
      * Headers will only be added if this setting is enabled

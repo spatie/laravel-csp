@@ -3,7 +3,7 @@
 namespace Spatie\Csp;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\Csp\Profiles\Profile\Profile;
+use Spatie\Csp\Profiles\Profile;
 
 class CspServiceProvider extends ServiceProvider
 {
@@ -21,7 +21,7 @@ class CspServiceProvider extends ServiceProvider
             $profile = app($profileClass);
 
             if (! empty(config('csp.report_uri'))) {
-                $profile->reportTo(config('report_uri'));
+                $profile->reportTo(config('csp.report_uri'));
             }
 
             if (config('csp.report_only')) {

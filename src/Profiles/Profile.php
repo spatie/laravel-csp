@@ -1,7 +1,8 @@
 <?php
 
-namespace Spatie\Csp\Profiles\Profile;
+namespace Spatie\Csp\Profiles;
 
+use Illuminate\Http\Request;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidDirective;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,18 +40,23 @@ abstract class Profile
 
     public function reportTo(string $uri): self
     {
-        $this->directives['report-uri'] = $uri;
+        $this->directives['report-uri'] = [$uri];
 
-        $this->directives['report-to'] = json_encode([
-           'url' => $uri,
-           'group-name' => class_basename(static::class),
-           'max-age => 60 * 60 * 24 * 7 * 30',
+        $reportToContents = json_encode([
+            'url' => $uri,
+            'group-name' => class_basename(static::class),
+            'max-age' => 60 * 60 * 24 * 7 * 30,
         ]);
+
+        $this->directives['report-to'] = [$reportToContents];
 
         return $this;
     }
 
-
+    public function shouldBeApplied(Request $request, Response $response): bool
+    {
+        return config('csp.enabled');
+    }
 
     public function applyTo(Response $response)
     {
@@ -60,12 +66,12 @@ abstract class Profile
             ? 'Content-Security-Policy-Report-Only'
             : 'Content-Security-Policy';
 
-        $response->headers->set($headerName, (string) $this);
+        $response->headers->set($headerName, (string)$this);
     }
 
     protected function guardAgainstInvalidDirectives(string $directive)
     {
-        if (! Directive::isValid($directive)) {
+        if (!Directive::isValid($directive)) {
             throw InvalidDirective::notSupported($directive);
         }
     }
