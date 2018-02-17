@@ -28,7 +28,6 @@ abstract class Profile
         $this->guardAgainstInvalidDirectives($directive);
 
         foreach (array_wrap($values) as $value) {
-
             $this->directives[$directive][] = $value;
         }
 
@@ -73,7 +72,7 @@ abstract class Profile
 
     public function addNonceForDirective(string $directive): self
     {
-        return $this->addDirective($directive, "'nonce-" . app('csp-nonce') . "'");
+        return $this->addDirective($directive, "'nonce-".app('csp-nonce')."'");
     }
 
     public function applyTo(Response $response)
@@ -88,7 +87,7 @@ abstract class Profile
             return;
         }
 
-        $response->headers->set($headerName, (string)$this);
+        $response->headers->set($headerName, (string) $this);
     }
 
     public function __toString()
@@ -104,7 +103,7 @@ abstract class Profile
 
     protected function guardAgainstInvalidDirectives(string $directive)
     {
-        if (!Directive::isValid($directive)) {
+        if (! Directive::isValid($directive)) {
             throw InvalidDirective::notSupported($directive);
         }
     }
