@@ -15,11 +15,22 @@ abstract class Profile
 
     abstract public function configure();
 
-    public function addDirective(string $directive, string $value): self
+    /**
+     * @param string $directive
+     * @param string|array $values
+     *
+     * @return \Spatie\Csp\Profiles\Profile
+     *
+     * @throws \Spatie\Csp\Exceptions\InvalidDirective
+     */
+    public function addDirective(string $directive, $values): self
     {
         $this->guardAgainstInvalidDirectives($directive);
 
-        $this->directives[$directive][] = $value;
+        foreach (array_wrap($values) as $value) {
+
+            $this->directives[$directive][] = $value;
+        }
 
         return $this;
     }
@@ -62,7 +73,7 @@ abstract class Profile
 
     public function addNonceForDirective(string $directive): self
     {
-        return $this->addDirective($directive, "'nonce-".app('csp-nonce')."'");
+        return $this->addDirective($directive, "'nonce-" . app('csp-nonce') . "'");
     }
 
     public function applyTo(Response $response)
@@ -77,7 +88,7 @@ abstract class Profile
             return;
         }
 
-        $response->headers->set($headerName, (string) $this);
+        $response->headers->set($headerName, (string)$this);
     }
 
     public function __toString()
@@ -93,7 +104,7 @@ abstract class Profile
 
     protected function guardAgainstInvalidDirectives(string $directive)
     {
-        if (! Directive::isValid($directive)) {
+        if (!Directive::isValid($directive)) {
             throw InvalidDirective::notSupported($directive);
         }
     }

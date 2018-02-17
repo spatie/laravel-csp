@@ -73,10 +73,12 @@ class GlobalMiddlewareTest extends TestCase
             $cspHeader
         );
 
+        /*
         $this->assertContains(
             'report-to {"url":"https:\/\/report-uri.com","group-name":"Basic","max-age":18144000};',
             $cspHeader
         );
+        */
     }
 
     /** @test */
@@ -114,6 +116,27 @@ class GlobalMiddlewareTest extends TestCase
 
         $this->assertEquals(
             'frame-src src-1 src-2;form-action action-1 action-2',
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    /** @test */
+    public function it_can_add_multiple_values_for_the_same_directive_in_one_go()
+    {
+        $profile = new class extends Profile {
+            public function configure()
+            {
+                $this
+                    ->addDirective(Directive::FRAME, ['src-1', 'src-2']);
+            }
+        };
+
+        config(['csp.profile' => get_class($profile)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            'frame-src src-1 src-2',
             $headers->get('Content-Security-Policy')
         );
     }
