@@ -10,10 +10,10 @@ TODO: mention https://www.w3.org/TR/CSP3/#csp-directives somewhere
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-csp.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-csp)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
 
-Safety on the web is an ever growing problem and by setting the `Content-Security-Policy` header you are one set closer to a more secure user experience. 
-Setting the `Content-Security-Policy` header is a way to block outsiders from getting content on your site without your permission. 
-The package is by default very strict and can be loosened by creating a custom class and defined in the config file. (see [Usage](https://github.com/spatie/laravel-csp#usage))
-This package is not a one-size-fit-all solution, but it makes the setup easier by having a handful of methods with the most common permissions. (see [Allow Functions](https://github.com/spatie/laravel-csp#allow-functions))
+By default all scripts on a webpage are allowed to fetch and send data to any site they want. This can be a security problem. Imagine on of your JavaScript dependencies sends all keystrokes (so including passwords) to a third party website. It's also very easy to hide this behaviour, make it nearly impossible for you to detect it (unless you manually read all the JavaScript code on your site). For more info on the subject read [this excellent blog post](TODO: add link) by [xxx](TODO: add link). 
+
+The solution to this problem is setting Content Security Policy headers. These headers dictate which sites your site is allowed to contact. This package makes it easy for you to set the right headers.
+
 
 ## Installation
 
@@ -31,36 +31,36 @@ php artisan vendor:publish --provider="Spatie\Csp\CspServiceProvider" --tag="con
 
 This is the contents of the file which will be published at `config/csp.php`:
 
-``` php
+```php
 return [
 
     /*
      * A csp profile will determine which csp headers will be set.
      */
-    'profile' => \Spatie\Csp\Profiles\Strict::class,
+    'profile' => '',
+
+    /*
+     * This profile which will be put in report only mode. This is great for testing out
+     * a new profile or changes to existing csp policy without breaking anyting.
+     */
+    'report_only_profile' => \Spatie\Csp\Profiles\Basic::class,
+
+    /*
+     * All violations against the csp policy will be reported to this url.
+     * A great service you could use for this is https://report-uri.com/
+     *
+     * You can override this setting by calling `reportTo` on your profile.
+     */
+    'report_uri' => env('CSP_REPORT_URI', ''),
 
     /*
      * Headers will only be added if this setting is enabled
      */
     'enabled' => env('CSP_ENABLED', true),
-
-    /*
-     * All violations against the csp policy will be report to this url.
-     * A great server you could use for this is https://report-uri.com/
-     */
-    'report_uri' => env('CSP_REPORT_URI', ''),
-
-    /*
-     * To test your policy you can turn on the report only mode.
-     * The policy will not be enforced by the browser, but any violations
-     * are reported to the given uri
-     */
-    'report_only' => env('CSP_ONLY_REPORT', false),
-
 ];
 ```
 
-And finally you should install the provided middleware \Spatie\Csp\AddCspHeaders::class in the http kernel.
+You can add csp headers to all responses of your app by registering `\Spatie\Csp\AddCspHeaders::class` in the http kernel.
 
 ```php
 // app/Http/Kernel.php
@@ -74,7 +74,69 @@ protected $middlewareGroups = [
    ],
 ```
  
+Alternatively you can apply the middelware on the route of route group level.
+
+```php
+// in a routes file
+
+Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class);
+```
+ 
+ 
 ## Usage
+
+This package allows you to define csp profiles. A csp profile determines which csp directives should be used. 
+
+An example of a csp directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain of `www.google.com`. You'll find [a list with all csp directives](https://www.w3.org/TR/CSP3/#csp-directives) at Mozilla's excellent developer site.
+
+## Creating custom profiles
+
+In the `profile` key of the `csp` config file is set to `\Spatie\Csp\Profiles\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks like.
+
+```php
+namespace Spatie\Csp\Profiles;
+
+use Spatie\Csp\Directive;
+
+class Basic extends Profile
+{
+    public function registerDirectives()
+    {
+        $this
+            ->addDirective(Directive::CONNECT, "'self'")
+            ->addDirective(Directive::DEFAULT, "'self'")
+            ->addDirective(Directive::FORM_ACTION, "'self'")
+            ->addDirective(Directive::IMG, "'self'")
+            ->addDirective(Directive::MEDIA, "'self'")
+            ->addDirective(Directive::SCRIPT, "'self'")
+            ->addDirective(Directive::STYLE, "'self'");
+    }
+}
+```
+
+You can allow fetching scripts from `www.google.com` by extending this class:
+
+```php
+namespace App\Services\CspProfiles;
+
+use Spatie\Csp\Directive;
+use Spatie\Csp\Profiles\Profile;
+
+class MyCustomProfile extends Profile
+{
+    public function registerDirectives()
+    {
+        parent::registerDirectives();
+        
+        $this->addDirective(Directive::SCRIPT, 'www.google.com');
+    }
+}
+```
+
+Don't forget to set the `profile` key in the `csp` config file to the class name of your profile (in this case it would be `App\Services\CspProfiles\MyCustomProfile`).
+
+
+
 
 ### Custom Setup
 

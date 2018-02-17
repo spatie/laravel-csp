@@ -66,6 +66,10 @@ abstract class Profile
             ? 'Content-Security-Policy-Report-Only'
             : 'Content-Security-Policy';
 
+        if ($response->headers->has($headerName)) {
+            return;
+        }
+
         $response->headers->set($headerName, (string)$this);
     }
 

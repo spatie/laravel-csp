@@ -2,55 +2,56 @@
 
 namespace Spatie\Csp\Tests;
 
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidCspProfile;
 use Spatie\Csp\Profiles\Basic;
 use Spatie\Csp\Profiles\Profile;
+use Spatie\Csp\Tests\TestCase;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
-class AddCspHeadersTest extends TestCase
+class GlobalMiddlewareTest extends TestCase
 {
     public function setUp()
     {
         parent::setUp();
 
-        Route::get('test', function () {
+        app(Kernel::class)->pushMiddleware(AddCspHeaders::class);
+
+        Route::get('test-route', function () {
             return 'ok';
-        })->middleware(AddCspHeaders::class);
+        });
     }
 
     /** @test */
-    public function the_default_configuration_will_only_set_report_only_headers()
+    public function the_default_configuration_will_set_csp_headers()
     {
         $headers = $this->getResponseHeaders();
 
-        $this->assertNotNull($headers->get('Content-Security-Policy-Report-Only'));
-        $this->assertContains("default-src 'self';", $headers->get('Content-Security-Policy-Report-Only'));
+        $this->assertContains("default-src 'self';", $headers->get('Content-Security-Policy'));
 
-        $this->assertNull($headers->get('Content-Security-Policy'));
+        $this->assertNull($headers->get('Content-Security-Policy-Report-Only'));
     }
 
     /** @test */
-    public function it_can_set_the_basic_csp_headers()
+    public function it_can_set_reporty_only_csp_headers()
     {
         config([
-            'csp.profile' => Basic::class,
-            'csp.report_only_profile' => '',
+            'csp.profile' => '',
+            'csp.report_only_profile' => Basic::class,
         ]);
 
         $headers = $this->getResponseHeaders();
 
-        $this->assertContains("default-src 'self';", $headers->get('Content-Security-Policy'));
+        $this->assertContains("default-src 'self';", $headers->get('Content-Security-Policy-Report-Only'));
     }
 
     /** @test */
     public function it_wont_set_any_headers_if_not_enabled_in_the_config()
     {
         config([
-            'csp.profile' => Basic::class,
-            'csp.report_only_profile' => '',
             'csp.enabled' => false,
         ]);
 
@@ -66,16 +67,16 @@ class AddCspHeadersTest extends TestCase
 
         $headers = $this->getResponseHeaders();
 
-        $reportOnlyHeaderContent = $headers->get('Content-Security-Policy-Report-Only');
+        $cspHeader = $headers->get('Content-Security-Policy');
 
         $this->assertContains(
             'report-uri https://report-uri.com',
-            $reportOnlyHeaderContent
+            $cspHeader
         );
 
         $this->assertContains(
             'report-to {"url":"https:\/\/report-uri.com","group-name":"Basic","max-age":18144000};',
-            $reportOnlyHeaderContent
+            $cspHeader
         );
     }
 
@@ -118,10 +119,35 @@ class AddCspHeadersTest extends TestCase
         );
     }
 
-    protected function getResponseHeaders(): HeaderBag
+    /** @test */
+    public function route_middleware_will_overwrite_global_middleware_for_that_route()
+    {
+        $this->withoutExceptionHandling();
+
+        $customProfile = new class extends Profile {
+
+            public function registerDirectives()
+            {
+                $this->addDirective(Directive::BASE, 'custom-profile');
+            }
+        };
+
+        Route::get('other-route', function() {
+            return 'ok';
+        })->middleware(AddCspHeaders::class . ':' . get_class($customProfile));
+
+        $headers = $this->getResponseHeaders('other-route');
+
+        $this->assertEquals(
+            'base-uri custom-profile',
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    protected function getResponseHeaders(string $url = 'test-route'): HeaderBag
     {
         return $this
-            ->get('test')
+            ->get($url)
             ->assertSuccessful()
             ->headers;
     }
