@@ -98,6 +98,15 @@ This package allows you to define CSP profiles. A CSP profile determines which C
 
 An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain of `www.google.com`. You'll find [a list with all CSP directives](https://www.w3.org/TR/CSP3/#csp-directives) at Mozilla's excellent developer site.
 
+According to the spec certain directive values need to be surrounded by quotes. Examples of this are `'self'`, `'none'` and `'unsafe-inline'`. When using `addDirective` function you're not required to surround the directive value with quotes manually. We will automatically add quotes.
+
+```php
+// in a profile
+...
+   ->addDirective(Directive::SCRIPT, 'self') // will output `'self'` when outputting headers
+...
+```
+
 ### Creating custom profiles
 
 In the `profile` key of the `csp` config file is set to `\Spatie\Csp\Profiles\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks like.
@@ -112,13 +121,13 @@ class Basic extends Profile
     public function configure()
     {
         $this
-            ->addDirective(Directive::CONNECT, "'self'")
-            ->addDirective(Directive::DEFAULT, "'self'")
-            ->addDirective(Directive::FORM_ACTION, "'self'")
-            ->addDirective(Directive::IMG, "'self'")
-            ->addDirective(Directive::MEDIA, "'self'")
-            ->addDirective(Directive::SCRIPT, "'self'")
-            ->addDirective(Directive::STYLE, "'self'");
+            ->addDirective(Directive::CONNECT, 'self')
+            ->addDirective(Directive::DEFAULT, 'self')
+            ->addDirective(Directive::FORM_ACTION, 'self')
+            ->addDirective(Directive::IMG, 'self')
+            ->addDirective(Directive::MEDIA, 'self')
+            ->addDirective(Directive::SCRIPT, 'self')
+            ->addDirective(Directive::STYLE, 'self');
     }
 }
 ```
@@ -156,8 +165,8 @@ First you must add the nonce to the right directives in your profile
 public function configure()
   {
       $this
-        ->addDirective(Directive::SCRIPT, "'self'")
-        ->addDirective(Directive::STYLE, "'self'")
+        ->addDirective(Directive::SCRIPT, 'self')
+        ->addDirective(Directive::STYLE, 'self')
         ->addNonceForDirective(Directive::SCRIPT)
         ->addNonceForDirective(Directive::STYLE)
         ...
