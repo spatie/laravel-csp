@@ -120,7 +120,7 @@ abstract class Profile
             'unsafe-eval',
             'none',
             'strict-dynamic',
-            'report-sample'
+            'report-sample',
         ];
 
         if (in_array($value, $specialDirectiveValues)) {
