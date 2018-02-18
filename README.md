@@ -8,11 +8,13 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-csp.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-csp)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
 
-By default all scripts on a webpage are allowed to fetch and send data to any site they want. This can be a security problem. Imagine on of your JavaScript dependencies sends all keystrokes (so including passwords) to a third party website. It's also very easy to hide this behaviour, make it nearly impossible for you to detect it (unless you manually read all the JavaScript code on your site). To feel why you really need to set content security policy headers read [this excellent blog post](https://hackernoon.com/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5) by [David Gilbertson](https://twitter.com/D__Gilbertson).
+By default all scripts on a webpage are allowed to fetch from and send data to any site they want. This can be a security problem. Imagine one of your JavaScript dependencies sends all keystrokes, including passwords, to a third party website.
+
+It's very easy for someone to hide this malicious behaviour, making it nearly impossible for you to detect it (unless you manually read all the JavaScript code on your site). To feel why you really need to set content security policy headers read [this excellent blog post](https://hackernoon.com/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5) by [David Gilbertson](https://twitter.com/D__Gilbertson).
 
 The solution to this problem is setting Content Security Policy headers. These headers dictate which sites your site is allowed to contact. This package makes it easy for you to set the right headers.
 
-This readme does not aim to fully explain all the possible usages of CSP and it's directives. It's highly recommened dat you read [Mozilla's documentation on the Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) before using this package.
+This readme does not aim to fully explain all the possible usages of CSP and it's directives. It's highly recommened that you read [Mozilla's documentation on the Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) before using this package.
 
 ## Installation
 
@@ -65,7 +67,7 @@ return [
 ];
 ```
 
-You can add csp headers to all responses of your app by registering `\Spatie\Csp\AddCspHeaders::class` in the http kernel.
+You can add CSP headers to all responses of your app by registering `Spatie\Csp\AddCspHeaders::class` in the http kernel.
 
 ```php
 // app/Http/Kernel.php
@@ -79,7 +81,7 @@ protected $middlewareGroups = [
    ],
 ```
  
-Alternatively you can apply the middelware on the route of route group level.
+Alternatively you can apply the middelware on the route or route group level.
 
 ```php
 // in a routes file
@@ -95,12 +97,11 @@ You can also pass a profile class as a parameter to the middleware:
 Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class . ':' . MyProfile::class);
 ``` 
 
-This profile will override the one configured in the config file for that specific route or group of routes.
+The given profile will override the one configured in the config file for that specific route or group of routes.
 
- 
 ## Usage
 
-This package allows you to define CSP profiles. A CSP profile determines which CSP directives should be used. 
+This package allows you to define CSP profiles. A CSP profile determines which CSP directives will be set in the headers of the response. 
 
 An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain of `www.google.com`. You'll find [a list with all CSP directives](https://www.w3.org/TR/CSP3/#csp-directives) at Mozilla's excellent developer site.
 
@@ -113,7 +114,7 @@ According to the spec certain directive values need to be surrounded by quotes. 
 ...
 ```
 
-### Creating custom profiles
+### Creating profiles
 
 In the `profile` key of the `csp` config file is set to `\Spatie\Csp\Profiles\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks like.
 
@@ -133,7 +134,10 @@ class Basic extends Profile
             ->addDirective(Directive::IMG, 'self')
             ->addDirective(Directive::MEDIA, 'self')
             ->addDirective(Directive::SCRIPT, 'self')
-            ->addDirective(Directive::STYLE, 'self');
+            ->addDirective(Directive::STYLE, 'self')
+            ->addDirective(Directive::OBJECT, 'none')
+            ->addNonceForDirective(Directive::SCRIPT)
+            ->addNonceForDirective(Directive::STYLE);
     }
 }
 ```
@@ -161,12 +165,12 @@ Don't forget to set the `profile` key in the `csp` config file to the class name
 
 ### Using inline scripts and styles
 
-When using CSP you must specifically allow to use inline scripts or styles. The recommended way of doing that with this package is to use a `nonce`. A nonce is a number that's unique per requests. The nonce must be specified in the CSP headers and in an attribute on the html tag. This way an attacker has no way of injecting malious scripts or styles.
+When using CSP you must specifically allow the use of inline scripts or styles. The recommended way of doing that with this package is to use a `nonce`. A nonce is a number that iss unique per request. The nonce must be specified in the CSP headers and in an attribute on the html tag. This way an attacker has no way of injecting malious scripts or styles.
 
-First you must add the nonce to the right directives in your profile    
+First you must add the nonce to the right directives in your profile:
 
 ```php
-// in a directive
+// in a profile
 
 public function configure()
   {
@@ -219,7 +223,6 @@ Any violations against to the policy can be reported to a given url. You can set
 #### Using multipe profiles
 
 To test out changes to your CSP policy you can specify a second profile in the `report_only_profile` in the `csp` config key. The profile specified in `profile` will be enforced, the one in `report_only_profile` will not. This is great for testing out a new profile or changes to existing CSP policy without breaking anyting.
-
 
 ### Testing
 
