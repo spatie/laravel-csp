@@ -142,6 +142,46 @@ class GlobalMiddlewareTest extends TestCase
     }
 
     /** @test */
+    public function it_will_automatically_quote_special_directive_values()
+    {
+        $profile = new class extends Profile {
+            public function configure()
+            {
+                $this->addDirective(Directive::SCRIPT, ['self']);
+            }
+        };
+
+        config(['csp.profile' => get_class($profile)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            "script-src 'self'",
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    /** @test */
+    public function it_will_not_output_the_same_directive_values_twice()
+    {
+        $profile = new class extends Profile {
+            public function configure()
+            {
+                $this->addDirective(Directive::SCRIPT, ['self', 'self']);
+            }
+        };
+
+        config(['csp.profile' => get_class($profile)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            "script-src 'self'",
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    /** @test */
     public function route_middleware_will_overwrite_global_middleware_for_that_route()
     {
         $this->withoutExceptionHandling();

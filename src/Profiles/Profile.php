@@ -28,7 +28,11 @@ abstract class Profile
         $this->guardAgainstInvalidDirectives($directive);
 
         foreach (array_wrap($values) as $value) {
-            $this->directives[$directive][] = $value;
+            $sanitizedValue = $this->sanitizeValue($value);
+
+            if (! in_array($sanitizedValue, $this->directives[$directive] ?? [])) {
+                $this->directives[$directive][] = $sanitizedValue;
+            }
         }
 
         return $this;
@@ -106,5 +110,23 @@ abstract class Profile
         if (! Directive::isValid($directive)) {
             throw InvalidDirective::notSupported($directive);
         }
+    }
+
+    protected function sanitizeValue(string $value): string
+    {
+        $specialDirectiveValues = [
+            'self',
+            'unsafe-inline',
+            'unsafe-eval',
+            'none',
+            'strict-dynamic',
+            'report-sample'
+        ];
+
+        if (in_array($value, $specialDirectiveValues)) {
+            return "'{$value}'";
+        }
+
+        return $value;
     }
 }
