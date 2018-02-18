@@ -11,6 +11,6 @@ class InvalidCspProfile extends Exception
     {
         $className = get_class($class);
 
-        return new self("The csp profile `{$className}` is not valid. A valid profile extends ".Profile::class);
+        return new self("The CSP profile `{$className}` is not valid. A valid profile extends ".Profile::class);
     }
 }

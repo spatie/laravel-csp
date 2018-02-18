@@ -20,7 +20,7 @@ class AddCspHeaders
         return $response;
     }
 
-    protected function getProfiles(string $customProfileClass = null, $response): Collection
+    protected function getProfiles(string $customProfileClass = null): Collection
     {
         $profiles = collect();
 

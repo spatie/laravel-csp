@@ -3,7 +3,7 @@
 return [
 
     /*
-     * A csp profile will determine which csp headers will be set. A valid csp profile is
+     * A CSP profile will determine which CSP headers will be set. A valid CSP profile is
      * any class that extends `Spatie\Csp\Profiles\Profile`
      */
     'profile' => Spatie\Csp\Profiles\Basic::class,
@@ -15,7 +15,7 @@ return [
     'report_only_profile' => '',
 
     /*
-     * All violations against the csp policy will be reported to this url.
+     * All violations against the CSP policy will be reported to this url.
      * A great service you could use for this is https://report-uri.com/
      *
      * You can override this setting by calling `reportTo` on your profile.
@@ -23,12 +23,12 @@ return [
     'report_uri' => env('CSP_REPORT_URI', ''),
 
     /*
-     * Headers will only be added if this setting is enabled
+     * Headers will only be added if this setting is set to true.
      */
     'enabled' => env('CSP_ENABLED', true),
 
     /*
-     * The class is responsible for generating the nonces used in inline tags and headers.
+     * The class responsible for generating the nonces used in inline tags and headers.
      */
     'nonce_generator' => Spatie\Csp\Nonce\RandomString::class,
 ];
