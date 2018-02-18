@@ -115,12 +115,12 @@ abstract class Profile
     protected function sanitizeValue(string $value): string
     {
         $specialDirectiveValues = [
-            'self',
-            'unsafe-inline',
-            'unsafe-eval',
             'none',
-            'strict-dynamic',
             'report-sample',
+            'self',
+            'strict-dynamic',
+            'unsafe-eval',
+            'unsafe-inline',
         ];
 
         if (in_array($value, $specialDirectiveValues)) {
