@@ -1,6 +1,6 @@
 **WORK IN PROGRESS, DO NOT USE YET**
 
-# Add CSP headers to the responses of a Laravel app
+# Set content security policy headers in a Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
 [![Build Status](https://img.shields.io/travis/spatie/laravel-csp/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-csp)
