@@ -14,7 +14,7 @@ It's very easy for someone to hide this malicious behaviour, making it nearly im
 
 The solution to this problem is setting Content Security Policy headers. These headers dictate which sites your site is allowed to contact. This package makes it easy for you to set the right headers.
 
-This readme does not aim to fully explain all the possible usages of CSP and it's directives. It's highly recommened that you read [Mozilla's documentation on the Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) before using this package.
+This readme does not aim to fully explain all the possible usages of CSP and it's directives. It's highly recommenced that you read [Mozilla's documentation on the Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) before using this package.
 
 ## Installation
 
@@ -81,7 +81,7 @@ protected $middlewareGroups = [
    ],
 ```
  
-Alternatively you can apply the middelware on the route or route group level.
+Alternatively you can apply the middleware on the route or route group level.
 
 ```php
 // in a routes file
@@ -165,7 +165,7 @@ Don't forget to set the `profile` key in the `csp` config file to the class name
 
 ### Using inline scripts and styles
 
-When using CSP you must specifically allow the use of inline scripts or styles. The recommended way of doing that with this package is to use a `nonce`. A nonce is a number that iss unique per request. The nonce must be specified in the CSP headers and in an attribute on the html tag. This way an attacker has no way of injecting malious scripts or styles.
+When using CSP you must specifically allow the use of inline scripts or styles. The recommended way of doing that with this package is to use a `nonce`. A nonce is a number that iss unique per request. The nonce must be specified in the CSP headers and in an attribute on the html tag. This way an attacker has no way of injecting malicious scripts or styles.
 
 First you must add the nonce to the right directives in your profile:
 
@@ -220,9 +220,9 @@ To put a profile in report only mode just call `reportOnly()` in the `configure(
 
 Any violations against to the policy can be reported to a given url. You can set that url in the `report_uri` key of the `csp` config file. A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/). 
 
-#### Using multipe profiles
+#### Using multiple profiles
 
-To test out changes to your CSP policy you can specify a second profile in the `report_only_profile` in the `csp` config key. The profile specified in `profile` will be enforced, the one in `report_only_profile` will not. This is great for testing out a new profile or changes to existing CSP policy without breaking anyting.
+To test out changes to your CSP policy you can specify a second profile in the `report_only_profile` in the `csp` config key. The profile specified in `profile` will be enforced, the one in `report_only_profile` will not. This is great for testing out a new profile or changes to existing CSP policy without breaking anything.
 
 ### Testing
 
