@@ -3,7 +3,7 @@
 namespace Spatie\Csp\Exceptions;
 
 use Exception;
-use Spatie\Csp\Profiles\Profile\Profile;
+use Spatie\Csp\Profiles\Profile;
 
 class InvalidCspProfile extends Exception
 {

@@ -2,6 +2,7 @@
 
 namespace Spatie\Csp;
 
+use Illuminate\Support\Facades\Blade;
 use Spatie\Csp\Nonce\NonceGenerator;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +20,11 @@ class CspServiceProvider extends ServiceProvider
 
         $this->app->singleton('csp-nonce', function () {
             return app(NonceGenerator::class)->generate();
+        });
+
+        Blade::directive('nonce', function () {
+            $nonce = cspNonce();
+            return "<?php echo nonce='{$nonce}' ?>";
         });
     }
 
