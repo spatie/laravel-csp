@@ -2,8 +2,8 @@
 
 namespace Spatie\Csp;
 
-use Illuminate\Support\Facades\Blade;
 use Spatie\Csp\Nonce\NonceGenerator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class CspServiceProvider extends ServiceProvider
