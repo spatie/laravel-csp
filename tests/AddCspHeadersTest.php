@@ -44,6 +44,7 @@ class GlobalMiddlewareTest extends TestCase
 
         $headers = $this->getResponseHeaders();
 
+        $this->assertNull($headers->get('Content-Security-Policy'));
         $this->assertContains("default-src 'self';", $headers->get('Content-Security-Policy-Report-Only'));
     }
 
@@ -118,6 +119,24 @@ class GlobalMiddlewareTest extends TestCase
             'frame-src src-1 src-2;form-action action-1 action-2',
             $headers->get('Content-Security-Policy')
         );
+    }
+
+    /** @test */
+    public function a_profile_can_be_put_in_report_only_mode()
+    {
+        $profile = new class extends Profile {
+            public function configure()
+            {
+                $this->reportOnly();
+            }
+        };
+
+        config(['csp.profile' => get_class($profile)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertNull($headers->get('Content-Security-Policy'));
+        $this->assertNotNull($headers->get('Content-Security-Policy-Report-Only'));
     }
 
     /** @test */
