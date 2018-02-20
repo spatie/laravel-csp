@@ -8,44 +8,44 @@ use Illuminate\Support\Collection;
 
 class AddCspHeaders
 {
-    public function handle(Request $request, Closure $next, $customProfileClass = null)
+    public function handle(Request $request, Closure $next, $customPolicyClass = null)
     {
         $response = $next($request);
 
         $this
-            ->getProfiles($customProfileClass, $response)
+            ->getPolicys($customPolicyClass, $response)
             ->filter->shouldBeApplied($request, $response)
             ->each->applyTo($response);
 
         return $response;
     }
 
-    protected function getProfiles(string $customProfileClass = null): Collection
+    protected function getPolicys(string $customPolicyClass = null): Collection
     {
-        $profiles = collect();
+        $policys = collect();
 
-        if ($customProfileClass) {
-            $profiles->push(ProfileFactory::create($customProfileClass));
+        if ($customPolicyClass) {
+            $policys->push(PolicyFactory::create($customPolicyClass));
 
-            return $profiles;
+            return $policys;
         }
 
-        $profileClass = config('csp.profile');
+        $policyClass = config('csp.policy');
 
-        if (! empty($profileClass)) {
-            $profiles->push(ProfileFactory::create($profileClass));
+        if (! empty($policyClass)) {
+            $policys->push(PolicyFactory::create($policyClass));
         }
 
-        $reportOnlyProfileClass = config('csp.report_only_profile');
+        $reportOnlyPolicyClass = config('csp.report_only_policy');
 
-        if (! empty($reportOnlyProfileClass)) {
-            $profile = ProfileFactory::create($reportOnlyProfileClass);
+        if (! empty($reportOnlyPolicyClass)) {
+            $policy = PolicyFactory::create($reportOnlyPolicyClass);
 
-            $profile->reportOnly();
+            $policy->reportOnly();
 
-            $profiles->push($profile);
+            $policys->push($policy);
         }
 
-        return $profiles;
+        return $policys;
     }
 }

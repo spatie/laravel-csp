@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\Csp\Profiles;
+namespace Spatie\Csp\Policies;
 
 use Spatie\Csp\Directive;
 
-class Basic extends Profile
+class Basic extends Policy
 {
     public function configure()
     {

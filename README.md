@@ -34,22 +34,22 @@ This is the contents of the file which will be published at `config/csp.php`:
 return [
 
     /*
-     * A CSP profile will determine which CSP headers will be set. A valid CSP profile is
-     * any class that extends `Spatie\Csp\Profiles\Profile`
+     * A policy will determine which CSP headers will be set. A valid CSP policy is
+     * any class that extends `Spatie\Csp\Policies\Policy`
      */
-    'profile' => Spatie\Csp\Profiles\Basic::class,
+    'policy' => Spatie\Csp\Policies\Basic::class,
 
     /*
-     * This profile which will be put in report only mode. This is great for testing out
-     * a new profile or changes to existing csp policy without breaking anyting.
+     * This policy which will be put in report only mode. This is great for testing out
+     * a new policy or changes to existing csp policy without breaking anyting.
      */
-    'report_only_profile' => '',
+    'report_only_policy' => '',
 
     /*
-     * All violations against the CSP policy will be reported to this url.
+     * All violations against the policy will be reported to this url.
      * A great service you could use for this is https://report-uri.com/
      *
-     * You can override this setting by calling `reportTo` on your profile.
+     * You can override this setting by calling `reportTo` on your policy.
      */
     'report_uri' => env('CSP_REPORT_URI', ''),
 
@@ -86,40 +86,40 @@ Alternatively you can apply the middleware on the route or route group level.
 Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class);
 ```
 
-You can also pass a profile class as a parameter to the middleware:
+You can also pass a policy class as a parameter to the middleware:
  
 ```php
 // in a routes file
-Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class . ':' . MyProfile::class);
+Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class . ':' . MyPolicy::class);
 ``` 
 
-The given profile will override the one configured in the config file for that specific route or group of routes.
+The given policy will override the one configured in the config file for that specific route or group of routes.
 
 ## Usage
 
-This package allows you to define CSP profiles. A CSP profile determines which CSP directives will be set in the headers of the response. 
+This package allows you to define CSP policies. A CSP policy determines which CSP directives will be set in the headers of the response. 
 
 An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain of `www.google.com`. You'll find [a list with all CSP directives](https://www.w3.org/TR/CSP3/#csp-directives) at Mozilla's excellent developer site.
 
 According to the spec certain directive values need to be surrounded by quotes. Examples of this are `'self'`, `'none'` and `'unsafe-inline'`. When using `addDirective` function you're not required to surround the directive value with quotes manually. We will automatically add quotes.
 
 ```php
-// in a profile
+// in a policy
 ...
    ->addDirective(Directive::SCRIPT, 'self') // will output `'self'` when outputting headers
 ...
 ```
 
-### Creating profiles
+### Creating policies
 
-In the `profile` key of the `csp` config file is set to `\Spatie\Csp\Profiles\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks like.
+In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks like.
 
 ```php
-namespace Spatie\Csp\Profiles;
+namespace Spatie\Csp\Policies;
 
 use Spatie\Csp\Directive;
 
-class Basic extends Profile
+class Basic extends Policy
 {
     public function configure()
     {
@@ -141,12 +141,12 @@ class Basic extends Profile
 You can allow fetching scripts from `www.google.com` by extending this class:
 
 ```php
-namespace App\Services\CspProfiles;
+namespace App\Services\CspPolicys;
 
 use Spatie\Csp\Directive;
-use Spatie\Csp\Profiles\Profile;
+use Spatie\Csp\Policies\Policy;
 
-class MyCustomProfile extends Profile
+class MyCustomPolicy extends Policy
 {
     public function configure()
     {
@@ -157,16 +157,16 @@ class MyCustomProfile extends Profile
 }
 ```
 
-Don't forget to set the `profile` key in the `csp` config file to the class name of your profile (in this case it would be `App\Services\CspProfiles\MyCustomProfile`).
+Don't forget to set the `policy` key in the `csp` config file to the class name of your policy (in this case it would be `App\Services\CspPolicys\MyCustomPolicy`).
 
 ### Using inline scripts and styles
 
 When using CSP you must specifically allow the use of inline scripts or styles. The recommended way of doing that with this package is to use a `nonce`. A nonce is a number that iss unique per request. The nonce must be specified in the CSP headers and in an attribute on the html tag. This way an attacker has no way of injecting malicious scripts or styles.
 
-First you must add the nonce to the right directives in your profile:
+First you must add the nonce to the right directives in your policy:
 
 ```php
-// in a profile
+// in a policy
 
 public function configure()
   {
@@ -199,9 +199,9 @@ There are few other options to use inline styles and scripts. Take a look at the
 
 #### In the browser
 
-Instead of outright blocking all violations you can put a profile in report only mode. In this case all requests will be made, but all violations will display in your favourite browser's console.
+Instead of outright blocking all violations you can put a policy in report only mode. In this case all requests will be made, but all violations will display in your favourite browser's console.
 
-To put a profile in report only mode just call `reportOnly()` in the `configure()` function of a report:
+To put a policy in report only mode just call `reportOnly()` in the `configure()` function of a report:
 
 ```php
     public function configure()
@@ -216,9 +216,9 @@ To put a profile in report only mode just call `reportOnly()` in the `configure(
 
 Any violations against to the policy can be reported to a given url. You can set that url in the `report_uri` key of the `csp` config file. A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/). 
 
-#### Using multiple profiles
+#### Using multiple policies
 
-To test changes to your CSP policy you can specify a second profile in the `report_only_profile` in the `csp` config key. The profile specified in `profile` will be enforced, the one in `report_only_profile` will not. This is great for testing a new profile or changes to existing CSP policy without breaking anything.
+To test changes to your CSP policy you can specify a second policy in the `report_only_policy` in the `csp` config key. The policy specified in `policy` will be enforced, the one in `report_only_policy` will not. This is great for testing a new policy or changes to existing CSP policy without breaking anything.
 
 ### Testing
 

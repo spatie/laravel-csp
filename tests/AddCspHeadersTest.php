@@ -4,11 +4,11 @@ namespace Spatie\Csp\Tests;
 
 use Spatie\Csp\Directive;
 use Spatie\Csp\AddCspHeaders;
-use Spatie\Csp\Profiles\Basic;
-use Spatie\Csp\Profiles\Profile;
+use Spatie\Csp\Policies\Basic;
+use Spatie\Csp\Policies\Policy;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
-use Spatie\Csp\Exceptions\InvalidCspProfile;
+use Spatie\Csp\Exceptions\InvalidCspPolicy;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
 class GlobalMiddlewareTest extends TestCase
@@ -38,8 +38,8 @@ class GlobalMiddlewareTest extends TestCase
     public function it_can_set_reporty_only_csp_headers()
     {
         config([
-            'csp.profile' => '',
-            'csp.report_only_profile' => Basic::class,
+            'csp.policy' => '',
+            'csp.report_only_policy' => Basic::class,
         ]);
 
         $headers = $this->getResponseHeaders();
@@ -83,16 +83,16 @@ class GlobalMiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function using_an_invalid_profile_class_will_throw_an_exception()
+    public function using_an_invalid_policy_class_will_throw_an_exception()
     {
         $this->withoutExceptionHandling();
 
-        $invalidProfileClassName = get_class(new class {
+        $invalidPolicyClassName = get_class(new class {
         });
 
-        config(['csp.profile' => $invalidProfileClassName]);
+        config(['csp.policy' => $invalidPolicyClassName]);
 
-        $this->expectException(InvalidCspProfile::class);
+        $this->expectException(InvalidCspPolicy::class);
 
         $this->getResponseHeaders();
     }
@@ -100,7 +100,7 @@ class GlobalMiddlewareTest extends TestCase
     /** @test */
     public function it_can_use_multiple_values_for_the_same_directive()
     {
-        $profile = new class extends Profile {
+        $policy = new class extends Policy {
             public function configure()
             {
                 $this
@@ -111,7 +111,7 @@ class GlobalMiddlewareTest extends TestCase
             }
         };
 
-        config(['csp.profile' => get_class($profile)]);
+        config(['csp.policy' => get_class($policy)]);
 
         $headers = $this->getResponseHeaders();
 
@@ -122,16 +122,16 @@ class GlobalMiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_profile_can_be_put_in_report_only_mode()
+    public function a_policy_can_be_put_in_report_only_mode()
     {
-        $profile = new class extends Profile {
+        $policy = new class extends Policy {
             public function configure()
             {
                 $this->reportOnly();
             }
         };
 
-        config(['csp.profile' => get_class($profile)]);
+        config(['csp.policy' => get_class($policy)]);
 
         $headers = $this->getResponseHeaders();
 
@@ -142,7 +142,7 @@ class GlobalMiddlewareTest extends TestCase
     /** @test */
     public function it_can_add_multiple_values_for_the_same_directive_in_one_go()
     {
-        $profile = new class extends Profile {
+        $policy = new class extends Policy {
             public function configure()
             {
                 $this
@@ -150,7 +150,7 @@ class GlobalMiddlewareTest extends TestCase
             }
         };
 
-        config(['csp.profile' => get_class($profile)]);
+        config(['csp.policy' => get_class($policy)]);
 
         $headers = $this->getResponseHeaders();
 
@@ -163,14 +163,14 @@ class GlobalMiddlewareTest extends TestCase
     /** @test */
     public function it_will_automatically_quote_special_directive_values()
     {
-        $profile = new class extends Profile {
+        $policy = new class extends Policy {
             public function configure()
             {
                 $this->addDirective(Directive::SCRIPT, ['self']);
             }
         };
 
-        config(['csp.profile' => get_class($profile)]);
+        config(['csp.policy' => get_class($policy)]);
 
         $headers = $this->getResponseHeaders();
 
@@ -183,14 +183,14 @@ class GlobalMiddlewareTest extends TestCase
     /** @test */
     public function it_will_not_output_the_same_directive_values_twice()
     {
-        $profile = new class extends Profile {
+        $policy = new class extends Policy {
             public function configure()
             {
                 $this->addDirective(Directive::SCRIPT, ['self', 'self']);
             }
         };
 
-        config(['csp.profile' => get_class($profile)]);
+        config(['csp.policy' => get_class($policy)]);
 
         $headers = $this->getResponseHeaders();
 
@@ -205,21 +205,21 @@ class GlobalMiddlewareTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $customProfile = new class extends Profile {
+        $customPolicy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::BASE, 'custom-profile');
+                $this->addDirective(Directive::BASE, 'custom-policy');
             }
         };
 
         Route::get('other-route', function () {
             return 'ok';
-        })->middleware(AddCspHeaders::class.':'.get_class($customProfile));
+        })->middleware(AddCspHeaders::class.':'.get_class($customPolicy));
 
         $headers = $this->getResponseHeaders('other-route');
 
         $this->assertEquals(
-            'base-uri custom-profile',
+            'base-uri custom-policy',
             $headers->get('Content-Security-Policy')
         );
     }

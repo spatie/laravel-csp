@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\Csp\Profiles;
+namespace Spatie\Csp\Policies;
 
 use Spatie\Csp\Directive;
 use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class Profile
+abstract class Policy
 {
     protected $directives = [];
 
@@ -19,7 +19,7 @@ abstract class Profile
      * @param string $directive
      * @param string|array $values
      *
-     * @return \Spatie\Csp\Profiles\Profile
+     * @return \Spatie\Csp\Policies\Policy
      *
      * @throws \Spatie\Csp\Exceptions\InvalidDirective
      */

@@ -3,22 +3,22 @@
 return [
 
     /*
-     * A CSP profile will determine which CSP headers will be set. A valid CSP profile is
-     * any class that extends `Spatie\Csp\Profiles\Profile`
+     * A policy will determine which CSP headers will be set. A valid CSP policy is
+     * any class that extends `Spatie\Csp\Policies\Policy`
      */
-    'profile' => Spatie\Csp\Profiles\Basic::class,
+    'policy' => Spatie\Csp\Policies\Basic::class,
 
     /*
-     * This profile which will be put in report only mode. This is great for testing out
-     * a new profile or changes to existing csp policy without breaking anyting.
+     * This policy which will be put in report only mode. This is great for testing out
+     * a new policy or changes to existing csp policy without breaking anyting.
      */
-    'report_only_profile' => '',
+    'report_only_policy' => '',
 
     /*
-     * All violations against the CSP policy will be reported to this url.
+     * All violations against the policy will be reported to this url.
      * A great service you could use for this is https://report-uri.com/
      *
-     * You can override this setting by calling `reportTo` on your profile.
+     * You can override this setting by calling `reportTo` on your policy.
      */
     'report_uri' => env('CSP_REPORT_URI', ''),
 
