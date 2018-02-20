@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 1.0.2 - 2018-02-20
+
+- fix directory name
+
 ## 1.0.1 - 2018-02-20
 
 - fix naming of classes
