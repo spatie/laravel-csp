@@ -25,7 +25,7 @@ class CspServiceProvider extends ServiceProvider
         Blade::directive('nonce', function () {
             $nonce = cspNonce();
 
-            return "<?php echo nonce='{$nonce}' ?>";
+            return "<?php echo \"nonce='{$nonce}'\" ?>";
         });
     }
 
