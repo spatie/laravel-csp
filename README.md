@@ -204,12 +204,12 @@ Instead of outright blocking all violations you can put a policy in report only 
 To put a policy in report only mode just call `reportOnly()` in the `configure()` function of a report:
 
 ```php
-    public function configure()
-    {
-        parent::configure();
-        
-        $this->reportOnly();
-    }
+public function configure()
+{
+    parent::configure();
+    
+    $this->reportOnly();
+}
 ```
 
 #### To an external url
