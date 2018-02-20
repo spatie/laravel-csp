@@ -141,7 +141,7 @@ class Basic extends Policy
 You can allow fetching scripts from `www.google.com` by extending this class:
 
 ```php
-namespace App\Services\CspPolicys;
+namespace App\Services\Csp\Policies;
 
 use Spatie\Csp\Directive;
 use Spatie\Csp\Policies\Policy;
@@ -157,7 +157,7 @@ class MyCustomPolicy extends Policy
 }
 ```
 
-Don't forget to set the `policy` key in the `csp` config file to the class name of your policy (in this case it would be `App\Services\CspPolicys\MyCustomPolicy`).
+Don't forget to set the `policy` key in the `csp` config file to the class name of your policy (in this case it would be `App\Services\Csp\Policies\MyCustomPolicy`).
 
 ### Using inline scripts and styles
 
