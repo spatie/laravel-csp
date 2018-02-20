@@ -1,5 +1,3 @@
-**WORK IN PROGRESS, DO NOT USE YET**
-
 # Set content security policy headers in a Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
