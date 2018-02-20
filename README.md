@@ -83,7 +83,6 @@ Alternatively you can apply the middleware on the route or route group level.
 
 ```php
 // in a routes file
-
 Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class);
 ```
 
@@ -91,7 +90,6 @@ You can also pass a profile class as a parameter to the middleware:
  
 ```php
 // in a routes file
-
 Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class . ':' . MyProfile::class);
 ``` 
 
