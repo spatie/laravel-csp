@@ -37,6 +37,6 @@ class NonceTest extends TestCase
             $view = view($view);
         }
 
-        return trim((string)($view));
+        return trim((string) ($view));
     }
 }
