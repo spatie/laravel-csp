@@ -13,27 +13,27 @@ class AddCspHeaders
         $response = $next($request);
 
         $this
-            ->getPolicys($customPolicyClass, $response)
+            ->getPolicies($customPolicyClass)
             ->filter->shouldBeApplied($request, $response)
             ->each->applyTo($response);
 
         return $response;
     }
 
-    protected function getPolicys(string $customPolicyClass = null): Collection
+    protected function getPolicies(string $customPolicyClass = null): Collection
     {
-        $policys = collect();
+        $policies = collect();
 
         if ($customPolicyClass) {
-            $policys->push(PolicyFactory::create($customPolicyClass));
+            $policies->push(PolicyFactory::create($customPolicyClass));
 
-            return $policys;
+            return $policies;
         }
 
         $policyClass = config('csp.policy');
 
         if (! empty($policyClass)) {
-            $policys->push(PolicyFactory::create($policyClass));
+            $policies->push(PolicyFactory::create($policyClass));
         }
 
         $reportOnlyPolicyClass = config('csp.report_only_policy');
@@ -43,9 +43,9 @@ class AddCspHeaders
 
             $policy->reportOnly();
 
-            $policys->push($policy);
+            $policies->push($policy);
         }
 
-        return $policys;
+        return $policies;
     }
 }

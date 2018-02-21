@@ -56,16 +56,6 @@ abstract class Policy
     {
         $this->directives['report-uri'] = [$uri];
 
-        /*
-        $reportToContents = json_encode([
-            'url' => $uri,
-            'group-name' => class_basename(static::class),
-            'max-age' => 60 * 60 * 24 * 7 * 30,
-        ]);
-
-        $this->directives['report-to'] = [$reportToContents];
-        */
-
         return $this;
     }
 

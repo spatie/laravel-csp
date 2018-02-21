@@ -73,13 +73,6 @@ class GlobalMiddlewareTest extends TestCase
             'report-uri https://report-uri.com',
             $cspHeader
         );
-
-        /*
-        $this->assertContains(
-            'report-to {"url":"https:\/\/report-uri.com","group-name":"Basic","max-age":18144000};',
-            $cspHeader
-        );
-        */
     }
 
     /** @test */
