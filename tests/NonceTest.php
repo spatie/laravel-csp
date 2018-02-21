@@ -29,7 +29,7 @@ class NonceTest extends TestCase
         );
     }
 
-    protected function renderView(string $view)
+    protected function renderView(string $view): string
     {
         Artisan::call('view:clear');
 
