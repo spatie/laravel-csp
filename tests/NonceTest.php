@@ -25,12 +25,7 @@ class NonceTest extends TestCase
 
         $this->assertEquals(
             "<script nonce='{$generatedNonce}' type=\"text/javascript\"></script>",
-            $this->renderView('scriptNonce')
-        );
-
-        $this->assertEquals(
-            "<style nonce='{$generatedNonce}'></style>",
-            $this->renderView('styleNonce')
+            $this->renderView('nonce')
         );
     }
 
@@ -42,6 +37,6 @@ class NonceTest extends TestCase
             $view = view($view);
         }
 
-        return trim((string) ($view));
+        return trim((string)($view));
     }
 }

@@ -1,1 +1,0 @@
-<style @nonce></style>
