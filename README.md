@@ -144,9 +144,9 @@ You can allow fetching scripts from `www.google.com` by extending this class:
 namespace App\Services\Csp\Policies;
 
 use Spatie\Csp\Directive;
-use Spatie\Csp\Policies\Policy;
+use Spatie\Csp\Policies\Basic;
 
-class MyCustomPolicy extends Policy
+class MyCustomPolicy extends Basic
 {
     public function configure()
     {
