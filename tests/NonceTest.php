@@ -37,9 +37,11 @@ class NonceTest extends TestCase
     protected function renderView($view)
     {
         Artisan::call('view:clear');
+
         if (is_string($view)) {
             $view = view($view);
         }
+
         return trim((string)($view));
     }
 }
