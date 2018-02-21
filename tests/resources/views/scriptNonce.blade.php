@@ -1,0 +1,1 @@
+<script @nonce type="text/javascript"></script>
