@@ -35,7 +35,7 @@ class GlobalMiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function it_can_set_reporty_only_csp_headers()
+    public function it_can_set_report_only_csp_headers()
     {
         config([
             'csp.policy' => '',

@@ -13,4 +13,9 @@ abstract class TestCase extends Orchestra
             CspServiceProvider::class,
         ];
     }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('view.paths', [__DIR__.'/resources/views']);
+    }
 }
