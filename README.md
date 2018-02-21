@@ -183,11 +183,11 @@ Next you must add the nonce to the html:
 
 ```
 {{-- in a view --}}
-<style nonce="{{ cspNonce() }}">
+<style @nonce>
    ...
 </style>
 
-<script nonce="{{ cspNonce() }}">
+<script @nonce>
    ...
 </script>
 ```
