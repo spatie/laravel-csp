@@ -29,13 +29,11 @@ class NonceTest extends TestCase
         );
     }
 
-    protected function renderView($view)
+    protected function renderView(string $view)
     {
         Artisan::call('view:clear');
 
-        if (is_string($view)) {
-            $view = view($view);
-        }
+        $view = view($view);
 
         return trim((string) ($view));
     }
