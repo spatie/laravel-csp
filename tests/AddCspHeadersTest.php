@@ -35,7 +35,7 @@ class GlobalMiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function it_can_set_reporty_only_csp_headers()
+    public function it_can_set_report_only_csp_headers()
     {
         config([
             'csp.policy' => '',
@@ -73,13 +73,6 @@ class GlobalMiddlewareTest extends TestCase
             'report-uri https://report-uri.com',
             $cspHeader
         );
-
-        /*
-        $this->assertContains(
-            'report-to {"url":"https:\/\/report-uri.com","group-name":"Basic","max-age":18144000};',
-            $cspHeader
-        );
-        */
     }
 
     /** @test */
