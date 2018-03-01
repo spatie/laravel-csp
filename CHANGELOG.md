@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 1.0.4 - 2018-03-01
+
+- fix blade directive
+
 ## 1.0.3 - 2018-02-21
 
 - improve base profile
