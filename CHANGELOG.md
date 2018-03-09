@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 1.0.5 - 2018-03-08
+
+- add support for PHP 7.0
+
 ## 1.0.4 - 2018-03-01
 
 - fix blade directive
