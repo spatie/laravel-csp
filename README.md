@@ -157,6 +157,12 @@ class MyCustomPolicy extends Basic
 }
 ```
 
+You can allow fetching an `iframe` by using the `addFrame` method in your extending class:
+
+```php
+$this->addFrame('https://www.youtube.com');
+```
+
 Don't forget to set the `policy` key in the `csp` config file to the class name of your policy (in this case it would be `App\Services\Csp\Policies\MyCustomPolicy`).
 
 ### Using inline scripts and styles
