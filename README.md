@@ -124,6 +124,7 @@ class Basic extends Policy
     public function configure()
     {
         $this
+            ->addDirective(Directive::BASE, 'self')
             ->addDirective(Directive::CONNECT, 'self')
             ->addDirective(Directive::DEFAULT, 'self')
             ->addDirective(Directive::FORM_ACTION, 'self')
@@ -155,6 +156,12 @@ class MyCustomPolicy extends Basic
         $this->addDirective(Directive::SCRIPT, 'www.google.com');
     }
 }
+```
+
+You can allow fetching an `iframe` by using the `addFrame` method in your extending class:
+
+```php
+$this->addFrame('https://www.youtube.com');
 ```
 
 Don't forget to set the `policy` key in the `csp` config file to the class name of your policy (in this case it would be `App\Services\Csp\Policies\MyCustomPolicy`).

@@ -69,6 +69,21 @@ abstract class Policy
         return $this->addDirective($directive, "'nonce-".app('csp-nonce')."'");
     }
 
+    /**
+     * @param string|array $values
+     *
+     * @return \Spatie\Csp\Policies\Policy
+     *
+     * @throws \Spatie\Csp\Exceptions\InvalidDirective
+     */
+    public function addFrame($values): self
+    {
+        return $this
+            ->addDirective(Directive::WORKER, $values)
+            ->addDirective(Directive::CHILD, $values)
+            ->addDirective(Directive::FRAME, $values);
+    }
+
     public function applyTo(Response $response)
     {
         $this->configure();
