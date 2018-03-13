@@ -124,6 +124,7 @@ class Basic extends Policy
     public function configure()
     {
         $this
+            ->addDirective(Directive::BASE, 'self')
             ->addDirective(Directive::CONNECT, 'self')
             ->addDirective(Directive::DEFAULT, 'self')
             ->addDirective(Directive::FORM_ACTION, 'self')
