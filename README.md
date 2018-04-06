@@ -14,6 +14,9 @@ Setting Content Security Policy headers helps solve this problem. These headers 
 
 This readme does not aim to fully explain all the possible usages of CSP and it's directives. We highly recommend that you read [Mozilla's documentation on the Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) before using this package.
 
+If you're an audio visual learner you should check out this video on how to use this package.
+https://www.laraning.com/videos/spatie-csp-content-security-policy
+
 ## Installation
 
 You can install the package via composer:
