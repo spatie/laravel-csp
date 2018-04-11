@@ -1,6 +1,8 @@
 <?php
 
-function cspNonce(): string
-{
-    return app('csp-nonce');
+if (!function_exists('cspNonce')) {
+    function cspNonce(): string
+    {
+        return app('csp-nonce');
+    }
 }
