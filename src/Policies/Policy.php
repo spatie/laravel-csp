@@ -105,12 +105,12 @@ abstract class Policy
     protected function sanitizeValue(string $value): string
     {
         $specialDirectiveValues = [
-            'none',
-            'report-sample',
-            'self',
-            'strict-dynamic',
-            'unsafe-eval',
-            'unsafe-inline',
+            Directive::VALUE_NONE,
+            Directive::VALUE_REPORT_SAMPLE,
+            Directive::VALUE_SELF,
+            Directive::VALUE_STRICT_DYNAMIC,
+            Directive::VALUE_UNSAFE_EVAL,
+            Directive::VALUE_UNSAFE_INLINE,
         ];
 
         if (in_array($value, $specialDirectiveValues)) {
