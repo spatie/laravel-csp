@@ -109,7 +109,7 @@ According to the spec certain directive values need to be surrounded by quotes. 
 ```php
 // in a policy
 ...
-   ->addDirective(Directive::SCRIPT, 'self') // will output `'self'` when outputting headers
+   ->addDirective(Directive::SCRIPT, Directive::VALUE_SELF) // will output `'self'` when outputting headers
 ...
 ```
 
@@ -127,15 +127,15 @@ class Basic extends Policy
     public function configure()
     {
         $this
-            ->addDirective(Directive::BASE, 'self')
-            ->addDirective(Directive::CONNECT, 'self')
-            ->addDirective(Directive::DEFAULT, 'self')
-            ->addDirective(Directive::FORM_ACTION, 'self')
-            ->addDirective(Directive::IMG, 'self')
-            ->addDirective(Directive::MEDIA, 'self')
-            ->addDirective(Directive::SCRIPT, 'self')
-            ->addDirective(Directive::STYLE, 'self')
-            ->addDirective(Directive::OBJECT, 'none')
+            ->addDirective(Directive::BASE, Directive::VALUE_SELF)
+            ->addDirective(Directive::CONNECT, Directive::VALUE_SELF)
+            ->addDirective(Directive::DEFAULT, Directive::VALUE_SELF)
+            ->addDirective(Directive::FORM_ACTION, Directive::VALUE_SELF)
+            ->addDirective(Directive::IMG, Directive::VALUE_SELF)
+            ->addDirective(Directive::MEDIA, Directive::VALUE_SELF)
+            ->addDirective(Directive::SCRIPT, Directive::VALUE_SELF)
+            ->addDirective(Directive::STYLE, Directive::VALUE_SELF)
+            ->addDirective(Directive::OBJECT, Directive::VALUE_NONE)
             ->addNonceForDirective(Directive::SCRIPT)
             ->addNonceForDirective(Directive::STYLE);
     }

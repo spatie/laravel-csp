@@ -159,7 +159,7 @@ class GlobalMiddlewareTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, ['self']);
+                $this->addDirective(Directive::SCRIPT, [Directive::VALUE_SELF]);
             }
         };
 
@@ -179,7 +179,7 @@ class GlobalMiddlewareTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, ['self', 'self']);
+                $this->addDirective(Directive::SCRIPT, [Directive::VALUE_SELF, Directive::VALUE_SELF]);
             }
         };
 
