@@ -11,6 +11,6 @@ if (! function_exists('cspNonce')) {
     /** @deprecated */
     function cspNonce(): string
     {
-        return app('csp-nonce');
+        return csp_nonce();
     }
 }
