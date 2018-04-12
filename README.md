@@ -109,7 +109,7 @@ According to the spec certain directive values need to be surrounded by quotes. 
 ```php
 // in a policy
 ...
-   ->addDirective(Directive::SCRIPT, 'self') // will output `'self'` when outputting headers
+   ->addDirective(Directive::SCRIPT, Value::SELF) // will output `'self'` when outputting headers
 ...
 ```
 
@@ -121,21 +121,22 @@ In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\Bas
 namespace Spatie\Csp\Policies;
 
 use Spatie\Csp\Directive;
+use Spatie\Csp\Value;
 
 class Basic extends Policy
 {
     public function configure()
     {
         $this
-            ->addDirective(Directive::BASE, 'self')
-            ->addDirective(Directive::CONNECT, 'self')
-            ->addDirective(Directive::DEFAULT, 'self')
-            ->addDirective(Directive::FORM_ACTION, 'self')
-            ->addDirective(Directive::IMG, 'self')
-            ->addDirective(Directive::MEDIA, 'self')
-            ->addDirective(Directive::SCRIPT, 'self')
-            ->addDirective(Directive::STYLE, 'self')
-            ->addDirective(Directive::OBJECT, 'none')
+            ->addDirective(Directive::BASE, Value::SELF)
+            ->addDirective(Directive::CONNECT, Value::SELF)
+            ->addDirective(Directive::DEFAULT, Value::SELF)
+            ->addDirective(Directive::FORM_ACTION, Value::SELF)
+            ->addDirective(Directive::IMG, Value::SELF)
+            ->addDirective(Directive::MEDIA, Value::SELF)
+            ->addDirective(Directive::OBJECT, Value::NONE)
+            ->addDirective(Directive::SCRIPT, Value::SELF)
+            ->addDirective(Directive::STYLE, Value::SELF)
             ->addNonceForDirective(Directive::SCRIPT)
             ->addNonceForDirective(Directive::STYLE);
     }

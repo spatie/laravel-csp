@@ -2,6 +2,7 @@
 
 namespace Spatie\Csp\Policies;
 
+use Spatie\Csp\Value;
 use Spatie\Csp\Directive;
 use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
@@ -105,12 +106,12 @@ abstract class Policy
     protected function sanitizeValue(string $value): string
     {
         $specialDirectiveValues = [
-            'none',
-            'report-sample',
-            'self',
-            'strict-dynamic',
-            'unsafe-eval',
-            'unsafe-inline',
+            Value::NONE,
+            Value::REPORT_SAMPLE,
+            Value::SELF,
+            Value::STRICT_DYNAMIC,
+            Value::UNSAFE_EVAL,
+            Value::UNSAFE_INLINE,
         ];
 
         if (in_array($value, $specialDirectiveValues)) {
