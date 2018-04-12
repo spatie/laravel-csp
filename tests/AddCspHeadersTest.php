@@ -9,6 +9,7 @@ use Spatie\Csp\Policies\Policy;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\Exceptions\InvalidCspPolicy;
+use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
 class GlobalMiddlewareTest extends TestCase
@@ -159,7 +160,7 @@ class GlobalMiddlewareTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, [Directive::VALUE_SELF]);
+                $this->addDirective(Directive::SCRIPT, [Value::SELF]);
             }
         };
 
@@ -179,7 +180,7 @@ class GlobalMiddlewareTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, [Directive::VALUE_SELF, Directive::VALUE_SELF]);
+                $this->addDirective(Directive::SCRIPT, [Value::SELF, Value::SELF]);
             }
         };
 

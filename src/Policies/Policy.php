@@ -5,6 +5,7 @@ namespace Spatie\Csp\Policies;
 use Spatie\Csp\Directive;
 use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
+use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Policy
@@ -105,12 +106,12 @@ abstract class Policy
     protected function sanitizeValue(string $value): string
     {
         $specialDirectiveValues = [
-            Directive::VALUE_NONE,
-            Directive::VALUE_REPORT_SAMPLE,
-            Directive::VALUE_SELF,
-            Directive::VALUE_STRICT_DYNAMIC,
-            Directive::VALUE_UNSAFE_EVAL,
-            Directive::VALUE_UNSAFE_INLINE,
+            Value::NONE,
+            Value::REPORT_SAMPLE,
+            Value::SELF,
+            Value::STRICT_DYNAMIC,
+            Value::UNSAFE_EVAL,
+            Value::UNSAFE_INLINE,
         ];
 
         if (in_array($value, $specialDirectiveValues)) {

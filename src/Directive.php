@@ -27,13 +27,6 @@ abstract class Directive
     const UPGRADE_INSECURE_REQUESTS = 'upgrade-insecure-requests';
     const WORKER = 'worker-src';
 
-    const VALUE_NONE = 'none';
-    const VALUE_REPORT_SAMPLE = 'report-sample';
-    const VALUE_SELF = 'self';
-    const VALUE_STRICT_DYNAMIC = 'strict-dynamic';
-    const VALUE_UNSAFE_EVAL = 'unsafe-eval';
-    const VALUE_UNSAFE_INLINE = 'unsafe-inline';
-
     public static function isValid(string $directive): bool
     {
         $constants = (new ReflectionClass(static::class))->getConstants();
