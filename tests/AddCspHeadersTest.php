@@ -2,6 +2,7 @@
 
 namespace Spatie\Csp\Tests;
 
+use Spatie\Csp\Value;
 use Spatie\Csp\Directive;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Policies\Basic;
@@ -159,7 +160,7 @@ class GlobalMiddlewareTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, ['self']);
+                $this->addDirective(Directive::SCRIPT, [Value::SELF]);
             }
         };
 
@@ -179,7 +180,7 @@ class GlobalMiddlewareTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, ['self', 'self']);
+                $this->addDirective(Directive::SCRIPT, [Value::SELF, Value::SELF]);
             }
         };
 
