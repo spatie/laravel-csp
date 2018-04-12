@@ -2,10 +2,10 @@
 
 namespace Spatie\Csp\Policies;
 
+use Spatie\Csp\Value;
 use Spatie\Csp\Directive;
 use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
-use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Policy
