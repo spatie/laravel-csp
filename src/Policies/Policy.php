@@ -30,7 +30,7 @@ abstract class Policy
 
         $rules = array_flatten(array_map(function ($values) {
             return array_filter(explode(' ', $values), function ($value) {
-                return !empty($value);
+                return ! empty($value);
             });
         }, array_wrap($values)));
 

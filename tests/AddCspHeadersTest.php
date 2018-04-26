@@ -205,7 +205,7 @@ class GlobalMiddlewareTest extends TestCase
             public function configure()
             {
                 $this->addDirective(Directive::SCRIPT,
-                    'sha256-hash1 ' . Value::SELF . '  source');
+                    'sha256-hash1 '.Value::SELF.'  source');
             }
         };
 
