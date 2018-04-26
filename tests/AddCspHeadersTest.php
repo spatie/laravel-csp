@@ -175,6 +175,50 @@ class GlobalMiddlewareTest extends TestCase
     }
 
     /** @test */
+    public function it_will_automatically_quote_hashed_value()
+    {
+        $policy = new class extends Policy {
+            public function configure()
+            {
+                $this->addDirective(Directive::SCRIPT, [
+                    'sha256-hash1',
+                    'sha384-hash2',
+                    'sha512-hash3',
+                ]);
+            }
+        };
+
+        config(['csp.policy' => get_class($policy)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            "script-src 'sha256-hash1' 'sha384-hash2' 'sha512-hash3'",
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    /** @test */
+    public function it_will_automatically_quote_special_and_hashed_values_when_given_in_a_single_string()
+    {
+        $policy = new class extends Policy {
+            public function configure()
+            {
+                $this->addDirective(Directive::SCRIPT, 'sha256-hash1 ' . Value::SELF);
+            }
+        };
+
+        config(['csp.policy' => get_class($policy)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            "script-src 'sha256-hash1' 'self'",
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    /** @test */
     public function it_will_not_output_the_same_directive_values_twice()
     {
         $policy = new class extends Policy {
