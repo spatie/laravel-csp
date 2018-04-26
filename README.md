@@ -113,6 +113,19 @@ According to the spec certain directive values need to be surrounded by quotes. 
 ...
 ```
 
+You can add multiple policy options in the same directive giving an array as second parameter to `addDirective`.
+
+```php
+// in a policy
+...
+   ->addDirective(Directive::SCRIPT, [
+       Value::SELF,
+       'www.google.com',
+   ])
+   // will output `'self' www.google.com` when outputting headers
+...
+```
+
 ### Creating policies
 
 In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks like.
