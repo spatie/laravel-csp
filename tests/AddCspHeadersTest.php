@@ -199,12 +199,13 @@ class GlobalMiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function it_will_automatically_quote_special_and_hashed_values_when_given_in_a_single_string()
+    public function it_will_atomically_check_values_when_they_are_given_in_a_single_string_separated_by_spaces()
     {
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, 'sha256-hash1 ' . Value::SELF);
+                $this->addDirective(Directive::SCRIPT,
+                    'sha256-hash1 ' . Value::SELF . '  source');
             }
         };
 
@@ -213,7 +214,7 @@ class GlobalMiddlewareTest extends TestCase
         $headers = $this->getResponseHeaders();
 
         $this->assertEquals(
-            "script-src 'sha256-hash1' 'self'",
+            "script-src 'sha256-hash1' 'self' source",
             $headers->get('Content-Security-Policy')
         );
     }

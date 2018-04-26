@@ -104,25 +104,28 @@ This package allows you to define CSP policies. A CSP policy determines which CS
 
 An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain of `www.google.com`. You'll find [a list with all CSP directives](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/#Directives) at Mozilla's excellent developer site.
 
-According to the spec certain directive values need to be surrounded by quotes. Examples of this are `'self'`, `'none'` and `'unsafe-inline'`. When using `addDirective` function you're not required to surround the directive value with quotes manually. We will automatically add quotes.
+According to the spec certain directive values need to be surrounded by quotes. Examples of this are `'self'`, `'none'` and `'unsafe-inline'`. When using `addDirective` function you're not required to surround the directive value with quotes manually. We will automatically add quotes. Script/style hashes, as well, will be auto-detected and surrounded with quotes.
 
 ```php
 // in a policy
 ...
    ->addDirective(Directive::SCRIPT, Value::SELF) // will output `'self'` when outputting headers
+   ->addDirective(Directive::STYLE, 'sha256-hash') // will output `'sha256-hash'` when outputting headers
 ...
 ```
 
-You can add multiple policy options in the same directive giving an array as second parameter to `addDirective`.
+You can add multiple policy options in the same directive giving an array as second parameter to `addDirective` or a single string in which every option is separated by one or more spaces.
 
 ```php
 // in a policy
 ...
    ->addDirective(Directive::SCRIPT, [
+       Value::STRICT_DYNAMIC,
        Value::SELF,
        'www.google.com',
    ])
-   // will output `'self' www.google.com` when outputting headers
+   ->addDirective(Directive::SCRIPT, 'strict-dynamic self  www.google.com')
+   // will both output `'strict_dynamic' 'self' www.google.com` when outputting headers
 ...
 ```
 
