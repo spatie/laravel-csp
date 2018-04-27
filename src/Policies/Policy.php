@@ -112,15 +112,15 @@ abstract class Policy
     protected function isHash(string $value): bool
     {
         $acceptableHashingAlgorithms = [
-          'sha256',
-          'sha384',
-          'sha512',
+          'sha256-',
+          'sha384-',
+          'sha512-',
         ];
 
-        return in_array(explode('-', $value)[0], $acceptableHashingAlgorithms);
+        return starts_with($value, $acceptableHashingAlgorithms);
     }
 
-    protected function sanitizeValue(string $value): string
+    protected function isSpecialDirective(string $value): bool
     {
         $specialDirectiveValues = [
             Value::NONE,
@@ -131,7 +131,12 @@ abstract class Policy
             Value::UNSAFE_INLINE,
         ];
 
-        if (in_array($value, $specialDirectiveValues) || $this->isHash($value)) {
+        return in_array($value, $specialDirectiveValues);
+    }
+
+    protected function sanitizeValue(string $value): string
+    {
+        if ($this->isSpecialDirective($value) || $this->isHash($value)) {
             return "'{$value}'";
         }
 
