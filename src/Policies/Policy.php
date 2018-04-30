@@ -28,8 +28,12 @@ abstract class Policy
     {
         $this->guardAgainstInvalidDirectives($directive);
 
-        foreach (array_wrap($values) as $value) {
-            $sanitizedValue = $this->sanitizeValue($value);
+        $rules = array_flatten(array_map(function ($values) {
+            return array_filter(explode(' ', $values));
+        }, array_wrap($values)));
+
+        foreach ($rules as $rule) {
+            $sanitizedValue = $this->sanitizeValue($rule);
 
             if (! in_array($sanitizedValue, $this->directives[$directive] ?? [])) {
                 $this->directives[$directive][] = $sanitizedValue;
@@ -103,7 +107,18 @@ abstract class Policy
         }
     }
 
-    protected function sanitizeValue(string $value): string
+    protected function isHash(string $value): bool
+    {
+        $acceptableHashingAlgorithms = [
+          'sha256-',
+          'sha384-',
+          'sha512-',
+        ];
+
+        return starts_with($value, $acceptableHashingAlgorithms);
+    }
+
+    protected function isSpecialDirective(string $value): bool
     {
         $specialDirectiveValues = [
             Value::NONE,
@@ -114,7 +129,12 @@ abstract class Policy
             Value::UNSAFE_INLINE,
         ];
 
-        if (in_array($value, $specialDirectiveValues)) {
+        return in_array($value, $specialDirectiveValues);
+    }
+
+    protected function sanitizeValue(string $value): string
+    {
+        if ($this->isSpecialDirective($value) || $this->isHash($value)) {
             return "'{$value}'";
         }
 
