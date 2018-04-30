@@ -175,7 +175,7 @@ class GlobalMiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function it_will_automatically_quote_hashed_value()
+    public function it_will_automatically_quote_hashed_values()
     {
         $policy = new class extends Policy {
             public function configure()

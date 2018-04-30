@@ -29,9 +29,7 @@ abstract class Policy
         $this->guardAgainstInvalidDirectives($directive);
 
         $rules = array_flatten(array_map(function ($values) {
-            return array_filter(explode(' ', $values), function ($value) {
-                return ! empty($value);
-            });
+            return array_filter(explode(' ', $values));
         }, array_wrap($values)));
 
         foreach ($rules as $rule) {
