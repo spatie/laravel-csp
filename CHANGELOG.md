@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 1.2.1 - 2018-04-30
+
+- improvements around quoting values
+
 ## 1.2.0 - 2018-04-13
 
 - add `csp_nonce` function
