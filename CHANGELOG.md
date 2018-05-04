@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 1.2.2 - 2018-05-05
+
+- fix blade directive
+
 ## 1.2.1 - 2018-04-30
 
 - improvements around quoting values
