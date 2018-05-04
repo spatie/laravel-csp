@@ -13,9 +13,9 @@ class BladeTest extends TestCase
         $nonce = csp_nonce();
 
         $view = app('view')
-            ->file(__DIR__. '/fixtures/view.blade.php')
+            ->file(__DIR__.'/fixtures/view.blade.php')
             ->render();
 
-        $this->assertEquals('<script nonce="' . $nonce . '"></script>', $view);
+        $this->assertEquals('<script nonce="'.$nonce.'"></script>', $view);
     }
 }
