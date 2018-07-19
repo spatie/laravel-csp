@@ -4,6 +4,7 @@ namespace Spatie\Csp;
 
 abstract class Value
 {
+    const DATA = 'data:';
     const NONE = 'none';
     const REPORT_SAMPLE = 'report-sample';
     const SELF = 'self';
