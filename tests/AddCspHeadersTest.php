@@ -2,7 +2,7 @@
 
 namespace Spatie\Csp\Tests;
 
-use Spatie\Csp\Value;
+use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Policies\Basic;
@@ -160,7 +160,7 @@ class GlobalMiddlewareTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, [Value::SELF]);
+                $this->addDirective(Directive::SCRIPT, [Keyword::SELF]);
             }
         };
 
@@ -205,7 +205,7 @@ class GlobalMiddlewareTest extends TestCase
             public function configure()
             {
                 $this->addDirective(Directive::SCRIPT,
-                    'sha256-hash1 '.Value::SELF.'  source');
+                    'sha256-hash1 '.Keyword::SELF.'  source');
             }
         };
 
@@ -225,7 +225,7 @@ class GlobalMiddlewareTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, [Value::SELF, Value::SELF]);
+                $this->addDirective(Directive::SCRIPT, [Keyword::SELF, Keyword::SELF]);
             }
         };
 

@@ -2,7 +2,8 @@
 
 namespace Spatie\Csp\Policies;
 
-use Spatie\Csp\Value;
+use ReflectionClass;
+use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
 use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
@@ -118,23 +119,19 @@ abstract class Policy
         return starts_with($value, $acceptableHashingAlgorithms);
     }
 
-    protected function isSpecialDirective(string $value): bool
+    protected function isKeyword(string $value): bool
     {
-        $specialDirectiveValues = [
-            Value::NONE,
-            Value::REPORT_SAMPLE,
-            Value::SELF,
-            Value::STRICT_DYNAMIC,
-            Value::UNSAFE_EVAL,
-            Value::UNSAFE_INLINE,
-        ];
+        $specialDirectiveValues = (new ReflectionClass(Keyword::class))->getConstants();
 
         return in_array($value, $specialDirectiveValues);
     }
 
     protected function sanitizeValue(string $value): string
     {
-        if ($this->isSpecialDirective($value) || $this->isHash($value)) {
+        if (
+            $this->isKeyword($value)
+            || $this->isHash($value)
+        ) {
             return "'{$value}'";
         }
 

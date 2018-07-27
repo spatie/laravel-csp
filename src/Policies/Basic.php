@@ -2,7 +2,7 @@
 
 namespace Spatie\Csp\Policies;
 
-use Spatie\Csp\Value;
+use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
 
 class Basic extends Policy
@@ -10,15 +10,15 @@ class Basic extends Policy
     public function configure()
     {
         $this
-            ->addDirective(Directive::BASE, Value::SELF)
-            ->addDirective(Directive::CONNECT, Value::SELF)
-            ->addDirective(Directive::DEFAULT, Value::SELF)
-            ->addDirective(Directive::FORM_ACTION, Value::SELF)
-            ->addDirective(Directive::IMG, Value::SELF)
-            ->addDirective(Directive::MEDIA, Value::SELF)
-            ->addDirective(Directive::OBJECT, Value::NONE)
-            ->addDirective(Directive::SCRIPT, Value::SELF)
-            ->addDirective(Directive::STYLE, Value::SELF)
+            ->addDirective(Directive::BASE, Keyword::SELF)
+            ->addDirective(Directive::CONNECT, Keyword::SELF)
+            ->addDirective(Directive::DEFAULT, Keyword::SELF)
+            ->addDirective(Directive::FORM_ACTION, Keyword::SELF)
+            ->addDirective(Directive::IMG, Keyword::SELF)
+            ->addDirective(Directive::MEDIA, Keyword::SELF)
+            ->addDirective(Directive::OBJECT, Keyword::NONE)
+            ->addDirective(Directive::SCRIPT, Keyword::SELF)
+            ->addDirective(Directive::STYLE, Keyword::SELF)
             ->addNonceForDirective(Directive::SCRIPT)
             ->addNonceForDirective(Directive::STYLE);
     }

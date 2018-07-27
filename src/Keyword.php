@@ -2,9 +2,8 @@
 
 namespace Spatie\Csp;
 
-abstract class Value
+abstract class Keyword
 {
-    const DATA = 'data:';
     const NONE = 'none';
     const REPORT_SAMPLE = 'report-sample';
     const SELF = 'self';
