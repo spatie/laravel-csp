@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 1.3.0 - 2018-07-27
+
+- add value constant for `data:`
+
 ## 1.2.2 - 2018-05-05
 
 - fix blade directive
