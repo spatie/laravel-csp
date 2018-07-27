@@ -10,6 +10,7 @@ use Spatie\Csp\Policies\Policy;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\Exceptions\InvalidCspPolicy;
+use Spatie\Csp\Scheme;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
 class GlobalMiddlewareTest extends TestCase
@@ -259,6 +260,29 @@ class GlobalMiddlewareTest extends TestCase
 
         $this->assertEquals(
             'base-uri custom-policy',
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    /** @test */
+    public function it_will_handle_scheme_values()
+    {
+        $policy = new class extends Policy {
+            public function configure()
+            {
+                $this->addDirective(Directive::IMG, [
+                    Scheme::DATA,
+                    Scheme::HTTPS,
+                ]);
+            }
+        };
+
+        config(['csp.policy' => get_class($policy)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            "img-src data: https:",
             $headers->get('Content-Security-Policy')
         );
     }
