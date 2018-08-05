@@ -9,7 +9,7 @@ class CspServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
+        if ($this->app->runningInConsole() && function_exists('config_path')) {
             $this->publishes([
                 __DIR__.'/../config/csp.php' => config_path('csp.php'),
             ], 'config');
