@@ -134,8 +134,8 @@ There are also a few cases where you don't have to or don't need to specify a va
 ```php
 // in a policy
 ...
-    ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NOVALUE)
-    ->addDirective(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NOVALUE);
+    ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)
+    ->addDirective(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NO_VALUE);
 ...
 ```
 
