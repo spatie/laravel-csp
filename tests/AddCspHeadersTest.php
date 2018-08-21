@@ -270,8 +270,8 @@ class GlobalMiddlewareTest extends TestCase
             public function configure()
             {
                 $this
-                    ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NOVALUE)
-                    ->addDirective(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NOVALUE);
+                    ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)
+                    ->addDirective(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NO_VALUE);
             }
         };
 
