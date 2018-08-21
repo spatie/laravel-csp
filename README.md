@@ -129,6 +129,22 @@ You can add multiple policy options in the same directive giving an array as sec
 ...
 ```
 
+There are also a few cases where you don't have to or don't need to specify a value, eg. upgrade-insecure-requests, block-all-mixed-content, ... In this case you can use the following value:
+
+```php
+// in a policy
+...
+    ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NOVALUE)
+    ->addDirective(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NOVALUE);
+...
+```
+
+This will output a CSP like this:
+```
+Content-Security-Policy: upgrade-insecure-requests;block-all-mixed-content
+```
+
+
 ### Creating policies
 
 In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks like.
