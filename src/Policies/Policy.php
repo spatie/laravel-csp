@@ -30,7 +30,7 @@ abstract class Policy
 
         $rules = array_flatten(array_map(function ($values) {
             return empty($values) ? $values : array_filter(explode(' ', $values));
-        }, $this->arr_wrap($values)));
+        }, array_wrap($values)));
 
         foreach ($rules as $rule) {
             $sanitizedValue = $this->sanitizeValue($rule);
@@ -139,9 +139,5 @@ abstract class Policy
         }
 
         return $value;
-    }
-    
-    protected function arr_wrap($value) {
-	    return ! is_array($value) ? [$value] : $value;
     }
 }
