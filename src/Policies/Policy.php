@@ -19,7 +19,7 @@ abstract class Policy
 
     /**
      * @param string $directive
-     * @param string|array $values
+     * @param string|array|bool $values
      *
      * @return \Spatie\Csp\Policies\Policy
      *
