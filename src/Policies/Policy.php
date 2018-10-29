@@ -121,9 +121,9 @@ abstract class Policy
 
     protected function isKeyword(string $value): bool
     {
-        $specialDirectiveValues = (new ReflectionClass(Keyword::class))->getConstants();
+        $keywords = (new ReflectionClass(Keyword::class))->getConstants();
 
-        return in_array($value, $specialDirectiveValues);
+        return in_array($value, $keywords);
     }
 
     protected function sanitizeValue(string $value): string

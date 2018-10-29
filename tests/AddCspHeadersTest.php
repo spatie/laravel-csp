@@ -11,6 +11,7 @@ use Spatie\Csp\Policies\Policy;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\Exceptions\InvalidCspPolicy;
+use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
 class GlobalMiddlewareTest extends TestCase
