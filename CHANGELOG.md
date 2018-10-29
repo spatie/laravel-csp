@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 1.4.0 - 2018-10-30
+
+- add possibility to change value to no value
+
+## 1.3.3 - 2018-09-04
+
+- support for Laravel 5.7
+
+## 1.3.2 - 2018-08-02
+
+- fix compatibility with Lumen
+
+## 1.3.1 - 2018-08-02
+
+- make compatible with Lumen
+
 ## 1.3.0 - 2018-07-27
 
 - add value constant for `data:`

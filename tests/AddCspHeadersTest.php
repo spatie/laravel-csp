@@ -287,6 +287,28 @@ class GlobalMiddlewareTest extends TestCase
         );
     }
 
+    /** @test */
+    public function it_can_use_an_empty_value_for_a_directive()
+    {
+        $policy = new class extends Policy {
+            public function configure()
+            {
+                $this
+                    ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)
+                    ->addDirective(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NO_VALUE);
+            }
+        };
+
+        config(['csp.policy' => get_class($policy)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            'upgrade-insecure-requests;block-all-mixed-content',
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
     protected function getResponseHeaders(string $url = 'test-route'): HeaderBag
     {
         return $this

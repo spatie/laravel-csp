@@ -3,14 +3,13 @@
 namespace Spatie\Csp;
 
 use Spatie\Csp\Nonce\NonceGenerator;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class CspServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
+        if ($this->app->runningInConsole() && function_exists('config_path')) {
             $this->publishes([
                 __DIR__.'/../config/csp.php' => config_path('csp.php'),
             ], 'config');
@@ -22,7 +21,7 @@ class CspServiceProvider extends ServiceProvider
             return app(NonceGenerator::class)->generate();
         });
 
-        Blade::directive('nonce', function () {
+        $this->app->view->getEngineResolver()->resolve('blade')->getCompiler()->directive('nonce', function () {
             return '<?php echo "nonce=\"" . csp_nonce() . "\""; ?>';
         });
     }
