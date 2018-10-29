@@ -7,6 +7,7 @@ use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
 use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
+use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Policy
@@ -29,12 +30,18 @@ abstract class Policy
     {
         $this->guardAgainstInvalidDirectives($directive);
 
-        $rules = array_flatten(array_map(function ($values) {
-            return empty($values) ? $values : array_filter(explode(' ', $values));
-        }, array_wrap($values)));
+        if ($values === Value::NO_VALUE) {
+            $this->directives[$directive][] = Value::NO_VALUE;
 
-        foreach ($rules as $rule) {
-            $sanitizedValue = $this->sanitizeValue($rule);
+            return $this;
+        }
+
+        $values = array_filter(array_flatten(array_map(function ($value) {
+            return explode(' ', $value);
+        }, array_wrap($values))));
+
+        foreach ($values as $value) {
+            $sanitizedValue = $this->sanitizeValue($value);
 
             if (! in_array($sanitizedValue, $this->directives[$directive] ?? [])) {
                 $this->directives[$directive][] = $sanitizedValue;
