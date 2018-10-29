@@ -29,7 +29,7 @@ abstract class Policy
         $this->guardAgainstInvalidDirectives($directive);
 
         $rules = array_flatten(array_map(function ($values) {
-            return array_filter(explode(' ', $values));
+            return empty($values) ? $values : array_filter(explode(' ', $values));
         }, array_wrap($values)));
 
         foreach ($rules as $rule) {
@@ -95,7 +95,7 @@ abstract class Policy
             ->map(function (array $values, string $directive) {
                 $valueString = implode(' ', $values);
 
-                return "{$directive} {$valueString}";
+                return empty($valueString) ? "{$directive}" : "{$directive} {$valueString}";
             })
             ->implode(';');
     }
