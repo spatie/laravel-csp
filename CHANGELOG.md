@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 1.4.0 - 2018-10-30
+
+- add possibility to change value to no value
+
 ## 1.3.3 - 2018-09-04
 
 - support for Laravel 5.7
