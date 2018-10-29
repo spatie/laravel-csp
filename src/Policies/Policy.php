@@ -3,11 +3,11 @@
 namespace Spatie\Csp\Policies;
 
 use ReflectionClass;
+use Spatie\Csp\Value;
 use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
 use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
-use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Policy
