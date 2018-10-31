@@ -6,7 +6,7 @@ abstract class Value
 {
     const DATA = 'data:';
     const NONE = 'none';
-    const NO_VALUE = false;
+    const NO_VALUE = '';
     const REPORT_SAMPLE = 'report-sample';
     const SELF = 'self';
     const STRICT_DYNAMIC = 'strict-dynamic';
