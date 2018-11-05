@@ -6,4 +6,3 @@ if (! function_exists('csp_nonce')) {
         return app('csp-nonce');
     }
 }
-
