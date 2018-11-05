@@ -3,6 +3,8 @@
 namespace Spatie\Csp\Tests;
 
 use Spatie\Csp\Value;
+use Spatie\Csp\Scheme;
+use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Policies\Basic;
@@ -160,7 +162,7 @@ class GlobalMiddlewareTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, [Value::SELF]);
+                $this->addDirective(Directive::SCRIPT, [Keyword::SELF]);
             }
         };
 
@@ -205,7 +207,7 @@ class GlobalMiddlewareTest extends TestCase
             public function configure()
             {
                 $this->addDirective(Directive::SCRIPT,
-                    'sha256-hash1 '.Value::SELF.'  source');
+                    'sha256-hash1 '.Keyword::SELF.'  source');
             }
         };
 
@@ -225,7 +227,7 @@ class GlobalMiddlewareTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT, [Value::SELF, Value::SELF]);
+                $this->addDirective(Directive::SCRIPT, [Keyword::SELF, Keyword::SELF]);
             }
         };
 
@@ -259,6 +261,29 @@ class GlobalMiddlewareTest extends TestCase
 
         $this->assertEquals(
             'base-uri custom-policy',
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    /** @test */
+    public function it_will_handle_scheme_values()
+    {
+        $policy = new class extends Policy {
+            public function configure()
+            {
+                $this->addDirective(Directive::IMG, [
+                    Scheme::DATA,
+                    Scheme::HTTPS,
+                ]);
+            }
+        };
+
+        config(['csp.policy' => get_class($policy)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            'img-src data: https:',
             $headers->get('Content-Security-Policy')
         );
     }

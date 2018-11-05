@@ -2,7 +2,9 @@
 
 namespace Spatie\Csp\Policies;
 
+use ReflectionClass;
 use Spatie\Csp\Value;
+use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
 use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
@@ -18,7 +20,7 @@ abstract class Policy
 
     /**
      * @param string $directive
-     * @param string|array $values
+     * @param string|array|bool $values
      *
      * @return \Spatie\Csp\Policies\Policy
      *
@@ -28,12 +30,18 @@ abstract class Policy
     {
         $this->guardAgainstInvalidDirectives($directive);
 
-        $rules = array_flatten(array_map(function ($values) {
-            return empty($values) ? $values : array_filter(explode(' ', $values));
-        }, array_wrap($values)));
+        if ($values === Value::NO_VALUE) {
+            $this->directives[$directive][] = Value::NO_VALUE;
 
-        foreach ($rules as $rule) {
-            $sanitizedValue = $this->sanitizeValue($rule);
+            return $this;
+        }
+
+        $values = array_filter(array_flatten(array_map(function ($value) {
+            return explode(' ', $value);
+        }, array_wrap($values))));
+
+        foreach ($values as $value) {
+            $sanitizedValue = $this->sanitizeValue($value);
 
             if (! in_array($sanitizedValue, $this->directives[$directive] ?? [])) {
                 $this->directives[$directive][] = $sanitizedValue;
@@ -118,23 +126,19 @@ abstract class Policy
         return starts_with($value, $acceptableHashingAlgorithms);
     }
 
-    protected function isSpecialDirective(string $value): bool
+    protected function isKeyword(string $value): bool
     {
-        $specialDirectiveValues = [
-            Value::NONE,
-            Value::REPORT_SAMPLE,
-            Value::SELF,
-            Value::STRICT_DYNAMIC,
-            Value::UNSAFE_EVAL,
-            Value::UNSAFE_INLINE,
-        ];
+        $keywords = (new ReflectionClass(Keyword::class))->getConstants();
 
-        return in_array($value, $specialDirectiveValues);
+        return in_array($value, $keywords);
     }
 
     protected function sanitizeValue(string $value): string
     {
-        if ($this->isSpecialDirective($value) || $this->isHash($value)) {
+        if (
+            $this->isKeyword($value)
+            || $this->isHash($value)
+        ) {
             return "'{$value}'";
         }
 
