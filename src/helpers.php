@@ -7,10 +7,3 @@ if (! function_exists('csp_nonce')) {
     }
 }
 
-if (! function_exists('cspNonce')) {
-    /** @deprecated */
-    function cspNonce(): string
-    {
-        return csp_nonce();
-    }
-}

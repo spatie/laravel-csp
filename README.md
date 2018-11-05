@@ -109,7 +109,7 @@ According to the spec certain directive values need to be surrounded by quotes. 
 ```php
 // in a policy
 ...
-   ->addDirective(Directive::SCRIPT, Value::SELF) // will output `'self'` when outputting headers
+   ->addDirective(Directive::SCRIPT, Keyword::SELF) // will output `'self'` when outputting headers
    ->addDirective(Directive::STYLE, 'sha256-hash') // will output `'sha256-hash'` when outputting headers
 ...
 ```
@@ -120,8 +120,8 @@ You can add multiple policy options in the same directive giving an array as sec
 // in a policy
 ...
    ->addDirective(Directive::SCRIPT, [
-       Value::STRICT_DYNAMIC,
-       Value::SELF,
+       Keyword::STRICT_DYNAMIC,
+       Keyword::SELF,
        'www.google.com',
    ])
    ->addDirective(Directive::SCRIPT, 'strict-dynamic self  www.google.com')
@@ -160,15 +160,15 @@ class Basic extends Policy
     public function configure()
     {
         $this
-            ->addDirective(Directive::BASE, Value::SELF)
-            ->addDirective(Directive::CONNECT, Value::SELF)
-            ->addDirective(Directive::DEFAULT, Value::SELF)
-            ->addDirective(Directive::FORM_ACTION, Value::SELF)
-            ->addDirective(Directive::IMG, Value::SELF)
-            ->addDirective(Directive::MEDIA, Value::SELF)
-            ->addDirective(Directive::OBJECT, Value::NONE)
-            ->addDirective(Directive::SCRIPT, Value::SELF)
-            ->addDirective(Directive::STYLE, Value::SELF)
+            ->addDirective(Directive::BASE, Keyword::SELF)
+            ->addDirective(Directive::CONNECT, Keyword::SELF)
+            ->addDirective(Directive::DEFAULT, Keyword::SELF)
+            ->addDirective(Directive::FORM_ACTION, Keyword::SELF)
+            ->addDirective(Directive::IMG, Keyword::SELF)
+            ->addDirective(Directive::MEDIA, Keyword::SELF)
+            ->addDirective(Directive::OBJECT, Keyword::NONE)
+            ->addDirective(Directive::SCRIPT, Keyword::SELF)
+            ->addDirective(Directive::STYLE, Keyword::SELF)
             ->addNonceForDirective(Directive::SCRIPT)
             ->addNonceForDirective(Directive::STYLE);
     }
