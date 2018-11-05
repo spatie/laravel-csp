@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.0.0 - 2018-11-05
+
+- moved most values in `Value` to `Keyword`
+- remove deprecated `cspValue` function
+
 ## 1.4.0 - 2018-10-30
 
 - add possibility to change value to no value
