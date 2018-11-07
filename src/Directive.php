@@ -23,7 +23,11 @@ abstract class Directive
     const REPORT = 'report-uri';
     const SANDBOX = 'sandbox';
     const SCRIPT = 'script-src';
+    const SCRIPT_ATTR = 'script-src-attr';
+    const SCRIPT_ELEM = 'script-src-elem';
     const STYLE = 'style-src';
+    const STYLE_ATTR = 'style-src-attr';
+    const STYLE_ELEM = 'style-src-elem';
     const UPGRADE_INSECURE_REQUESTS = 'upgrade-insecure-requests';
     const WORKER = 'worker-src';
 
