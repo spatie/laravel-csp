@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.1.0 - 2018-11-12
+
+- add new script and style directives
+
 ## 2.0.0 - 2018-11-05
 
 - moved most values in `Value` to `Keyword`
