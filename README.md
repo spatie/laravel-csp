@@ -257,6 +257,22 @@ Any violations against to the policy can be reported to a given url. You can set
 
 To test changes to your CSP policy you can specify a second policy in the `report_only_policy` in the `csp` config key. The policy specified in `policy` will be enforced, the one in `report_only_policy` will not. This is great for testing a new policy or changes to existing CSP policy without breaking anything.
 
+### Using whoops
+
+Laravel comes with [whoops](https://github.com/filp/whoops), an error handling framework that helps you debug your application with a pretty visualization of exceptions. Whoops uses inline scripts and styles because it can't make any assumptions about the environment it is being used in, so it won't work unless you allow `unsafe-inline` for scripts and styles.
+
+One approach to this problem is to check `config('app.debug')` when setting your policy. Unfortunately this bears the risk of forgetting to test your code with all CSP rules enabled and having your app break at deployment. Alternatively, you could allow `unsafe-inline` only on error pages by adding this to the `render` method of your exception handler (usually in `app/Exceptions/Handler.php`):
+```php
+$this->container->singleton(AppPolicy::class, function ($app) {
+    return new AppPolicy();
+});
+app(AppPolicy::class)->addDirective(Directive::SCRIPT, Keyword::UNSAFE_INLINE);
+app(AppPolicy::class)->addDirective(Directive::STYLE, Keyword::UNSAFE_INLINE);
+```
+where `AppPolicy` is the name of your CSP policy. This also works in every other situation to change the policy at runtime, in which case the singleton registration should be done in a service provider instead of the exception handler.
+
+Note that `unsafe-inline` only works if you're not also sending a nonce or a `strict-dynamic` directive, so to be able to use this workaround, you have to specify all your inline scripts' and styles' hashes in the CSP header.
+
 ### Testing
 
 You can run all the tests with:
