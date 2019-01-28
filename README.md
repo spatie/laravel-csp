@@ -229,6 +229,19 @@ Next you must add the nonce to the html:
 </script>
 ```
 
+or:
+
+```
+{{-- in a view --}}
+<style {{ csp_attr() }}">
+   ...
+</style>
+
+<script {{ csp_attr() }}">
+   ...
+</script>
+```
+
 There are few other options to use inline styles and scripts. Take a look at the [CSP docs on the Mozilla developer site](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src) to know more.
 
 
