@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.1.1 - 2019-02-01
+
+- use Arr:: and Str:: functions
+
 ## 2.1.0 - 2018-11-12
 
 - add new script and style directives
