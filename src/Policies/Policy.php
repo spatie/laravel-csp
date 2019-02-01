@@ -6,6 +6,7 @@ use ReflectionClass;
 use Spatie\Csp\Value;
 use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,9 +37,9 @@ abstract class Policy
             return $this;
         }
 
-        $values = array_filter(array_flatten(array_map(function ($value) {
+        $values = array_filter(Arr::flatten(array_map(function ($value) {
             return explode(' ', $value);
-        }, array_wrap($values))));
+        }, Arr::wrap($values))));
 
         foreach ($values as $value) {
             $sanitizedValue = $this->sanitizeValue($value);
