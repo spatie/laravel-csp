@@ -7,6 +7,7 @@ use Spatie\Csp\Value;
 use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Spatie\Csp\Exceptions\InvalidDirective;
 use Symfony\Component\HttpFoundation\Response;
@@ -124,7 +125,7 @@ abstract class Policy
           'sha512-',
         ];
 
-        return starts_with($value, $acceptableHashingAlgorithms);
+        return Str::startsWith($value, $acceptableHashingAlgorithms);
     }
 
     protected function isKeyword(string $value): bool
