@@ -2,10 +2,12 @@
 
 namespace Spatie\Csp\Nonce;
 
+use Illuminate\Support\Str;
+
 class RandomString implements NonceGenerator
 {
     public function generate(): string
     {
-        return str_random(32);
+        return Str::random(32);
     }
 }
