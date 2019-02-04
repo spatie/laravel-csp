@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.1.2 - 2019-02-04
+
+- replace str_random and starts_with helpers to its class based counterpart
+
 ## 2.1.1 - 2019-02-01
 
 - use Arr:: and Str:: functions
