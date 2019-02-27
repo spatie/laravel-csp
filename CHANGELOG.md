@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.1.3 - 2019-02-27
+
+- add support for Laravel 5.8
+
 ## 2.1.2 - 2019-02-04
 
 - replace str_random and starts_with helpers to its class based counterpart

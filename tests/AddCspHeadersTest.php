@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\HeaderBag;
 
 class GlobalMiddlewareTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -32,7 +32,7 @@ class GlobalMiddlewareTest extends TestCase
     {
         $headers = $this->getResponseHeaders();
 
-        $this->assertContains("default-src 'self';", $headers->get('Content-Security-Policy'));
+        $this->assertStringContainsString("default-src 'self';", $headers->get('Content-Security-Policy'));
 
         $this->assertNull($headers->get('Content-Security-Policy-Report-Only'));
     }
@@ -48,7 +48,7 @@ class GlobalMiddlewareTest extends TestCase
         $headers = $this->getResponseHeaders();
 
         $this->assertNull($headers->get('Content-Security-Policy'));
-        $this->assertContains("default-src 'self';", $headers->get('Content-Security-Policy-Report-Only'));
+        $this->assertStringContainsString("default-src 'self';", $headers->get('Content-Security-Policy-Report-Only'));
     }
 
     /** @test */
@@ -72,7 +72,7 @@ class GlobalMiddlewareTest extends TestCase
 
         $cspHeader = $headers->get('Content-Security-Policy');
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'report-uri https://report-uri.com',
             $cspHeader
         );
