@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\HeaderBag;
 
 class GlobalMiddlewareTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
