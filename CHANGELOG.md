@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.2.0 - 2019-02-27
+
+- drop support for Laravel 5.7 and below
+- drop support for PHP 7.1 and below
+
 ## 2.1.3 - 2019-02-27
 
 - add support for Laravel 5.8
