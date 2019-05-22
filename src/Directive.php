@@ -29,6 +29,7 @@ abstract class Directive
     const STYLE_ATTR = 'style-src-attr';
     const STYLE_ELEM = 'style-src-elem';
     const UPGRADE_INSECURE_REQUESTS = 'upgrade-insecure-requests';
+    const WEB_RTC = 'webrtc-src';
     const WORKER = 'worker-src';
 
     public static function isValid(string $directive): bool
