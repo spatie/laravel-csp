@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.4.0 - 2019-09-04
+
+- Add Laravel 6.0 support
+
 ## 2.3.0 - 2019-05-23
 
 - add webrtc-src directive
