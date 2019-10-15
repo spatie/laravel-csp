@@ -118,6 +118,29 @@ class GlobalMiddlewareTest extends TestCase
     }
 
     /** @test */
+    public function none_overrides_other_values_for_the_same_directive()
+    {
+        $policy = new class extends Policy {
+            public function configure()
+            {
+                $this
+                    ->addDirective(Directive::CONNECT, 'connect-1')
+                    ->addDirective(Directive::FRAME, 'src-1')
+                    ->addDirective(Directive::CONNECT, Keyword::NONE);
+            }
+        };
+
+        config(['csp.policy' => get_class($policy)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            'connect-src \'none\';frame-src src-1',
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    /** @test */
     public function a_policy_can_be_put_in_report_only_mode()
     {
         $policy = new class extends Policy {
