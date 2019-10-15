@@ -42,6 +42,12 @@ abstract class Policy
             return explode(' ', $value);
         }, Arr::wrap($values))));
 
+        if (in_array(Keyword::NONE, $values, true) === true) {
+            $this->directives[$directive] = [$this->sanitizeValue(Keyword::NONE)];
+
+            return $this;
+        }
+
         foreach ($values as $value) {
             $sanitizedValue = $this->sanitizeValue($value);
 
