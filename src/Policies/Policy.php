@@ -45,7 +45,7 @@ abstract class Policy
             return explode(' ', $value);
         }, Arr::wrap($values))));
 
-        if (in_array(Keyword::NONE, $values, true) === true) {
+        if (in_array(Keyword::NONE, $values, true)) {
             $this->directives[$directive] = [$this->sanitizeValue(Keyword::NONE)];
 
             return $this;
@@ -132,7 +132,7 @@ abstract class Policy
 
     protected function guardAgainstInvalidValues(array $values)
     {
-        if (in_array(Keyword::NONE, $values, true) === true && count($values) > 1) {
+        if (in_array(Keyword::NONE, $values, true) && count($values) > 1) {
             throw InvalidValueSet::noneMustBeOnlyValue();
         }
     }
