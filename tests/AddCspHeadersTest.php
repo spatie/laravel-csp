@@ -2,6 +2,7 @@
 
 namespace Spatie\Csp\Tests;
 
+use Spatie\Csp\Exceptions\InvalidValueSet;
 use Spatie\Csp\Value;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Keyword;
@@ -89,6 +90,26 @@ class GlobalMiddlewareTest extends TestCase
         config(['csp.policy' => $invalidPolicyClassName]);
 
         $this->expectException(InvalidCspPolicy::class);
+
+        $this->getResponseHeaders();
+    }
+
+    /** @test */
+    public function passing_none_with_other_values_will_throw_an_exception()
+    {
+        $this->withoutExceptionHandling();
+
+        $invalidPolicy = new class extends Policy {
+            public function configure()
+            {
+                $this
+                    ->addDirective(Directive::CONNECT, [Keyword::NONE, 'connect']);
+            }
+        };
+
+        config(['csp.policy' => get_class($invalidPolicy)]);
+
+        $this->expectException(InvalidValueSet::class);
 
         $this->getResponseHeaders();
     }
