@@ -2,7 +2,6 @@
 
 namespace Spatie\Csp\Tests;
 
-use Spatie\Csp\Exceptions\InvalidValueSet;
 use Spatie\Csp\Value;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Keyword;
@@ -12,6 +11,7 @@ use Spatie\Csp\Policies\Basic;
 use Spatie\Csp\Policies\Policy;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
+use Spatie\Csp\Exceptions\InvalidValueSet;
 use Spatie\Csp\Exceptions\InvalidCspPolicy;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
