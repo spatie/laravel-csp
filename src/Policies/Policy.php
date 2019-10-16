@@ -3,6 +3,7 @@
 namespace Spatie\Csp\Policies;
 
 use ReflectionClass;
+use Spatie\Csp\Exceptions\InvalidValueSet;
 use Spatie\Csp\Value;
 use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
@@ -27,10 +28,12 @@ abstract class Policy
      * @return \Spatie\Csp\Policies\Policy
      *
      * @throws \Spatie\Csp\Exceptions\InvalidDirective
+     * @throws \Spatie\Csp\Exceptions\InvalidValueSet
      */
     public function addDirective(string $directive, $values): self
     {
         $this->guardAgainstInvalidDirectives($directive);
+        $this->guardAgainstInvalidValues(Arr::wrap($values));
 
         if ($values === Value::NO_VALUE) {
             $this->directives[$directive][] = Value::NO_VALUE;
@@ -124,6 +127,13 @@ abstract class Policy
     {
         if (! Directive::isValid($directive)) {
             throw InvalidDirective::notSupported($directive);
+        }
+    }
+
+    protected function guardAgainstInvalidValues(array $values)
+    {
+        if (in_array(Keyword::NONE, $values, true) === true && count($values) > 1) {
+            throw InvalidValueSet::noneMustBeOnlyValue();
         }
     }
 
