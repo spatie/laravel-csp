@@ -49,11 +49,11 @@ abstract class Policy
             $this->directives[$directive] = [$this->sanitizeValue(Keyword::NONE)];
 
             return $this;
-        } else {
-            $this->directives[$directive] = array_filter($this->directives[$directive] ?? [], function ($value) {
-                return $value !== $this->sanitizeValue(Keyword::NONE);
-            });
         }
+
+        $this->directives[$directive] = array_filter($this->directives[$directive] ?? [], function ($value) {
+            return $value !== $this->sanitizeValue(Keyword::NONE);
+        });
 
         foreach ($values as $value) {
             $sanitizedValue = $this->sanitizeValue($value);
