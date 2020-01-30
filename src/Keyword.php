@@ -10,4 +10,5 @@ abstract class Keyword
     const STRICT_DYNAMIC = 'strict-dynamic';
     const UNSAFE_EVAL = 'unsafe-eval';
     const UNSAFE_INLINE = 'unsafe-inline';
+    const DATA = 'data:';
 }
