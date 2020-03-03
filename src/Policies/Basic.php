@@ -2,8 +2,8 @@
 
 namespace Spatie\Csp\Policies;
 
-use Spatie\Csp\Keyword;
 use Spatie\Csp\Directive;
+use Spatie\Csp\Keyword;
 
 class Basic extends Policy
 {

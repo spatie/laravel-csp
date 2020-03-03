@@ -2,20 +2,20 @@
 
 namespace Spatie\Csp\Tests;
 
-use Spatie\Csp\Value;
-use Spatie\Csp\Scheme;
-use Spatie\Csp\Keyword;
-use Spatie\Csp\Directive;
-use Spatie\Csp\AddCspHeaders;
-use Spatie\Csp\Policies\Basic;
-use Spatie\Csp\Policies\Policy;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
-use Spatie\Csp\Exceptions\InvalidValueSet;
+use Spatie\Csp\AddCspHeaders;
+use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidCspPolicy;
+use Spatie\Csp\Exceptions\InvalidValueSet;
+use Spatie\Csp\Keyword;
+use Spatie\Csp\Policies\Basic;
+use Spatie\Csp\Policies\Policy;
+use Spatie\Csp\Scheme;
+use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
-class GlobalMiddlewareTest extends TestCase
+class AddCspHeadersTest extends TestCase
 {
     public function setUp(): void
     {
