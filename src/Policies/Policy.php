@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use ReflectionClass;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidDirective;
+use Spatie\Csp\Exceptions\InvalidValueSet;
 use Spatie\Csp\Keyword;
 use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,10 +28,12 @@ abstract class Policy
      * @return \Spatie\Csp\Policies\Policy
      *
      * @throws \Spatie\Csp\Exceptions\InvalidDirective
+     * @throws \Spatie\Csp\Exceptions\InvalidValueSet
      */
     public function addDirective(string $directive, $values): self
     {
         $this->guardAgainstInvalidDirectives($directive);
+        $this->guardAgainstInvalidValues(Arr::wrap($values));
 
         if ($values === Value::NO_VALUE) {
             $this->directives[$directive][] = Value::NO_VALUE;
@@ -41,6 +44,16 @@ abstract class Policy
         $values = array_filter(Arr::flatten(array_map(function ($value) {
             return explode(' ', $value);
         }, Arr::wrap($values))));
+
+        if (in_array(Keyword::NONE, $values, true)) {
+            $this->directives[$directive] = [$this->sanitizeValue(Keyword::NONE)];
+
+            return $this;
+        }
+
+        $this->directives[$directive] = array_filter($this->directives[$directive] ?? [], function ($value) {
+            return $value !== $this->sanitizeValue(Keyword::NONE);
+        });
 
         foreach ($values as $value) {
             $sanitizedValue = $this->sanitizeValue($value);
@@ -114,6 +127,13 @@ abstract class Policy
     {
         if (! Directive::isValid($directive)) {
             throw InvalidDirective::notSupported($directive);
+        }
+    }
+
+    protected function guardAgainstInvalidValues(array $values)
+    {
+        if (in_array(Keyword::NONE, $values, true) && count($values) > 1) {
+            throw InvalidValueSet::noneMustBeOnlyValue();
         }
     }
 

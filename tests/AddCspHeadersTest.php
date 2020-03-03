@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidCspPolicy;
+use Spatie\Csp\Exceptions\InvalidValueSet;
 use Spatie\Csp\Keyword;
 use Spatie\Csp\Policies\Basic;
 use Spatie\Csp\Policies\Policy;
@@ -94,6 +95,26 @@ class AddCspHeadersTest extends TestCase
     }
 
     /** @test */
+    public function passing_none_with_other_values_will_throw_an_exception()
+    {
+        $this->withoutExceptionHandling();
+
+        $invalidPolicy = new class extends Policy {
+            public function configure()
+            {
+                $this
+                    ->addDirective(Directive::CONNECT, [Keyword::NONE, 'connect']);
+            }
+        };
+
+        config(['csp.policy' => get_class($invalidPolicy)]);
+
+        $this->expectException(InvalidValueSet::class);
+
+        $this->getResponseHeaders();
+    }
+
+    /** @test */
     public function it_can_use_multiple_values_for_the_same_directive()
     {
         $policy = new class extends Policy {
@@ -113,6 +134,52 @@ class AddCspHeadersTest extends TestCase
 
         $this->assertEquals(
             'frame-src src-1 src-2;form-action action-1 action-2',
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    /** @test */
+    public function none_overrides_other_values_for_the_same_directive()
+    {
+        $policy = new class extends Policy {
+            public function configure()
+            {
+                $this
+                    ->addDirective(Directive::CONNECT, 'connect-1')
+                    ->addDirective(Directive::FRAME, 'src-1')
+                    ->addDirective(Directive::CONNECT, Keyword::NONE);
+            }
+        };
+
+        config(['csp.policy' => get_class($policy)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            'connect-src \'none\';frame-src src-1',
+            $headers->get('Content-Security-Policy')
+        );
+    }
+
+    /** @test */
+    public function values_override_none_value_for_the_same_directive()
+    {
+        $policy = new class extends Policy {
+            public function configure()
+            {
+                $this
+                    ->addDirective(Directive::CONNECT, Keyword::NONE)
+                    ->addDirective(Directive::FRAME, 'src-1')
+                    ->addDirective(Directive::CONNECT, Keyword::SELF);
+            }
+        };
+
+        config(['csp.policy' => get_class($policy)]);
+
+        $headers = $this->getResponseHeaders();
+
+        $this->assertEquals(
+            'connect-src \'self\';frame-src src-1',
             $headers->get('Content-Security-Policy')
         );
     }
