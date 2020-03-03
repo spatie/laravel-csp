@@ -2,8 +2,8 @@
 
 namespace Spatie\Csp\Tests;
 
-use Spatie\Csp\CspServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\Csp\CspServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
