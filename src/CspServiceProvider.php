@@ -2,8 +2,8 @@
 
 namespace Spatie\Csp;
 
-use Spatie\Csp\Nonce\NonceGenerator;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Csp\Nonce\NonceGenerator;
 
 class CspServiceProvider extends ServiceProvider
 {

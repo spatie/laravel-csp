@@ -2,8 +2,8 @@
 
 namespace Spatie\Csp;
 
-use Spatie\Csp\Policies\Policy;
 use Spatie\Csp\Exceptions\InvalidCspPolicy;
+use Spatie\Csp\Policies\Policy;
 
 class PolicyFactory
 {

@@ -2,14 +2,14 @@
 
 namespace Spatie\Csp\Policies;
 
-use ReflectionClass;
-use Spatie\Csp\Value;
-use Spatie\Csp\Keyword;
-use Spatie\Csp\Directive;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use ReflectionClass;
+use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidDirective;
+use Spatie\Csp\Keyword;
+use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Policy
@@ -120,9 +120,9 @@ abstract class Policy
     protected function isHash(string $value): bool
     {
         $acceptableHashingAlgorithms = [
-          'sha256-',
-          'sha384-',
-          'sha512-',
+            'sha256-',
+            'sha384-',
+            'sha512-',
         ];
 
         return Str::startsWith($value, $acceptableHashingAlgorithms);
