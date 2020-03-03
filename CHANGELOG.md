@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.5.0 - 2020-03-03
+
+- Add Laravel 7 support
+- Add None override
+
 ## 2.4.0 - 2019-09-04
 
 - Add Laravel 6.0 support
