@@ -8,4 +8,5 @@ abstract class Scheme
     const HTTP = 'http:';
     const HTTPS = 'https:';
     const BLOB = 'blob:';
+    const WS = 'ws:';
 }

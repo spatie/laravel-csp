@@ -341,6 +341,7 @@ class AddCspHeadersTest extends TestCase
                 $this->addDirective(Directive::IMG, [
                     Scheme::DATA,
                     Scheme::HTTPS,
+                    Scheme::WS,
                 ]);
             }
         };
@@ -350,7 +351,7 @@ class AddCspHeadersTest extends TestCase
         $headers = $this->getResponseHeaders();
 
         $this->assertEquals(
-            'img-src data: https:',
+            'img-src data: https: ws:',
             $headers->get('Content-Security-Policy')
         );
     }
