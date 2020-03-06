@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.5.1 - 2020-03-06
+
+- add websockets scheme support (#65)
+
 ## 2.5.0 - 2020-03-03
 
 - Add Laravel 7 support
