@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.5.2 - 2020-07-17
+
+- added "report-to" directive (#71)
+
 ## 2.5.1 - 2020-03-06
 
 - add websockets scheme support (#65)
