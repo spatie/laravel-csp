@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
-## 2.5.2 - 2020-07-17
+## 2.6.0 - 2020-07-17
 
 - added "report-to" directive (#71)
 
