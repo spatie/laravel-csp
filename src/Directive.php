@@ -21,6 +21,7 @@ abstract class Directive
     const OBJECT = 'object-src';
     const PLUGIN = 'plugin-types';
     const REPORT = 'report-uri';
+    const REPORT_TO = 'report-to';
     const SANDBOX = 'sandbox';
     const SCRIPT = 'script-src';
     const SCRIPT_ATTR = 'script-src-attr';
