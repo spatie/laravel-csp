@@ -273,8 +273,10 @@ class AddCspHeadersTest extends TestCase
         $policy = new class extends Policy {
             public function configure()
             {
-                $this->addDirective(Directive::SCRIPT,
-                    'sha256-hash1 '.Keyword::SELF.'  source');
+                $this->addDirective(
+                    Directive::SCRIPT,
+                    'sha256-hash1 '.Keyword::SELF.'  source'
+                );
             }
         };
 
