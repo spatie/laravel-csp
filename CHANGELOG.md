@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.6.2 - 2020-10-01
+
+- add unsafe-hashes keyword
+
 ## 2.6.1 - 2020-09-09
 
 - Add support for Laravel 8
