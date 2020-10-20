@@ -20,6 +20,7 @@ abstract class Directive
     const MEDIA = 'media-src';
     const OBJECT = 'object-src';
     const PLUGIN = 'plugin-types';
+    const PREFETCH = 'prefetch-src';
     const REPORT = 'report-uri';
     const REPORT_TO = 'report-to';
     const SANDBOX = 'sandbox';
