@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.6.3 - 2020-10-21
+
+- add prefetch-src directive (#77)
+
 ## 2.6.2 - 2020-10-01
 
 - add unsafe-hashes keyword
