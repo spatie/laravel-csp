@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.6.4 - 2020-12-01
+
+- add support for PHP 8
+
 ## 2.6.3 - 2020-10-21
 
 - add prefetch-src directive (#77)
