@@ -278,6 +278,35 @@ where `AppPolicy` is the name of your CSP policy. This also works in every other
 
 Note that `unsafe-inline` only works if you're not also sending a nonce or a `strict-dynamic` directive, so to be able to use this workaround, you have to specify all your inline scripts' and styles' hashes in the CSP header.
 
+Another approach is to overwrite the `Spatie\Csp\Policies\Policy::shouldBeApplied()`-function in case Laravel responds with an error:
+
+```php
+namespace App\Services\Csp\Policies;
+
+use Illuminate\Http\Request;
+use Spatie\Csp;
+use Symfony\Component\HttpFoundation\Response;
+
+class MyCustomPolicy extends Csp\Policies\Policy
+{
+    public function configure()
+    {
+        // Add directives
+    }
+    
+    public function shouldBeApplied(Request $request, Response $response): bool
+    {
+        if (config('app.debug') && ($response->isClientError() || $response->isServerError())) {
+            return false;
+        }
+
+        return parent::shouldBeApplied($request, $response);
+    }
+}
+```
+
+This approach completely deactivates the CSP and therefore also works if a strict CSP is used.
+
 ### Testing
 
 You can run all the tests with:
