@@ -10,25 +10,17 @@ jobs:
             matrix:
                 os: [ubuntu-latest, windows-latest]
                 php: [8.0, 7.4]
-                laravel: [6.*, 8.*]
+                laravel: [8.*]
                 dependency-version: [prefer-lowest, prefer-stable]
                 include:
                     -   laravel: 8.*
-                        testbench: 6.*
-                    -   laravel: 6.*
-                        testbench: 4.*
+                        testbench: ^6.23
 
         name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v2
-
-            -   name: Cache dependencies
-                uses: actions/cache@v2
-                with:
-                    path: ~/.composer/cache/files
-                    key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
