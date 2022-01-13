@@ -34,8 +34,8 @@ abstract class Policy
 
         $values = array_filter(
             Arr::flatten(
-            array_map(fn ($value) => explode(' ', $value), Arr::wrap($values))
-        )
+                array_map(fn ($value) => explode(' ', $value), Arr::wrap($values))
+            )
         );
 
         if (in_array(Keyword::NONE, $values, true)) {

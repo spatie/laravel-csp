@@ -2,7 +2,6 @@
 
 namespace Spatie\Csp;
 
-use Illuminate\Support\ServiceProvider;
 use Spatie\Csp\Nonce\NonceGenerator;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
