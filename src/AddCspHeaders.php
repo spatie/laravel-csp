@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class AddCspHeaders
 {
-    public function handle(Request $request, Closure $next, $customPolicyClass = null)
+    public function handle(Request $request, Closure $next, string $customPolicyClass = null)
     {
         $response = $next($request);
 

@@ -15,22 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class Policy
 {
-    protected $directives = [];
+    protected array $directives = [];
 
-    protected $reportOnly = false;
+    protected bool $reportOnly = false;
 
     abstract public function configure();
 
-    /**
-     * @param string $directive
-     * @param string|array|bool $values
-     *
-     * @return \Spatie\Csp\Policies\Policy
-     *
-     * @throws \Spatie\Csp\Exceptions\InvalidDirective
-     * @throws \Spatie\Csp\Exceptions\InvalidValueSet
-     */
-    public function addDirective(string $directive, $values): self
+    public function addDirective(string $directive, string|array|bool $values): self
     {
         $this->guardAgainstInvalidDirectives($directive);
         $this->guardAgainstInvalidValues(Arr::wrap($values));
@@ -41,9 +32,11 @@ abstract class Policy
             return $this;
         }
 
-        $values = array_filter(Arr::flatten(array_map(function ($value) {
-            return explode(' ', $value);
-        }, Arr::wrap($values))));
+        $values = array_filter(
+            Arr::flatten(
+            array_map(fn ($value) => explode(' ', $value), Arr::wrap($values))
+        )
+        );
 
         if (in_array(Keyword::NONE, $values, true)) {
             $this->directives[$directive] = [$this->sanitizeValue(Keyword::NONE)];

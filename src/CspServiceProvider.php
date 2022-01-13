@@ -4,17 +4,20 @@ namespace Spatie\Csp;
 
 use Illuminate\Support\ServiceProvider;
 use Spatie\Csp\Nonce\NonceGenerator;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class CspServiceProvider extends ServiceProvider
+class CspServiceProvider extends PackageServiceProvider
 {
-    public function boot()
+    public function configurePackage(Package $package): void
     {
-        if ($this->app->runningInConsole() && function_exists('config_path')) {
-            $this->publishes([
-                __DIR__.'/../config/csp.php' => config_path('csp.php'),
-            ], 'config');
-        }
+        $package
+            ->name('laravel-csp')
+            ->hasConfigFile();
+    }
 
+    public function packageBooted()
+    {
         $this->app->singleton(NonceGenerator::class, config('csp.nonce_generator'));
 
         $this->app->singleton('csp-nonce', function () {
@@ -24,10 +27,5 @@ class CspServiceProvider extends ServiceProvider
         $this->app->view->getEngineResolver()->resolve('blade')->getCompiler()->directive('nonce', function () {
             return '<?php echo "nonce=\"" . csp_nonce() . "\""; ?>';
         });
-    }
-
-    public function register()
-    {
-        $this->mergeConfigFrom(__DIR__.'/../config/csp.php', 'csp');
     }
 }
