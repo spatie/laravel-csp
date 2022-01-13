@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.7.0 - 2022-01-13
+
+- support Laravel 9
+
 ## 2.6.4 - 2020-12-01
 
 - add support for PHP 8
@@ -122,6 +126,7 @@ All notable changes to `laravel-csp` will be documented in this file
 - fix naming of classes
 
 ## 1.0.0 - 2018-02-20
+
 **BROKEN VERSION, DO NOT USE**
 
 - initial release
