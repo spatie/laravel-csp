@@ -35,7 +35,7 @@ composer require spatie/laravel-csp
 You can publish the config-file with:
 
 ```bash
-php artisan vendor:publish --tag=csp-config"
+php artisan vendor:publish --tag=csp-config
 ```
 
 This is the contents of the file which will be published at `config/csp.php`:
