@@ -1,9 +1,11 @@
 <?php
 
-namespace Spatie\Csp\Tests;
-
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertNull;
+use function PHPUnit\Framework\assertStringContainsString;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidCspPolicy;
@@ -15,376 +17,324 @@ use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
-class AddCspHeadersTest extends TestCase
+function getResponseHeaders(string $url = 'test-route'): HeaderBag
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        app(Kernel::class)->pushMiddleware(AddCspHeaders::class);
-
-        Route::get('test-route', function () {
-            return 'ok';
-        });
-    }
-
-    /** @test */
-    public function the_default_configuration_will_set_csp_headers()
-    {
-        $headers = $this->getResponseHeaders();
-
-        $this->assertStringContainsString("default-src 'self';", $headers->get('Content-Security-Policy'));
-
-        $this->assertNull($headers->get('Content-Security-Policy-Report-Only'));
-    }
-
-    /** @test */
-    public function it_can_set_report_only_csp_headers()
-    {
-        config([
-            'csp.policy' => '',
-            'csp.report_only_policy' => Basic::class,
-        ]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertNull($headers->get('Content-Security-Policy'));
-        $this->assertStringContainsString("default-src 'self';", $headers->get('Content-Security-Policy-Report-Only'));
-    }
-
-    /** @test */
-    public function it_wont_set_any_headers_if_not_enabled_in_the_config()
-    {
-        config([
-            'csp.enabled' => false,
-        ]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertNull($headers->get('Content-Security-Policy'));
-    }
-
-    /** @test */
-    public function a_report_uri_can_be_set_in_the_config()
-    {
-        config(['csp.report_uri' => 'https://report-uri.com']);
-
-        $headers = $this->getResponseHeaders();
-
-        $cspHeader = $headers->get('Content-Security-Policy');
-
-        $this->assertStringContainsString(
-            'report-uri https://report-uri.com',
-            $cspHeader
-        );
-    }
-
-    /** @test */
-    public function using_an_invalid_policy_class_will_throw_an_exception()
-    {
-        $this->withoutExceptionHandling();
-
-        $invalidPolicyClassName = get_class(new class {
-        });
-
-        config(['csp.policy' => $invalidPolicyClassName]);
-
-        $this->expectException(InvalidCspPolicy::class);
-
-        $this->getResponseHeaders();
-    }
-
-    /** @test */
-    public function passing_none_with_other_values_will_throw_an_exception()
-    {
-        $this->withoutExceptionHandling();
-
-        $invalidPolicy = new class extends Policy {
-            public function configure()
-            {
-                $this
-                    ->addDirective(Directive::CONNECT, [Keyword::NONE, 'connect']);
-            }
-        };
-
-        config(['csp.policy' => get_class($invalidPolicy)]);
-
-        $this->expectException(InvalidValueSet::class);
-
-        $this->getResponseHeaders();
-    }
-
-    /** @test */
-    public function it_can_use_multiple_values_for_the_same_directive()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this
-                    ->addDirective(Directive::FRAME, 'src-1')
-                    ->addDirective(Directive::FRAME, 'src-2')
-                    ->addDirective(Directive::FORM_ACTION, 'action-1')
-                    ->addDirective(Directive::FORM_ACTION, 'action-2');
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertEquals(
-            'frame-src src-1 src-2;form-action action-1 action-2',
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    /** @test */
-    public function none_overrides_other_values_for_the_same_directive()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this
-                    ->addDirective(Directive::CONNECT, 'connect-1')
-                    ->addDirective(Directive::FRAME, 'src-1')
-                    ->addDirective(Directive::CONNECT, Keyword::NONE);
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertEquals(
-            'connect-src \'none\';frame-src src-1',
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    /** @test */
-    public function values_override_none_value_for_the_same_directive()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this
-                    ->addDirective(Directive::CONNECT, Keyword::NONE)
-                    ->addDirective(Directive::FRAME, 'src-1')
-                    ->addDirective(Directive::CONNECT, Keyword::SELF);
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertEquals(
-            'connect-src \'self\';frame-src src-1',
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    /** @test */
-    public function a_policy_can_be_put_in_report_only_mode()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this->reportOnly();
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertNull($headers->get('Content-Security-Policy'));
-        $this->assertNotNull($headers->get('Content-Security-Policy-Report-Only'));
-    }
-
-    /** @test */
-    public function it_can_add_multiple_values_for_the_same_directive_in_one_go()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this
-                    ->addDirective(Directive::FRAME, ['src-1', 'src-2']);
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertEquals(
-            'frame-src src-1 src-2',
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    /** @test */
-    public function it_will_automatically_quote_special_directive_values()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this->addDirective(Directive::SCRIPT, [Keyword::SELF]);
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertEquals(
-            "script-src 'self'",
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    /** @test */
-    public function it_will_automatically_quote_hashed_values()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this->addDirective(Directive::SCRIPT, [
-                    'sha256-hash1',
-                    'sha384-hash2',
-                    'sha512-hash3',
-                ]);
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertEquals(
-            "script-src 'sha256-hash1' 'sha384-hash2' 'sha512-hash3'",
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    /** @test */
-    public function it_will_atomically_check_values_when_they_are_given_in_a_single_string_separated_by_spaces()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this->addDirective(
-                    Directive::SCRIPT,
-                    'sha256-hash1 '.Keyword::SELF.'  source'
-                );
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertEquals(
-            "script-src 'sha256-hash1' 'self' source",
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    /** @test */
-    public function it_will_not_output_the_same_directive_values_twice()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this->addDirective(Directive::SCRIPT, [Keyword::SELF, Keyword::SELF]);
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertEquals(
-            "script-src 'self'",
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    /** @test */
-    public function route_middleware_will_overwrite_global_middleware_for_that_route()
-    {
-        $this->withoutExceptionHandling();
-
-        $customPolicy = new class extends Policy {
-            public function configure()
-            {
-                $this->addDirective(Directive::BASE, 'custom-policy');
-            }
-        };
-
-        Route::get('other-route', function () {
-            return 'ok';
-        })->middleware(AddCspHeaders::class.':'.get_class($customPolicy));
-
-        $headers = $this->getResponseHeaders('other-route');
-
-        $this->assertEquals(
-            'base-uri custom-policy',
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    /** @test */
-    public function it_will_handle_scheme_values()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this->addDirective(Directive::IMG, [
-                    Scheme::DATA,
-                    Scheme::HTTPS,
-                    Scheme::WS,
-                ]);
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertEquals(
-            'img-src data: https: ws:',
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    /** @test */
-    public function it_can_use_an_empty_value_for_a_directive()
-    {
-        $policy = new class extends Policy {
-            public function configure()
-            {
-                $this
-                    ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)
-                    ->addDirective(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NO_VALUE);
-            }
-        };
-
-        config(['csp.policy' => get_class($policy)]);
-
-        $headers = $this->getResponseHeaders();
-
-        $this->assertEquals(
-            'upgrade-insecure-requests;block-all-mixed-content',
-            $headers->get('Content-Security-Policy')
-        );
-    }
-
-    protected function getResponseHeaders(string $url = 'test-route'): HeaderBag
-    {
-        return $this
-            ->get($url)
-            ->assertSuccessful()
-            ->headers;
-    }
+    return test()
+        ->get($url)
+        ->assertSuccessful()
+        ->headers;
 }
+
+beforeEach(function (): void {
+    app(Kernel::class)->pushMiddleware(AddCspHeaders::class);
+
+    Route::get('test-route', function (): string {
+        return 'ok';
+    });
+});
+
+it('will set csp headers with default configuration', function (): void {
+    $headers = getResponseHeaders();
+
+    assertStringContainsString("default-src 'self';", $headers->get('Content-Security-Policy'));
+    assertNull($headers->get('Content-Security-Policy-Report-Only'));
+});
+
+it('can set report only csp headers', function (): void {
+    config([
+        'csp.policy' => '',
+        'csp.report_only_policy' => Basic::class,
+    ]);
+
+    $headers = getResponseHeaders();
+
+    assertStringContainsString("default-src 'self';", $headers->get('Content-Security-Policy-Report-Only'));
+    assertNull($headers->get('Content-Security-Policy'));
+});
+
+it('wont set any headers if not enabled in the config', function (): void {
+    config([
+        'csp.enabled' => false,
+    ]);
+
+    $headers = getResponseHeaders();
+
+    assertNull($headers->get('Content-Security-Policy'));
+});
+
+test('a report uri can be set in the config', function (): void {
+    config(['csp.report_uri' => 'https://report-uri.com']);
+
+    $headers = getResponseHeaders();
+
+    $cspHeader = $headers->get('Content-Security-Policy');
+
+    assertStringContainsString('report-uri https://report-uri.com', $cspHeader);
+});
+
+it('will throw an exception when using an invalid policy class', function (): void {
+    withoutExceptionHandling();
+
+    $invalidPolicyClassName = get_class(new class {
+    });
+
+    config(['csp.policy' => $invalidPolicyClassName]);
+
+    getResponseHeaders();
+})->throws(InvalidCspPolicy::class);
+
+it('will throw an exception when passing none with other values', function (): void {
+    withoutExceptionHandling();
+
+    $invalidPolicy = new class extends Policy {
+        public function configure()
+        {
+            $this->addDirective(Directive::CONNECT, [Keyword::NONE, 'connect']);
+        }
+    };
+
+    config(['csp.policy' => get_class($invalidPolicy)]);
+
+    getResponseHeaders();
+})->throws(InvalidValueSet::class);
+
+it('can use multiple values for the same directive', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this
+                ->addDirective(Directive::FRAME, 'src-1')
+                ->addDirective(Directive::FRAME, 'src-2')
+                ->addDirective(Directive::FORM_ACTION, 'action-1')
+                ->addDirective(Directive::FORM_ACTION, 'action-2');
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        'frame-src src-1 src-2;form-action action-1 action-2',
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+test('none overrides other values for the same directive', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this
+                ->addDirective(Directive::CONNECT, 'connect-1')
+                ->addDirective(Directive::FRAME, 'src-1')
+                ->addDirective(Directive::CONNECT, Keyword::NONE);
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        'connect-src \'none\';frame-src src-1',
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+test('values override none value for the same directive', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this
+                ->addDirective(Directive::CONNECT, Keyword::NONE)
+                ->addDirective(Directive::FRAME, 'src-1')
+                ->addDirective(Directive::CONNECT, Keyword::SELF);
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        'connect-src \'self\';frame-src src-1',
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+test('a policy can be put in report only mode', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this->reportOnly();
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertNull($headers->get('Content-Security-Policy'));
+    assertNotNull($headers->get('Content-Security-Policy-Report-Only'));
+});
+
+it('can add multiple values for the same directive in one go', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this->addDirective(Directive::FRAME, ['src-1', 'src-2']);
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        'frame-src src-1 src-2',
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+it('will automatically quote special directive values', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this->addDirective(Directive::SCRIPT, [Keyword::SELF]);
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        "script-src 'self'",
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+it('will automatically quote hashed values', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this->addDirective(Directive::SCRIPT, [
+                'sha256-hash1',
+                'sha384-hash2',
+                'sha512-hash3',
+            ]);
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        "script-src 'sha256-hash1' 'sha384-hash2' 'sha512-hash3'",
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+it('will atomically check values when they are given in a single string separated by spaces', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this->addDirective(
+                Directive::SCRIPT,
+                'sha256-hash1 '.Keyword::SELF.'  source'
+            );
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        "script-src 'sha256-hash1' 'self' source",
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+it('will not output the same directive values twice', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this->addDirective(Directive::SCRIPT, [Keyword::SELF, Keyword::SELF]);
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        "script-src 'self'",
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+test('route middleware will overwrite global middleware for that route', function (): void {
+    withoutExceptionHandling();
+
+    $customPolicy = new class extends Policy {
+        public function configure()
+        {
+            $this->addDirective(Directive::BASE, 'custom-policy');
+        }
+    };
+
+    Route::get('other-route', function (): string {
+        return 'ok';
+    })->middleware(AddCspHeaders::class.':'.get_class($customPolicy));
+
+    $headers = getResponseHeaders('other-route');
+
+    assertEquals(
+        'base-uri custom-policy',
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+it('will handle scheme values', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this->addDirective(Directive::IMG, [
+                Scheme::DATA,
+                Scheme::HTTPS,
+                Scheme::WS,
+            ]);
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        'img-src data: https: ws:',
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+it('can use an empty value for a directive', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this
+                ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)
+                ->addDirective(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NO_VALUE);
+        }
+    };
+
+    config(['csp.policy' => get_class($policy)]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        'upgrade-insecure-requests;block-all-mixed-content',
+        $headers->get('Content-Security-Policy')
+    );
+});

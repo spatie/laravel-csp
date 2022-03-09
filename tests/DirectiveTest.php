@@ -1,16 +1,11 @@
 <?php
 
-namespace Spatie\Csp\Tests;
-
+use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertTrue;
 use Spatie\Csp\Directive;
 
-class DirectiveTest extends TestCase
-{
-    /** @test */
-    public function it_can_determine_if_a_directive_is_valid()
-    {
-        $this->assertTrue(Directive::isValid(Directive::BASE));
+it('can determine if a directive is valid', function (): void {
+    assertTrue(Directive::isValid(Directive::BASE));
 
-        $this->assertFalse(Directive::isValid('invalid'));
-    }
-}
+    assertFalse(Directive::isValid('invalid'));
+});
