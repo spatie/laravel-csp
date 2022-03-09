@@ -1,18 +1,13 @@
 <?php
 
-namespace Spatie\Csp\Tests;
+use function PHPUnit\Framework\assertEquals;
 
-class NonceTest extends TestCase
-{
-    /** @test */
-    public function calling_the_nonce_function_will_generate_the_same_result()
-    {
-        $nonce = csp_nonce();
+it('will generate the same result', function (): void {
+    $nonce = csp_nonce();
 
-        $this->assertEquals(strlen($nonce), 32);
+    assertEquals(strlen($nonce), 32);
 
-        foreach (range(1, 5) as $i) {
-            $this->assertEquals($nonce, csp_nonce());
-        }
+    foreach (range(1, 5) as $i) {
+        assertEquals($nonce, csp_nonce());
     }
-}
+});

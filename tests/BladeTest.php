@@ -1,21 +1,17 @@
 <?php
 
-namespace Spatie\Csp\Tests;
+use function Orchestra\Testbench\artisan;
+use function PHPUnit\Framework\assertEquals;
 
-class BladeTest extends TestCase
-{
-    /** @test */
-    public function blade_directive_outputs_correct_nonce()
-    {
-        // make sure view is compiled fresh each run
-        $this->artisan('view:clear');
+it('will output correct nonce', function (): void {
+    // make sure view is compiled fresh each run
+    artisan($this, 'view:clear');
 
-        $nonce = csp_nonce();
+    $nonce = csp_nonce();
 
-        $view = app('view')
-            ->file(__DIR__.'/fixtures/view.blade.php')
-            ->render();
+    $view = app('view')
+        ->file(__DIR__.'/fixtures/view.blade.php')
+        ->render();
 
-        $this->assertEquals('<script nonce="'.$nonce.'"></script>', $view);
-    }
-}
+    assertEquals('<script nonce="'.$nonce.'"></script>', $view);
+});
