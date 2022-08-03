@@ -240,6 +240,48 @@ Next you must add the nonce to the html:
 
 There are few other options to use inline styles and scripts. Take a look at the [CSP docs on the Mozilla developer site](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src) to know more.
 
+### Integration with Vite
+
+When building assets, Laravel's Vite plugin can [generate a nonce](https://laravel.com/docs/9.x/vite#content-security-policy-csp-nonce) that you can retrieve with `Vite::useNonce`.  You can use in your own `NonceGenerator`.
+
+```php
+namespace App\Support;
+
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Vite;
+
+class LaravelViteNonceGenerator implements NonceGenerator
+{
+    public function generate(): string
+    {
+        return Vite::useNonce();
+    }
+}
+```
+
+Don't forget to specify the fully qualified class name of your `NonceGenerator` in the `nonce_generator` key of the `csp` config file.
+
+Alternatively, you can instruct Vite to use a specific value that it should use as nonce.
+
+```php
+namespace Spatie\Csp\Nonce;
+
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Vite;
+
+class RandomString implements NonceGenerator
+{
+    public function generate(): string
+    {
+        $myNonce = ''; // determine the value for `$myNonce` however you want
+    
+        Vite::useNonce(myNonce);
+        
+        retur $myNonce;
+    }
+}
+```
+
 ### Reporting CSP errors
 
 #### In the browser
