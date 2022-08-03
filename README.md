@@ -159,7 +159,7 @@ Content-Security-Policy: upgrade-insecure-requests;block-all-mixed-content
 In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks:
 
 ```php
-namespace Spatie\Csp\Policies;
+namespace App\Support;
 
 use Spatie\Csp\Directive;
 use Spatie\Csp\Value;
@@ -187,7 +187,7 @@ class Basic extends Policy
 You can allow fetching scripts from `www.google.com` by extending this class:
 
 ```php
-namespace App\Services\Csp\Policies;
+namespace App\Support;
 
 use Spatie\Csp\Directive;
 use Spatie\Csp\Policies\Basic;
@@ -264,7 +264,7 @@ Don't forget to specify the fully qualified class name of your `NonceGenerator` 
 Alternatively, you can instruct Vite to use a specific value that it should use as nonce.
 
 ```php
-namespace Spatie\Csp\Nonce;
+namespace App\Support;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Vite;
