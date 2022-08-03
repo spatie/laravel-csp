@@ -275,7 +275,7 @@ class RandomString implements NonceGenerator
     {
         $myNonce = ''; // determine the value for `$myNonce` however you want
     
-        Vite::useNonce(myNonce);
+        Vite::useNonce($myNonce);
         
         return $myNonce;
     }
