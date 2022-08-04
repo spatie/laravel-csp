@@ -242,7 +242,7 @@ There are few other options to use inline styles and scripts. Take a look at the
 
 ### Integration with Vite
 
-When building assets, Laravel's Vite plugin can [generate a nonce](https://laravel.com/docs/9.x/vite#content-security-policy-csp-nonce) that you can retrieve with `Vite::useNonce`.  You can use in your own `NonceGenerator`.
+When building assets, Laravel's Vite plugin can [generate a nonce](https://laravel.com/docs/9.x/vite#content-security-policy-csp-nonce) that you can retrieve with `Vite::useCspNonce`.  You can use in your own `NonceGenerator`.
 
 ```php
 namespace App\Support;
@@ -254,7 +254,7 @@ class LaravelViteNonceGenerator implements NonceGenerator
 {
     public function generate(): string
     {
-        return Vite::useNonce();
+        return Vite::useCspNonce();
     }
 }
 ```
@@ -275,7 +275,7 @@ class RandomString implements NonceGenerator
     {
         $myNonce = ''; // determine the value for `$myNonce` however you want
     
-        Vite::useNonce($myNonce);
+        Vite::useCspNonce($myNonce);
         
         return $myNonce;
     }
