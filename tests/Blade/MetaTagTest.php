@@ -6,7 +6,6 @@ use Spatie\Csp\Keyword;
 use Spatie\Csp\Policies\Basic;
 use Spatie\Csp\Policies\Policy;
 use Spatie\Csp\Scheme;
-use Spatie\Csp\Tests\Doubles\Policies\BasicWithReportOnly;
 use Spatie\Csp\Value;
 
 function renderView($policyName = Basic::class)
@@ -29,7 +28,14 @@ it('will output csp headers with the default configuration', function (): void {
 });
 
 it('can set report only csp meta tags', function () {
-    expect(renderView(BasicWithReportOnly::class))
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this->reportOnly();
+        }
+    };
+
+    expect(renderView($policy::class))
         ->toMatch(metaTagRegex('Content-Security-Policy-Report-Only'));
 });
 
@@ -44,7 +50,14 @@ it('wont output any meta tag if not enabled in the config', function (): void {
 test('a report uri can be set in the config', function (): void {
     config(['csp.report_uri' => 'https://report-uri.com']);
 
-    expect(renderView(BasicWithReportOnly::class))
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this->reportOnly();
+        }
+    };
+
+    expect(renderView($policy::class))
         ->toContain('report-uri https://report-uri.com');
 });
 

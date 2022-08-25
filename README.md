@@ -301,7 +301,7 @@ You should be aware of the following implementation details when using the meta 
 - Because blade files don't have access to the `Response` object, the `shouldBeApplied` method will have no effect. 
   If you have declared the `@cspMetaTag` directive and the `csp.enabled` config option is set to true, the meta tag will be output regardless.
 - Any configuration (such as setting your policy to report only) should be done in the `configure` method of the policy
-  rather than relying on settings in the `csp` config file.
+  rather than relying on settings in the `csp` config file. The `csp.report_uri` option will be respected, so there is no need to configure that manually.
 
 ### Reporting CSP errors
 
