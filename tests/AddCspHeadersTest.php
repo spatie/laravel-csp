@@ -236,7 +236,7 @@ it('will automatically quote hashed values', function (): void {
     );
 });
 
-it('will atomically check values when they are given in a single string separated by spaces', function (): void {
+it('will automatically check values when they are given in a single string separated by spaces', function (): void {
     $policy = new class extends Policy {
         public function configure()
         {

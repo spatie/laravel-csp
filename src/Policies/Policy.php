@@ -90,13 +90,18 @@ abstract class Policy
         return $this->addDirective($directive, "'nonce-".app('csp-nonce')."'");
     }
 
-    public function applyTo(Response $response)
+    public function prepareHeader(): string
     {
         $this->configure();
 
-        $headerName = $this->reportOnly
+        return $this->reportOnly
             ? 'Content-Security-Policy-Report-Only'
             : 'Content-Security-Policy';
+    }
+
+    public function applyTo(Response $response)
+    {
+        $headerName = $this->prepareHeader();
 
         if ($response->headers->has($headerName)) {
             return;
