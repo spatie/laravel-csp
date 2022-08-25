@@ -282,6 +282,27 @@ class RandomString implements NonceGenerator
 }
 ```
 
+### Outputting a CSP Policy as a meta tag
+
+In rare circumstances, a large site may have so many external connections that the CSP header actually exceeds the max header size.
+Thankfully, the [CSP specification](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#using_the_html_meta_element) allows for outputting information as a meta tag in the head of a webpage.
+
+To support this use case, this package provides a `@cspMetaTag` blade directive that you may place in the `<head>` of your site.
+
+```blade
+<head>
+    @cspMetaTag(App\Services\Csp\Policies\MyCustomPolicy::class)
+</head>
+```
+
+You should be aware of the following implementation details when using the meta tag blade directive:
+- Note that you should manually pass the fully qualified class name of the policy we want to output a meta tag for. 
+  The `csp.policy` and `csp.report_only_policy` config options have no effect here.
+- Because blade files don't have access to the `Response` object, the `shouldBeApplied` method will have no effect. 
+  If you have declared the `@cspMetaTag` directive and the `csp.enabled` config option is set to true, the meta tag will be output regardless.
+- Any configuration (such as setting your policy to report only) should be done in the `configure` method of the policy
+  rather than relying on settings in the `csp` config file.
+
 ### Reporting CSP errors
 
 #### In the browser

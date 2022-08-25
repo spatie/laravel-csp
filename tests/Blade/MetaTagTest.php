@@ -48,9 +48,11 @@ test('a report uri can be set in the config', function (): void {
         ->toContain('report-uri https://report-uri.com');
 });
 
-it('will throw an exception when using an invalid policy class', function (): void {
-    withoutExceptionHandling();
+it('will throw an exception when passing no policy class', function (): void {
+    renderView('');
+})->throws(ViewException::class, 'The [@cspMetaTag] directive expects to be passed a valid policy class name');
 
+it('will throw an exception when using an invalid policy class', function (): void {
     $invalidPolicyClassName = get_class(new class {
     });
 
@@ -58,8 +60,6 @@ it('will throw an exception when using an invalid policy class', function (): vo
 })->throws(ViewException::class, 'A valid policy extends Spatie\Csp\Policies\Policy');
 
 it('will throw an exception when passing none with other values', function (): void {
-    withoutExceptionHandling();
-
     $invalidPolicy = new class extends Policy {
         public function configure()
         {
