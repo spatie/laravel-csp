@@ -2,6 +2,27 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.8.0 - 2022-08-25
+
+### What's Changed
+
+- Fixing readme issues by @lukeclifton in https://github.com/spatie/laravel-csp/pull/88
+- Update README.md by @melicerte in https://github.com/spatie/laravel-csp/pull/90
+- Update README.md by @melicerte in https://github.com/spatie/laravel-csp/pull/91
+- Rewrite tests to use Pest by @Magiczne in https://github.com/spatie/laravel-csp/pull/92
+- Wrong method name for Vite nonce by @rcerljenko in https://github.com/spatie/laravel-csp/pull/102
+- Adds a new `@cspMetaTag` blade directive by @lukeraymonddowning in https://github.com/spatie/laravel-csp/pull/103
+
+### New Contributors
+
+- @lukeclifton made their first contribution in https://github.com/spatie/laravel-csp/pull/88
+- @melicerte made their first contribution in https://github.com/spatie/laravel-csp/pull/90
+- @Magiczne made their first contribution in https://github.com/spatie/laravel-csp/pull/92
+- @rcerljenko made their first contribution in https://github.com/spatie/laravel-csp/pull/102
+- @lukeraymonddowning made their first contribution in https://github.com/spatie/laravel-csp/pull/103
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/2.7.0...2.8.0
+
 ## 2.7.0 - 2022-01-13
 
 - support Laravel 9
