@@ -1,0 +1,1 @@
+<head>@cspMetaTag($policyName)</head>

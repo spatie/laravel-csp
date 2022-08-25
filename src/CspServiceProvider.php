@@ -23,8 +23,19 @@ class CspServiceProvider extends PackageServiceProvider
             return app(NonceGenerator::class)->generate();
         });
 
-        $this->app->view->getEngineResolver()->resolve('blade')->getCompiler()->directive('nonce', function () {
+        $this->registerBladeDirectives();
+    }
+
+    private function registerBladeDirectives(): void
+    {
+        $bladeCompiler = $this->app->view->getEngineResolver()->resolve('blade')->getCompiler();
+
+        $bladeCompiler->directive('nonce', function () {
             return '<?php echo "nonce=\"" . csp_nonce() . "\""; ?>';
+        });
+
+        $bladeCompiler->directive('cspMetaTag', function ($policyClass) {
+            return "<?php echo csp_meta_tag({$policyClass}) ?>";
         });
     }
 }
