@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.8.1 - 2022-09-01
+
+### What's Changed
+
+- Lazily register blade directives by @axlon in https://github.com/spatie/laravel-csp/pull/104
+
+### New Contributors
+
+- @axlon made their first contribution in https://github.com/spatie/laravel-csp/pull/104
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/2.8.0...2.8.1
+
 ## 2.8.0 - 2022-08-25
 
 ### What's Changed
