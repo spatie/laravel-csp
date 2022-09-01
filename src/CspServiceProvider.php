@@ -23,7 +23,9 @@ class CspServiceProvider extends PackageServiceProvider
             return app(NonceGenerator::class)->generate();
         });
 
-        $this->registerBladeDirectives();
+        $this->callAfterResolving('view', function () {
+            $this->registerBladeDirectives();
+        });
     }
 
     private function registerBladeDirectives(): void
