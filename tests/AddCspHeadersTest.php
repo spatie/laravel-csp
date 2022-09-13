@@ -305,6 +305,7 @@ it('will handle scheme values', function (): void {
                 Scheme::DATA,
                 Scheme::HTTPS,
                 Scheme::WS,
+                Scheme::WSS,
             ]);
         }
     };
@@ -314,7 +315,7 @@ it('will handle scheme values', function (): void {
     $headers = getResponseHeaders();
 
     assertEquals(
-        'img-src data: https: ws:',
+        'img-src data: https: ws: wss:',
         $headers->get('Content-Security-Policy')
     );
 });
