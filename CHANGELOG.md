@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.8.2 - 2022-09-13
+
+### What's Changed
+
+- Add wss: (secure websocket) scheme support by @bitwise-operators in https://github.com/spatie/laravel-csp/pull/105
+
+### New Contributors
+
+- @bitwise-operators made their first contribution in https://github.com/spatie/laravel-csp/pull/105
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/2.8.1...2.8.2
+
 ## 2.8.1 - 2022-09-01
 
 ### What's Changed
