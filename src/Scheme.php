@@ -4,9 +4,10 @@ namespace Spatie\Csp;
 
 abstract class Scheme
 {
+    const BLOB = 'blob:';
     const DATA = 'data:';
     const HTTP = 'http:';
     const HTTPS = 'https:';
-    const BLOB = 'blob:';
     const WS = 'ws:';
+    const WSS = 'wss:';
 }
