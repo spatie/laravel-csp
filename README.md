@@ -10,8 +10,6 @@
 
 By default all scripts on a webpage are allowed to send and fetch data to any site they want. This can be a security problem. Imagine one of your JavaScript dependencies sends all keystrokes, including passwords, to a third party website.
 
-It's very easy for someone to hide this malicious behaviour, making it nearly impossible for you to detect it (unless you manually read all the JavaScript code on your site). For a better idea of why you really need to set content security policy headers read [this excellent blog post](https://medium.com/hackernoon/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5) by [David Gilbertson](https://twitter.com/D__Gilbertson).
-
 Setting Content Security Policy headers helps solve this problem. These headers dictate which sites your site is allowed to contact. This package makes it easy for you to set the right headers.
 
 This readme does not aim to fully explain all the possible usages of CSP and it's directives. We highly recommend that you read [Mozilla's documentation on the Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) before using this package. Another good resource to learn about CSP, is [this edition of the Larasec newsletter](https://larasec.substack.com/p/in-depth-content-security-policy) by Stephen Rees-Carter.
