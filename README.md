@@ -8,16 +8,16 @@
 ![Check & fix styling](https://github.com/spatie/laravel-csp/workflows/Check%20&%20fix%20styling/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
 
-By default all scripts on a webpage are allowed to send and fetch data to any site they want. This can be a security problem. Imagine one of your JavaScript dependencies sends all keystrokes, including passwords, to a third party website.
+By default, all scripts on a webpage are allowed to send and fetch data to any site they want. This can be a security problem. Imagine one of your JavaScript dependencies sends all keystrokes, including passwords, to a third party website.
 
-It's very easy for someone to hide this malicious behaviour, making it nearly impossible for you to detect it (unless you manually read all the JavaScript code on your site). For a better idea of why you really need to set content security policy headers read [this excellent blog post](https://medium.com/hackernoon/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5) by [David Gilbertson](https://twitter.com/D__Gilbertson).
+It's very easy for someone to hide this malicious behaviour, making it nearly impossible for you to detect it (unless you manually read all the JavaScript code on your site). For a better idea of why you really need to set content security policy headers, read [this excellent blog post](https://medium.com/hackernoon/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5) by [David Gilbertson](https://twitter.com/D__Gilbertson).
 
 Setting Content Security Policy headers helps solve this problem. These headers dictate which sites your site is allowed to contact. This package makes it easy for you to set the right headers.
 
-This readme does not aim to fully explain all the possible usages of CSP and it's directives. We highly recommend that you read [Mozilla's documentation on the Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) before using this package. Another good resource to learn about CSP, is [this edition of the Larasec newsletter](https://larasec.substack.com/p/in-depth-content-security-policy) by Stephen Rees-Carter.
+This readme does not aim to fully explain all the possible usages of CSP and its directives. We highly recommend that you read [Mozilla's documentation on the Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) before using this package. Another good resource to learn about CSP, is [this edition of the Larasec newsletter](https://larasec.substack.com/p/in-depth-content-security-policy) by Stephen Rees-Carter.
 
-If you're an audio visual learner you should check out this video on how to use this package.
-https://www.laraning.com/videos/spatie-csp-content-security-policy
+If you're an audiovisual learner, you should check out [this video](https://www.laraning.com/videos/spatie-csp-content-security-policy
+) on how to use this package.
 
 ## Support us
 
@@ -300,14 +300,14 @@ You should be aware of the following implementation details when using the meta 
   The `csp.policy` and `csp.report_only_policy` config options have no effect here.
 - Because blade files don't have access to the `Response` object, the `shouldBeApplied` method will have no effect. 
   If you have declared the `@cspMetaTag` directive and the `csp.enabled` config option is set to true, the meta tag will be output regardless.
-- Any configuration (such as setting your policy to report only) should be done in the `configure` method of the policy
+- Any configuration (such as setting your policy to report only) should be done in the `configure` method of the policy,
   rather than relying on settings in the `csp` config file. The `csp.report_uri` option will be respected, so there is no need to configure that manually.
 
 ### Reporting CSP errors
 
 #### In the browser
 
-Instead of outright blocking all violations you can put a policy in report only mode. In this case all requests will be made, but all violations will display in your favourite browser's console.
+Instead of outright blocking all violations, you can put a policy in report only mode. In this case all requests will be made, but all violations will display in your favourite browser's console.
 
 To put a policy in report only mode just call `reportOnly()` in the `configure()` function of a report:
 
@@ -322,7 +322,7 @@ public function configure()
 
 #### To an external url
 
-Any violations against to the policy can be reported to a given url. You can set that url in the `report_uri` key of the `csp` config file. A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/). 
+Any violations against the policy can be reported to a given url. You can set that url in the `report_uri` key of the `csp` config file. A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/). 
 
 #### Using multiple policies
 
