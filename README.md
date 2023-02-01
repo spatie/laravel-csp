@@ -1,7 +1,7 @@
 # Set content security policy headers in a Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/laravel-csp/run-tests?label=tests)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-csp/run-tests.yml?branch=main&label=tests&style=flat-square)
 ![Check & fix styling](https://github.com/spatie/laravel-csp/workflows/Check%20&%20fix%20styling/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
 
