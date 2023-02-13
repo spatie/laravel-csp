@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.8.3 - 2023-02-13
+
+### What's Changed
+
+- Add PHP 8.2 Support by @patinthehat in https://github.com/spatie/laravel-csp/pull/109
+- Improve grammar and formatting of readme by @rubenvanerk in https://github.com/spatie/laravel-csp/pull/112
+- fix github test badge by @askdkc in https://github.com/spatie/laravel-csp/pull/113
+
+### New Contributors
+
+- @patinthehat made their first contribution in https://github.com/spatie/laravel-csp/pull/109
+- @rubenvanerk made their first contribution in https://github.com/spatie/laravel-csp/pull/112
+- @askdkc made their first contribution in https://github.com/spatie/laravel-csp/pull/113
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/2.8.2...2.8.3
+
 ## 2.8.2 - 2022-09-13
 
 ### What's Changed
