@@ -13,8 +13,6 @@ Setting Content Security Policy headers helps solve this problem. These headers 
 
 This readme does not aim to fully explain all the possible usages of CSP and its directives. We highly recommend that you read [Mozilla's documentation on the Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) before using this package. Another good resource to learn about CSP, is [this edition of the Larasec newsletter](https://larasec.substack.com/p/in-depth-content-security-policy) by Stephen Rees-Carter.
 
-If you're an audiovisual learner, you should check out [this video](https://www.laraning.com/videos/spatie-csp-content-security-policy
-) on how to use this package.
 
 ## Support us
 
