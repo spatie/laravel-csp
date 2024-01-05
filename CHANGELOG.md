@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.8.4 - 2024-01-05
+
+### What's Changed
+
+* Removed expired link from readme file by @DevYunus in https://github.com/spatie/laravel-csp/pull/118
+* Add require-trusted-types-for directive by @nicolasbeauvais in https://github.com/spatie/laravel-csp/pull/120
+
+### New Contributors
+
+* @DevYunus made their first contribution in https://github.com/spatie/laravel-csp/pull/118
+* @nicolasbeauvais made their first contribution in https://github.com/spatie/laravel-csp/pull/120
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/2.8.3...2.8.4
+
 ## 2.8.3 - 2023-02-13
 
 ### What's Changed
