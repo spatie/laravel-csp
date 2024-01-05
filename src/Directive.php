@@ -23,6 +23,7 @@ abstract class Directive
     const PREFETCH = 'prefetch-src';
     const REPORT = 'report-uri';
     const REPORT_TO = 'report-to';
+    const REQUIRE_TRUSTED_TYPES_FOR = 'require-trusted-types-for';
     const SANDBOX = 'sandbox';
     const SCRIPT = 'script-src';
     const SCRIPT_ATTR = 'script-src-attr';
