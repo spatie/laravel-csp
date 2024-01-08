@@ -198,7 +198,7 @@ class MyCustomPolicy extends Basic
 }
 ```
 
-Don't forget to set the `policy` key in the `csp` config file to the class name of your policy (in this case it would be `App\Services\Csp\Policies\MyCustomPolicy`).
+Don't forget to set the `policy` key in the `csp` config file to the class name of your policy (in this case it would be `App\Support\MyCustomPolicy`).
 
 ### Using inline scripts and styles
 
@@ -286,7 +286,7 @@ To support this use case, this package provides a `@cspMetaTag` blade directive 
 
 ```blade
 <head>
-    @cspMetaTag(App\Services\Csp\Policies\MyCustomPolicy::class)
+    @cspMetaTag(App\Support\MyCustomPolicy::class)
 </head>
 ```
 
