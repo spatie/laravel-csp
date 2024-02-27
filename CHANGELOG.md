@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.9.0 - 2024-02-27
+
+### What's Changed
+
+* Fix incorrect namespaces in README.md by @dnwjn in https://github.com/spatie/laravel-csp/pull/121
+* chore: prepare for laravel 11 by @joostdebruijn in https://github.com/spatie/laravel-csp/pull/124
+
+### New Contributors
+
+* @dnwjn made their first contribution in https://github.com/spatie/laravel-csp/pull/121
+* @joostdebruijn made their first contribution in https://github.com/spatie/laravel-csp/pull/124
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/2.8.4...2.9.0
+
 ## 2.8.4 - 2024-01-05
 
 ### What's Changed
