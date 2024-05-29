@@ -11,4 +11,5 @@ abstract class Keyword
     const UNSAFE_EVAL = 'unsafe-eval';
     const UNSAFE_HASHES = 'unsafe-hashes';
     const UNSAFE_INLINE = 'unsafe-inline';
+    const UNSAFE_WEB_ASSEMBLY_EXECUTION = 'wasm-unsafe-eval';
 }
