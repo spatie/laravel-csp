@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.10.0 - 2024-06-04
+
+### What's Changed
+
+* feat: added missing 'wasm-unsafe-eval' keyword by @fxnm in https://github.com/spatie/laravel-csp/pull/125
+
+### New Contributors
+
+* @fxnm made their first contribution in https://github.com/spatie/laravel-csp/pull/125
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/2.9.0...2.10.0
+
 ## 2.9.0 - 2024-02-27
 
 ### What's Changed
