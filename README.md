@@ -237,7 +237,7 @@ There are few other options to use inline styles and scripts. Take a look at the
 
 ### Integration with Vite
 
-When building assets, Laravel's Vite plugin can [generate a nonce](https://laravel.com/docs/9.x/vite#content-security-policy-csp-nonce) that you can retrieve with `Vite::useCspNonce`.  You can use in your own `NonceGenerator`.
+When building assets, Laravel's Vite plugin can [generate a nonce](https://laravel.com/docs/9.x/vite#content-security-policy-csp-nonce) that you can retrieve with `Vite::cspNonce`.  You can use in your own `NonceGenerator`.
 
 ```php
 namespace App\Support;
@@ -249,7 +249,7 @@ class LaravelViteNonceGenerator implements NonceGenerator
 {
     public function generate(): string
     {
-        return Vite::useCspNonce();
+        return Vite::cspNonce();
     }
 }
 ```
