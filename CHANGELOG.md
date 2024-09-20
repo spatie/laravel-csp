@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.10.1 - 2024-09-20
+
+### What's Changed
+
+* Update README.md by @federico-boncaldo in https://github.com/spatie/laravel-csp/pull/127
+* chore: update Git Attributes by @owenvoke in https://github.com/spatie/laravel-csp/pull/129
+* Mark arguments as nullable in AddCspHeaders by @jnoordsij in https://github.com/spatie/laravel-csp/pull/128
+
+### New Contributors
+
+* @federico-boncaldo made their first contribution in https://github.com/spatie/laravel-csp/pull/127
+* @owenvoke made their first contribution in https://github.com/spatie/laravel-csp/pull/129
+* @jnoordsij made their first contribution in https://github.com/spatie/laravel-csp/pull/128
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/2.10.0...2.10.1
+
 ## 2.10.0 - 2024-06-04
 
 ### What's Changed
