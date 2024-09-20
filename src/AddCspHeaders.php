@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class AddCspHeaders
 {
-    public function handle(Request $request, Closure $next, string $customPolicyClass = null)
+    public function handle(Request $request, Closure $next, ?string $customPolicyClass = null)
     {
         $response = $next($request);
 
@@ -20,7 +20,7 @@ class AddCspHeaders
         return $response;
     }
 
-    protected function getPolicies(string $customPolicyClass = null): Collection
+    protected function getPolicies(?string $customPolicyClass = null): Collection
     {
         $policies = collect();
 
