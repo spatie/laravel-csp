@@ -17,11 +17,13 @@ class CspServiceProvider extends PackageServiceProvider
 
     public function packageBooted()
     {
-        $this->app->singleton(NonceGenerator::class, config('csp.nonce_generator'));
-
-        $this->app->singleton('csp-nonce', function () {
-            return app(NonceGenerator::class)->generate();
-        });
+        if (config('csp.nonce_enabled', true)) {
+            $this->app->singleton(NonceGenerator::class, config('csp.nonce_generator'));
+            
+            $this->app->singleton('csp-nonce', function () {
+                return app(NonceGenerator::class)->generate();
+            });
+        }
 
         $this->callAfterResolving('view', function () {
             $this->registerBladeDirectives();
@@ -30,7 +32,7 @@ class CspServiceProvider extends PackageServiceProvider
 
     private function registerBladeDirectives(): void
     {
-        $bladeCompiler = $this->app->view->getEngineResolver()->resolve('blade')->getCompiler();
+        $bladeCompiler = $this->app->make('view.engine.resolver')->resolve('blade')->getCompiler();
 
         $bladeCompiler->directive('nonce', function () {
             return '<?php echo "nonce=\"" . csp_nonce() . "\""; ?>';

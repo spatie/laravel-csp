@@ -87,7 +87,16 @@ abstract class Policy
 
     public function addNonceForDirective(string $directive): self
     {
-        return $this->addDirective($directive, "'nonce-".app('csp-nonce')."'");
+        if (! config('csp.nonce_enabled', true)) {
+            return $this;
+        }
+
+        $nonce = app('csp-nonce');
+        if (empty($nonce)) {
+            return $this;
+        }
+
+        return $this->addDirective($directive, "'nonce-{$nonce}'");
     }
 
     public function prepareHeader(): string
