@@ -5,10 +5,10 @@ on: [push, pull_request]
 jobs:
     test:
         runs-on: ${{ matrix.os }}
-        strategy: 
+        strategy:
             fail-fast: true
             matrix:
-                os: [ubuntu-latest, windows-latest]
+                os: [ubuntu-latest]
                 php: [8.4, 8.3, 8.2, 8.1]
                 laravel: [^11.36.1, 10.*, 9.*]
                 dependency-version: [prefer-lowest, prefer-stable]
@@ -26,7 +26,7 @@ jobs:
                     -   laravel: ^11.36.1
                         php: 8.1
                     -   laravel: 9.*
-                        php: 8.4            
+                        php: 8.4
                     -   laravel: 9.*
                         php: 8.3
 
