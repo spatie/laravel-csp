@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.10.2 - 2024-12-30
+
+### What's Changed
+
+* Fix getting Blade compiler by @CicerBro in https://github.com/spatie/laravel-csp/pull/134
+* Add ability to skip nonce generation by @juliangums in https://github.com/spatie/laravel-csp/pull/132
+
+### New Contributors
+
+* @CicerBro made their first contribution in https://github.com/spatie/laravel-csp/pull/134
+* @juliangums made their first contribution in https://github.com/spatie/laravel-csp/pull/132
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/2.10.1...2.10.2
+
 ## 2.10.1 - 2024-09-20
 
 ### What's Changed
