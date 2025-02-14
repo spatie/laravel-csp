@@ -30,14 +30,14 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.1",
-        "illuminate/http": "^9.0|^10.0|^11.36.1",
-        "illuminate/support": "^9.0|^10.0|^11.36.1",
+        "illuminate/http": "^9.0|^10.0|^11.36.1|^12",
+        "illuminate/support": "^9.0|^10.0|^11.36.1|^12",
         "spatie/laravel-package-tools": "^1.17"
     },
     "require-dev": {
         "mockery/mockery": "^1.6.12",
-        "orchestra/testbench": "^7.0|^8.0|^9.9",
-        "pestphp/pest": "^1.23.0|^2.36.0",
+        "orchestra/testbench": "^7.0|^8.0|^9.9|^10",
+        "pestphp/pest": "^1.23.0|^2.36.0|^3",
         "roave/security-advisories": "dev-master"
     },
     "autoload": {
