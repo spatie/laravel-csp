@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 2.10.3 - 2025-02-14
+
+### What's Changed
+
+* Add support for Laravel 12 by @mfn in https://github.com/spatie/laravel-csp/pull/136
+
+### New Contributors
+
+* @mfn made their first contribution in https://github.com/spatie/laravel-csp/pull/136
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/2.10.2...2.10.3
+
 ## 2.10.2 - 2024-12-30
 
 ### What's Changed
