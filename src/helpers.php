@@ -1,6 +1,7 @@
 <?php
 
 use Spatie\Csp\Exceptions\MissingCspMetaTagPolicy;
+use Spatie\Csp\Policies\Policy;
 use Spatie\Csp\PolicyFactory;
 
 if (! function_exists('csp_nonce')) {
@@ -11,9 +12,13 @@ if (! function_exists('csp_nonce')) {
 }
 
 if (! function_exists('csp_meta_tag')) {
-    function csp_meta_tag(string $policyClass): string
+    function csp_meta_tag(string|array $policyClass): string
     {
-        if (strlen($policyClass) === 0) {
+        $policies = collect($policyClass)
+            ->filter()
+            ->map(fn (string $policy) => PolicyFactory::create($policy));
+
+        if ($policies->isEmpty()) {
             throw MissingCspMetaTagPolicy::create();
         }
 
@@ -21,8 +26,18 @@ if (! function_exists('csp_meta_tag')) {
             return '';
         }
 
-        $policy = PolicyFactory::create($policyClass);
+        $header = $policies->first()->prepareHeader();
 
-        return "<meta http-equiv=\"{$policy->prepareHeader()}\" content=\"{$policy->__toString()}\">";
+        dump($policies);
+
+        $content = $policies
+            ->map(function (Policy $policy) {
+                $policy->configure();
+
+                return (string)$policy;
+            })
+            ->join(';');
+
+        return "<meta http-equiv=\"{$header}\" content=\"{$content}\">";
     }
 }
