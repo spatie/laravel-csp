@@ -4,6 +4,7 @@ use Spatie\Csp\Policies;
 
 /** @var class-string<Policies\Policy>[] $policies */
 $policies = [
+    Policies\AdobeFontsPolicy::class,
     Policies\BasicPolicy::class,
     Policies\FathomPolicy::class,
     Policies\GoogleFontsPolicy::class,
