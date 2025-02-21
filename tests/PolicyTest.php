@@ -21,6 +21,7 @@ foreach ($policies as $policyClass) {
         $policy = new $policyClass;
         $policy->configure();
 
-        expect((string) $policy)->toMatchSnapshot();
+        expect(str_replace(';', PHP_EOL, (string) $policy))
+            ->toMatchSnapshot();
     });
 }
