@@ -10,4 +10,4 @@ it('stringifies GoogleFontsPolicy', function (): void {
     ;
 
     expect((string) $policy)->toMatchSnapshot();
-});
+})->skipOnPhp('< 8.2.0');
