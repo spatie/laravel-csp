@@ -19,7 +19,7 @@ abstract class Policy
 
     protected bool $reportOnly = false;
 
-    abstract public function configure();
+    abstract public function configure(): void;
 
     public function addDirective(string $directive, string|array|bool $values): self
     {
@@ -108,18 +108,23 @@ abstract class Policy
             : 'Content-Security-Policy';
     }
 
-    public function applyTo(Response $response)
+    public function applyTo(Response $response): void
     {
         $headerName = $this->prepareHeader();
 
         if ($response->headers->has($headerName)) {
+            $response->headers->set(
+                $headerName,
+                $response->headers->get($headerName) . ';' . $this
+            );
+
             return;
         }
 
         $response->headers->set($headerName, (string) $this);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return collect($this->directives)
             ->map(function (array $values, string $directive) {
@@ -130,14 +135,14 @@ abstract class Policy
             ->implode(';');
     }
 
-    protected function guardAgainstInvalidDirectives(string $directive)
+    protected function guardAgainstInvalidDirectives(string $directive): void
     {
         if (! Directive::isValid($directive)) {
             throw InvalidDirective::notSupported($directive);
         }
     }
 
-    protected function guardAgainstInvalidValues(array $values)
+    protected function guardAgainstInvalidValues(array $values): void
     {
         if (in_array(Keyword::NONE, $values, true) && count($values) > 1) {
             throw InvalidValueSet::noneMustBeOnlyValue();

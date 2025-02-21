@@ -11,7 +11,7 @@ use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidCspPolicy;
 use Spatie\Csp\Exceptions\InvalidValueSet;
 use Spatie\Csp\Keyword;
-use Spatie\Csp\Policies\Basic;
+use Spatie\Csp\Policies\BasicPolicy;
 use Spatie\Csp\Policies\Policy;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
@@ -42,8 +42,8 @@ it('will set csp headers with default configuration', function (): void {
 
 it('can set report only csp headers', function (): void {
     config([
-        'csp.policy' => '',
-        'csp.report_only_policy' => Basic::class,
+        'csp.policies' => [],
+        'csp.report_only_policies' => [BasicPolicy::class],
     ]);
 
     $headers = getResponseHeaders();
@@ -78,7 +78,7 @@ it('will throw an exception when using an invalid policy class', function (): vo
     $invalidPolicyClassName = get_class(new class {
     });
 
-    config(['csp.policy' => $invalidPolicyClassName]);
+    config(['csp.policies' => [$invalidPolicyClassName]]);
 
     getResponseHeaders();
 })->throws(InvalidCspPolicy::class);
@@ -87,20 +87,20 @@ it('will throw an exception when passing none with other values', function (): v
     withoutExceptionHandling();
 
     $invalidPolicy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::CONNECT, [Keyword::NONE, 'connect']);
         }
     };
 
-    config(['csp.policy' => get_class($invalidPolicy)]);
+    config(['csp.policies' => [$invalidPolicy::class]]);
 
     getResponseHeaders();
 })->throws(InvalidValueSet::class);
 
 it('can use multiple values for the same directive', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this
                 ->addDirective(Directive::FRAME, 'src-1')
@@ -110,7 +110,36 @@ it('can use multiple values for the same directive', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        'frame-src src-1 src-2;form-action action-1 action-2',
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+it('can use multiple policies', function (): void {
+    $policy = new class extends Policy {
+        public function configure(): void
+        {
+            $this
+                ->addDirective(Directive::FRAME, 'src-1')
+                ->addDirective(Directive::FRAME, 'src-2');
+        }
+    };
+
+    $anotherPolicy = new class extends Policy {
+        public function configure(): void
+        {
+            $this
+                ->addDirective(Directive::FORM_ACTION, 'action-1')
+                ->addDirective(Directive::FORM_ACTION, 'action-2');
+        }
+    };
+
+    config(['csp.policies' => [$policy::class, $anotherPolicy::class]]);
 
     $headers = getResponseHeaders();
 
@@ -122,7 +151,7 @@ it('can use multiple values for the same directive', function (): void {
 
 test('none overrides other values for the same directive', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this
                 ->addDirective(Directive::CONNECT, 'connect-1')
@@ -131,7 +160,7 @@ test('none overrides other values for the same directive', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
 
     $headers = getResponseHeaders();
 
@@ -143,7 +172,7 @@ test('none overrides other values for the same directive', function (): void {
 
 test('values override none value for the same directive', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this
                 ->addDirective(Directive::CONNECT, Keyword::NONE)
@@ -152,7 +181,7 @@ test('values override none value for the same directive', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
 
     $headers = getResponseHeaders();
 
@@ -164,13 +193,13 @@ test('values override none value for the same directive', function (): void {
 
 test('a policy can be put in report only mode', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->reportOnly();
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
 
     $headers = getResponseHeaders();
 
@@ -180,13 +209,13 @@ test('a policy can be put in report only mode', function (): void {
 
 it('can add multiple values for the same directive in one go', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::FRAME, ['src-1', 'src-2']);
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
 
     $headers = getResponseHeaders();
 
@@ -198,13 +227,13 @@ it('can add multiple values for the same directive in one go', function (): void
 
 it('will automatically quote special directive values', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::SCRIPT, [Keyword::SELF]);
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
 
     $headers = getResponseHeaders();
 
@@ -216,7 +245,7 @@ it('will automatically quote special directive values', function (): void {
 
 it('will automatically quote hashed values', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::SCRIPT, [
                 'sha256-hash1',
@@ -226,7 +255,7 @@ it('will automatically quote hashed values', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
 
     $headers = getResponseHeaders();
 
@@ -238,7 +267,7 @@ it('will automatically quote hashed values', function (): void {
 
 it('will automatically check values when they are given in a single string separated by spaces', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(
                 Directive::SCRIPT,
@@ -247,7 +276,7 @@ it('will automatically check values when they are given in a single string separ
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
 
     $headers = getResponseHeaders();
 
@@ -259,13 +288,13 @@ it('will automatically check values when they are given in a single string separ
 
 it('will not output the same directive values twice', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::SCRIPT, [Keyword::SELF, Keyword::SELF]);
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
 
     $headers = getResponseHeaders();
 
@@ -279,7 +308,7 @@ test('route middleware will overwrite global middleware for that route', functio
     withoutExceptionHandling();
 
     $customPolicy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::BASE, 'custom-policy');
         }
@@ -287,7 +316,7 @@ test('route middleware will overwrite global middleware for that route', functio
 
     Route::get('other-route', function (): string {
         return 'ok';
-    })->middleware(AddCspHeaders::class.':'.get_class($customPolicy));
+    })->middleware(AddCspHeaders::class.':'.$customPolicy::class);
 
     $headers = getResponseHeaders('other-route');
 
@@ -299,7 +328,7 @@ test('route middleware will overwrite global middleware for that route', functio
 
 it('will handle scheme values', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::IMG, [
                 Scheme::DATA,
@@ -310,7 +339,7 @@ it('will handle scheme values', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
 
     $headers = getResponseHeaders();
 
@@ -322,7 +351,7 @@ it('will handle scheme values', function (): void {
 
 it('can use an empty value for a directive', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this
                 ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)
@@ -330,7 +359,7 @@ it('can use an empty value for a directive', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [$policy::class]]);
 
     $headers = getResponseHeaders();
 

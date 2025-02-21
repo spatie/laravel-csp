@@ -3,12 +3,12 @@
 use Illuminate\View\ViewException;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Keyword;
-use Spatie\Csp\Policies\Basic;
+use Spatie\Csp\Policies\BasicPolicy;
 use Spatie\Csp\Policies\Policy;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
 
-function renderView($policyName = Basic::class)
+function renderView($policyName = BasicPolicy::class)
 {
     return app('view')
         ->file(__DIR__.'/../fixtures/csp-meta-tags.blade.php')
@@ -29,7 +29,7 @@ it('will output csp headers with the default configuration', function (): void {
 
 it('can set report only csp meta tags', function () {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->reportOnly();
         }
@@ -51,7 +51,7 @@ test('a report uri can be set in the config', function (): void {
     config(['csp.report_uri' => 'https://report-uri.com']);
 
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->reportOnly();
         }
@@ -74,7 +74,7 @@ it('will throw an exception when using an invalid policy class', function (): vo
 
 it('will throw an exception when passing none with other values', function (): void {
     $invalidPolicy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::CONNECT, [Keyword::NONE, 'connect']);
         }
@@ -85,7 +85,7 @@ it('will throw an exception when passing none with other values', function (): v
 
 it('can use multiple values for the same directive', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this
                 ->addDirective(Directive::FRAME, 'src-1')
@@ -100,7 +100,7 @@ it('can use multiple values for the same directive', function (): void {
 
 test('none overrides other values for the same directive', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this
                 ->addDirective(Directive::CONNECT, 'connect-1')
@@ -114,7 +114,7 @@ test('none overrides other values for the same directive', function (): void {
 
 test('values override none value for the same directive', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this
                 ->addDirective(Directive::CONNECT, Keyword::NONE)
@@ -128,7 +128,7 @@ test('values override none value for the same directive', function (): void {
 
 it('can add multiple values for the same directive in one go', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::FRAME, ['src-1', 'src-2']);
         }
@@ -139,7 +139,7 @@ it('can add multiple values for the same directive in one go', function (): void
 
 it('will automatically quote special directive values', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::SCRIPT, [Keyword::SELF]);
         }
@@ -150,7 +150,7 @@ it('will automatically quote special directive values', function (): void {
 
 it('will automatically quote hashed values', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::SCRIPT, [
                 'sha256-hash1',
@@ -165,7 +165,7 @@ it('will automatically quote hashed values', function (): void {
 
 it('will automatically check values when they are given in a single string separated by spaces', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(
                 Directive::SCRIPT,
@@ -179,7 +179,7 @@ it('will automatically check values when they are given in a single string separ
 
 it('will not output the same directive values twice', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::SCRIPT, [Keyword::SELF, Keyword::SELF]);
         }
@@ -190,7 +190,7 @@ it('will not output the same directive values twice', function (): void {
 
 it('will handle scheme values', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this->addDirective(Directive::IMG, [
                 Scheme::DATA,
@@ -205,7 +205,7 @@ it('will handle scheme values', function (): void {
 
 it('can use an empty value for a directive', function (): void {
     $policy = new class extends Policy {
-        public function configure()
+        public function configure(): void
         {
             $this
                 ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)

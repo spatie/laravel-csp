@@ -42,19 +42,23 @@ This is the contents of the file which will be published at `config/csp.php`:
 return [
 
     /*
-     * A policy will determine which CSP headers will be set. A valid CSP policy is
+     * Policies will determine which CSP headers will be set. A valid CSP policy is
      * any class that extends `Spatie\Csp\Policies\Policy`
      */
-    'policy' => Spatie\Csp\Policies\Basic::class,
+    'policies' => [
+        Spatie\Csp\Policies\BasicPolicy::class,
+    ],
 
     /*
-     * This policy which will be put in report only mode. This is great for testing out
+     * These policies which will be put in report only mode. This is great for testing out
      * a new policy or changes to existing csp policy without breaking anything.
      */
-    'report_only_policy' => '',
+    'report_only_policies' => [
+        //
+    ],
 
     /*
-     * All violations against the policy will be reported to this url.
+     * All violations against a policy will be reported to this url.
      * A great service you could use for this is https://report-uri.com/
      *
      * You can override this setting by calling `reportTo` on your policy.
@@ -70,6 +74,14 @@ return [
      * The class responsible for generating the nonces used in inline tags and headers.
      */
     'nonce_generator' => Spatie\Csp\Nonce\RandomString::class,
+
+    /*
+     * Set to false to disable automatic nonce generation and handling.
+     * This is useful when you want to use 'unsafe-inline' for scripts/styles
+     * and cannot add inline nonces.
+     * Note that this will make your CSP policy less secure.
+     */
+    'nonce_enabled' => env('CSP_NONCE_ENABLED', true),
 ];
 ```
 
@@ -105,9 +117,37 @@ The given policy will override the one configured in the config file for that sp
 
 ## Usage
 
-This package allows you to define CSP policies. A CSP policy determines which CSP directives will be set in the headers of the response. 
+This package allows you to define CSP policies. A CSP policy determines which CSP directives will be set in the headers of the response.
 
-An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain or `www.google.com`. You'll find [a list with all CSP directives](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/#Directives) at Mozilla's excellent developer site.
+This package ships with a few commonly used policies to get your started. We're happy to receive PRs for more services!
+
+| Policy              | Description                                               |
+|---------------------|-----------------------------------------------------------|
+| `BasicPolicy`       | Allow requests to scripts, images… within the application |
+| `GoogleFontsPolicy` | When using Google Fonts                                   |       
+| `HubSpotPolicy`     | When using HubSpot tracking, cookie banners…              |       
+
+Register your policies in your own `config/csp.php` configuration file.
+
+```php
+return [
+
+    /*
+     * Policies will determine which CSP headers will be set. A valid CSP policy is
+     * any class that extends `Spatie\Csp\Policies\Policy`
+     */
+    'policies' => [
+        Spatie\Csp\Policies\BasicPolicy::class,
+        Spatie\Csp\Policies\GoogleFontsPolicy::class,
+        Spatie\Csp\Policies\HubSpotPolicy::class,
+    ],
+```
+
+If you have app-specific needs or the service you're integrated isn't included in this package, you can define your own policies.
+
+## Creating policies 
+
+An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from its own domain or `www.google.com`. You'll find [a list with all CSP directives](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/#Directives) at Mozilla's excellent developer site.
 
 According to the spec certain directive values need to be surrounded by quotes. Examples of this are `'self'`, `'none'` and `'unsafe-inline'`. When using `addDirective` function you're not required to surround the directive value with quotes manually. We will automatically add quotes. Script/style hashes, as well, will be auto-detected and surrounded with quotes.
 
@@ -149,9 +189,7 @@ This will output a CSP like this:
 Content-Security-Policy: upgrade-insecure-requests;block-all-mixed-content
 ```
 
-### Creating policies
-
-In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks:
+In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\BasicPolicy::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks:
 
 ```php
 namespace App\Support;
@@ -185,9 +223,9 @@ You can allow fetching scripts from `www.google.com` by extending this class:
 namespace App\Support;
 
 use Spatie\Csp\Directive;
-use Spatie\Csp\Policies\Basic;
+use Spatie\Csp\Policies\BasicPolicy;
 
-class MyCustomPolicy extends Basic
+class MyCustomPolicy extends BasicPolicy
 {
     public function configure()
     {
@@ -198,7 +236,7 @@ class MyCustomPolicy extends Basic
 }
 ```
 
-Don't forget to set the `policy` key in the `csp` config file to the class name of your policy (in this case it would be `App\Support\MyCustomPolicy`).
+Don't forget to update the `policies` key in the `csp` config file to the class name of your policy (in this case it would be `App\Support\MyCustomPolicy`).
 
 ### Using inline scripts and styles
 
@@ -292,7 +330,7 @@ To support this use case, this package provides a `@cspMetaTag` blade directive 
 
 You should be aware of the following implementation details when using the meta tag blade directive:
 - Note that you should manually pass the fully qualified class name of the policy we want to output a meta tag for. 
-  The `csp.policy` and `csp.report_only_policy` config options have no effect here.
+  The `csp.policies` and `csp.report_only_policies` config options have no effect here.
 - Because blade files don't have access to the `Response` object, the `shouldBeApplied` method will have no effect. 
   If you have declared the `@cspMetaTag` directive and the `csp.enabled` config option is set to true, the meta tag will be output regardless.
 - Any configuration (such as setting your policy to report only) should be done in the `configure` method of the policy,
