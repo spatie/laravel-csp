@@ -7,7 +7,6 @@ it('stringifies GoogleFontsPolicy', function (): void {
 
     $policy = new GoogleFontsPolicy();
     $policy->configure();
-    ;
 
     expect((string) $policy)->toMatchSnapshot();
-})->skipOnPhp('< 8.2.0');
+})->skip(version_compare(phpversion(), '8.2.0') === -1, 'Pest snapshot tests not working on earlier versions');
