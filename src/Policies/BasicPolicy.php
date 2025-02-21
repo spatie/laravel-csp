@@ -5,7 +5,7 @@ namespace Spatie\Csp\Policies;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Keyword;
 
-class Basic extends Policy
+class BasicPolicy extends Policy
 {
     public function configure()
     {

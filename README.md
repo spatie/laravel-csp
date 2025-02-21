@@ -46,7 +46,7 @@ return [
      * any class that extends `Spatie\Csp\Policies\Policy`
      */
     'policies' => [
-        Spatie\Csp\Policies\Basic::class,
+        Spatie\Csp\Policies\BasicPolicy::class,
     ],
 
     /*
@@ -155,7 +155,7 @@ Content-Security-Policy: upgrade-insecure-requests;block-all-mixed-content
 
 ### Creating policies
 
-In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks:
+In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\BasicPolicy::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks:
 
 ```php
 namespace App\Support;
@@ -189,9 +189,9 @@ You can allow fetching scripts from `www.google.com` by extending this class:
 namespace App\Support;
 
 use Spatie\Csp\Directive;
-use Spatie\Csp\Policies\Basic;
+use Spatie\Csp\Policies\BasicPolicy;
 
-class MyCustomPolicy extends Basic
+class MyCustomPolicy extends BasicPolicy
 {
     public function configure()
     {

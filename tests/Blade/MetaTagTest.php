@@ -3,12 +3,12 @@
 use Illuminate\View\ViewException;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Keyword;
-use Spatie\Csp\Policies\Basic;
+use Spatie\Csp\Policies\BasicPolicy;
 use Spatie\Csp\Policies\Policy;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
 
-function renderView($policyName = Basic::class)
+function renderView($policyName = BasicPolicy::class)
 {
     return app('view')
         ->file(__DIR__.'/../fixtures/csp-meta-tags.blade.php')

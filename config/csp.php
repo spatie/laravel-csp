@@ -7,7 +7,7 @@ return [
      * any class that extends `Spatie\Csp\Policies\Policy`
      */
     'policies' => [
-        Spatie\Csp\Policies\Basic::class,
+        Spatie\Csp\Policies\BasicPolicy::class,
     ],
 
     /*

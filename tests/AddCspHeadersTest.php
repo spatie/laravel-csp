@@ -11,7 +11,7 @@ use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidCspPolicy;
 use Spatie\Csp\Exceptions\InvalidValueSet;
 use Spatie\Csp\Keyword;
-use Spatie\Csp\Policies\Basic;
+use Spatie\Csp\Policies\BasicPolicy;
 use Spatie\Csp\Policies\Policy;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
@@ -43,7 +43,7 @@ it('will set csp headers with default configuration', function (): void {
 it('can set report only csp headers', function (): void {
     config([
         'csp.policies' => [],
-        'csp.report_only_policies' => [Basic::class],
+        'csp.report_only_policies' => [BasicPolicy::class],
     ]);
 
     $headers = getResponseHeaders();
