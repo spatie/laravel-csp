@@ -6,7 +6,8 @@ it('stringifies BasicPolicy', function (): void {
     config(['csp.nonce_enabled' => false]);
 
     $policy = new BasicPolicy();
-    $policy->configure();;
+    $policy->configure();
+    ;
 
     expect((string) $policy)->toMatchSnapshot();
 });
