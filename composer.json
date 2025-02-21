@@ -29,15 +29,15 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^8.1",
-        "illuminate/http": "^9.0|^10.0|^11.36.1|^12",
-        "illuminate/support": "^9.0|^10.0|^11.36.1|^12",
+        "php": "^8.3",
+        "illuminate/http": "^11.36.1|^12.0",
+        "illuminate/support": "^11.36.1|^12.0",
         "spatie/laravel-package-tools": "^1.17"
     },
     "require-dev": {
-        "mockery/mockery": "^1.6.12",
-        "orchestra/testbench": "^7.0|^8.0|^9.9|^10",
-        "pestphp/pest": "^1.23.0|^2.36.0|^3",
+        "mockery/mockery": "^1.6",
+        "orchestra/testbench": "^9.9|^10.0",
+        "pestphp/pest": "^3.0",
         "roave/security-advisories": "dev-master"
     },
     "autoload": {

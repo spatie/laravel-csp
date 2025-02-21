@@ -1,0 +1,6 @@
+script-src *.hsadspixel.net *.hs-analytics.net js.hscta.net js-eu1.hscta.net *.hubspot.com static.hsappstatic.net *.usemessages.com *.hs-banner.com *.hubspotusercontent00.net *.hubspotusercontent10.net *.hubspotusercontent20.net *.hubspotusercontent30.net *.hubspotusercontent40.net *.hubspot.net *.hscollectedforms.net *.hsleadflows.net *.hsforms.net *.hsforms.com *.hs-scripts.com *.hubspotfeedback.com feedback.hubapi.com feedback-eu1.hubapi.com
+connect-src *.hubapi.com js.hscta.net js-eu1.hscta.net *.hubspot.com *.hs-banner.com *.hscollectedforms.net *.hsforms.com
+img-src js.hscta.net js-eu1.hscta.net no-cache.hubspot.com *.hubspot.com *.hubspotusercontent00.net *.hubspotusercontent10.net *.hubspotusercontent20.net *.hubspotusercontent30.net *.hubspotusercontent40.net *.hubspot.net cdn2.hubspot.net *.hsforms.net *.hsforms.com
+frame-src *.hubspot.com *.hs-sites.com *.hs-sites-eu1.com *.hubspot.net play.hubspotvideo.com play-eu1.hubspotvideo.com *.hsforms.net *.hsforms.com
+style-src *.hubspotusercontent00.net *.hubspotusercontent10.net *.hubspotusercontent20.net *.hubspotusercontent30.net *.hubspotusercontent40.net cdn2.hubspot.net
+child-src *.hsforms.com
