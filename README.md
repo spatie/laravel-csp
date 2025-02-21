@@ -117,9 +117,37 @@ The given policy will override the one configured in the config file for that sp
 
 ## Usage
 
-This package allows you to define CSP policies. A CSP policy determines which CSP directives will be set in the headers of the response. 
+This package allows you to define CSP policies. A CSP policy determines which CSP directives will be set in the headers of the response.
 
-An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain or `www.google.com`. You'll find [a list with all CSP directives](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/#Directives) at Mozilla's excellent developer site.
+This package ships with a few commonly used policies to get your started. We're happy to receive PRs for more services!
+
+| Policy              | Description                                               |
+|---------------------|-----------------------------------------------------------|
+| `BasicPolicy`       | Allow requests to scripts, images… within the application |
+| `GoogleFontsPolicy` | When using Google Fonts                                   |       
+| `HubSpotPolicy`     | When using HubSpot tracking, cookie banners…              |       
+
+Register your policies in your own `config/csp.php` configuration file.
+
+```php
+return [
+
+    /*
+     * Policies will determine which CSP headers will be set. A valid CSP policy is
+     * any class that extends `Spatie\Csp\Policies\Policy`
+     */
+    'policies' => [
+        Spatie\Csp\Policies\BasicPolicy::class,
+        Spatie\Csp\Policies\GoogleFontsPolicy::class,
+        Spatie\Csp\Policies\HubSpotPolicy::class,
+    ],
+```
+
+If you have app-specific needs or the service you're integrated isn't included in this package, you can define your own policies.
+
+## Creating policies 
+
+An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from its own domain or `www.google.com`. You'll find [a list with all CSP directives](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/#Directives) at Mozilla's excellent developer site.
 
 According to the spec certain directive values need to be surrounded by quotes. Examples of this are `'self'`, `'none'` and `'unsafe-inline'`. When using `addDirective` function you're not required to surround the directive value with quotes manually. We will automatically add quotes. Script/style hashes, as well, will be auto-detected and surrounded with quotes.
 
@@ -160,8 +188,6 @@ This will output a CSP like this:
 ```
 Content-Security-Policy: upgrade-insecure-requests;block-all-mixed-content
 ```
-
-### Creating policies
 
 In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\BasicPolicy::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks:
 
@@ -210,7 +236,7 @@ class MyCustomPolicy extends BasicPolicy
 }
 ```
 
-Don't forget to set the `policy` key in the `csp` config file to the class name of your policy (in this case it would be `App\Support\MyCustomPolicy`).
+Don't forget to update the `policies` key in the `csp` config file to the class name of your policy (in this case it would be `App\Support\MyCustomPolicy`).
 
 ### Using inline scripts and styles
 
