@@ -98,6 +98,29 @@ it('can use multiple values for the same directive', function (): void {
     expect(renderView($policy::class))->toHaveMetaContent('frame-src src-1 src-2;form-action action-1 action-2');
 });
 
+it('can render multiple policies', function (): void {
+    $policy = new class extends Policy {
+        public function configure(): void
+        {
+            $this
+                ->addDirective(Directive::FRAME, 'src-1')
+                ->addDirective(Directive::FRAME, 'src-2');
+        }
+    };
+
+    $anotherPolicy = new class extends Policy {
+        public function configure(): void
+        {
+            $this
+                ->addDirective(Directive::FORM_ACTION, 'action-1')
+                ->addDirective(Directive::FORM_ACTION, 'action-2');
+        }
+    };
+
+    expect(renderView([$policy::class, $anotherPolicy::class]))
+        ->toHaveMetaContent('frame-src src-1 src-2;form-action action-1 action-2');
+});
+
 test('none overrides other values for the same directive', function (): void {
     $policy = new class extends Policy {
         public function configure(): void

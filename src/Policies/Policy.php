@@ -128,7 +128,7 @@ abstract class Policy
     {
         return collect($this->directives)
             ->map(function (array $values, string $directive) {
-                $valueString = implode(' ', $values);
+                $valueString = trim(implode(' ', $values));
 
                 return empty($valueString) ? "{$directive}" : "{$directive} {$valueString}";
             })
