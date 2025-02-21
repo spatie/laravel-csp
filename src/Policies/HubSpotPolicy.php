@@ -6,7 +6,6 @@ use Spatie\Csp\Directive;
 
 class HubSpotPolicy extends Policy
 {
-
     public function configure(): void
     {
         $this
