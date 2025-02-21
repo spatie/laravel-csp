@@ -1,1 +1,0 @@
-base-uri 'self';connect-src 'self';default-src 'self';form-action 'self';img-src 'self';media-src 'self';object-src 'none';script-src 'self';style-src 'self'
