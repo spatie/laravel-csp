@@ -28,8 +28,6 @@ if (! function_exists('csp_meta_tag')) {
 
         $header = $policies->first()->prepareHeader();
 
-        dump($policies);
-
         $content = $policies
             ->map(function (Policy $policy) {
                 $policy->configure();
