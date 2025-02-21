@@ -38,7 +38,8 @@
         "mockery/mockery": "^1.6.12",
         "orchestra/testbench": "^7.0|^8.0|^9.9|^10",
         "pestphp/pest": "^1.23.0|^2.36.0|^3",
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-master",
+        "spatie/laravel-ray": "^1.39"
     },
     "autoload": {
         "psr-4": {

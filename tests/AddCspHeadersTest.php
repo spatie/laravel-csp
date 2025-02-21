@@ -42,8 +42,8 @@ it('will set csp headers with default configuration', function (): void {
 
 it('can set report only csp headers', function (): void {
     config([
-        'csp.policy' => '',
-        'csp.report_only_policy' => Basic::class,
+        'csp.policies' => [],
+        'csp.report_only_policies' => [Basic::class],
     ]);
 
     $headers = getResponseHeaders();
@@ -78,7 +78,7 @@ it('will throw an exception when using an invalid policy class', function (): vo
     $invalidPolicyClassName = get_class(new class {
     });
 
-    config(['csp.policy' => $invalidPolicyClassName]);
+    config(['csp.policies' => [$invalidPolicyClassName]]);
 
     getResponseHeaders();
 })->throws(InvalidCspPolicy::class);
@@ -93,7 +93,7 @@ it('will throw an exception when passing none with other values', function (): v
         }
     };
 
-    config(['csp.policy' => get_class($invalidPolicy)]);
+    config(['csp.policies' => [get_class($invalidPolicy)]]);
 
     getResponseHeaders();
 })->throws(InvalidValueSet::class);
@@ -110,7 +110,36 @@ it('can use multiple values for the same directive', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        'frame-src src-1 src-2;form-action action-1 action-2',
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+it('can use multiple policies', function (): void {
+    $policy = new class extends Policy {
+        public function configure()
+        {
+            $this
+                ->addDirective(Directive::FRAME, 'src-1')
+                ->addDirective(Directive::FRAME, 'src-2');
+        }
+    };
+
+    $anotherPolicy = new class extends Policy {
+        public function configure()
+        {
+            $this
+                ->addDirective(Directive::FORM_ACTION, 'action-1')
+                ->addDirective(Directive::FORM_ACTION, 'action-2');
+        }
+    };
+
+    config(['csp.policies' => [get_class($policy), get_class($anotherPolicy)]]);
 
     $headers = getResponseHeaders();
 
@@ -131,7 +160,7 @@ test('none overrides other values for the same directive', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
 
     $headers = getResponseHeaders();
 
@@ -152,7 +181,7 @@ test('values override none value for the same directive', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
 
     $headers = getResponseHeaders();
 
@@ -170,7 +199,7 @@ test('a policy can be put in report only mode', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
 
     $headers = getResponseHeaders();
 
@@ -186,7 +215,7 @@ it('can add multiple values for the same directive in one go', function (): void
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
 
     $headers = getResponseHeaders();
 
@@ -204,7 +233,7 @@ it('will automatically quote special directive values', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
 
     $headers = getResponseHeaders();
 
@@ -226,7 +255,7 @@ it('will automatically quote hashed values', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
 
     $headers = getResponseHeaders();
 
@@ -247,7 +276,7 @@ it('will automatically check values when they are given in a single string separ
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
 
     $headers = getResponseHeaders();
 
@@ -265,7 +294,7 @@ it('will not output the same directive values twice', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
 
     $headers = getResponseHeaders();
 
@@ -310,7 +339,7 @@ it('will handle scheme values', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
 
     $headers = getResponseHeaders();
 
@@ -330,7 +359,7 @@ it('can use an empty value for a directive', function (): void {
         }
     };
 
-    config(['csp.policy' => get_class($policy)]);
+    config(['csp.policies' => [get_class($policy)]]);
 
     $headers = getResponseHeaders();
 

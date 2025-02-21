@@ -12,6 +12,13 @@ class AddCspHeaders
     {
         $response = $next($request);
 
+        if (
+            $response->headers->has('Content-Security-Policy')
+            || $response->headers->has('Content-Security-Policy-Report-Only')
+        ) {
+            return $response;
+        }
+
         $this
             ->getPolicies($customPolicyClass)
             ->filter->shouldBeApplied($request, $response)
@@ -30,20 +37,17 @@ class AddCspHeaders
             return $policies;
         }
 
-        $policyClass = config('csp.policy');
-
-        if (! empty($policyClass)) {
-            $policies->push(PolicyFactory::create($policyClass));
+        foreach (config('csp.policies', []) as $policyClass) {
+            $policies->push(
+                PolicyFactory::create($policyClass)
+            );
         }
 
-        $reportOnlyPolicyClass = config('csp.report_only_policy');
-
-        if (! empty($reportOnlyPolicyClass)) {
-            $policy = PolicyFactory::create($reportOnlyPolicyClass);
-
-            $policy->reportOnly();
-
-            $policies->push($policy);
+        foreach (config('csp.report_only_policies', []) as $reportOnlyPolicyClass) {
+            $policies->push(
+                PolicyFactory::create($reportOnlyPolicyClass)
+                    ->reportOnly()
+            );
         }
 
         return $policies;

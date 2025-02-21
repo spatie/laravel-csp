@@ -45,13 +45,17 @@ return [
      * A policy will determine which CSP headers will be set. A valid CSP policy is
      * any class that extends `Spatie\Csp\Policies\Policy`
      */
-    'policy' => Spatie\Csp\Policies\Basic::class,
+    'policies' => [
+        Spatie\Csp\Policies\Basic::class,
+    ],
 
     /*
      * This policy which will be put in report only mode. This is great for testing out
      * a new policy or changes to existing csp policy without breaking anything.
      */
-    'report_only_policy' => '',
+    'report_only_policies' => [
+        //    
+    ],
 
     /*
      * All violations against the policy will be reported to this url.
@@ -292,7 +296,7 @@ To support this use case, this package provides a `@cspMetaTag` blade directive 
 
 You should be aware of the following implementation details when using the meta tag blade directive:
 - Note that you should manually pass the fully qualified class name of the policy we want to output a meta tag for. 
-  The `csp.policy` and `csp.report_only_policy` config options have no effect here.
+  The `csp.policies` and `csp.report_only_policies` config options have no effect here.
 - Because blade files don't have access to the `Response` object, the `shouldBeApplied` method will have no effect. 
   If you have declared the `@cspMetaTag` directive and the `csp.enabled` config option is set to true, the meta tag will be output regardless.
 - Any configuration (such as setting your policy to report only) should be done in the `configure` method of the policy,

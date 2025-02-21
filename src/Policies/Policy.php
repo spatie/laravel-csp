@@ -113,7 +113,12 @@ abstract class Policy
         $headerName = $this->prepareHeader();
 
         if ($response->headers->has($headerName)) {
-            return;
+            $response->headers->set(
+                $headerName,
+                $response->headers->get($headerName) . ';' . $this
+            );
+
+            return $response;
         }
 
         $response->headers->set($headerName, (string) $this);
