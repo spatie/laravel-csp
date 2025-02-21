@@ -7,7 +7,7 @@ use Spatie\Csp\Keyword;
 
 class BasicPolicy extends Policy
 {
-    public function configure()
+    public function configure(): void
     {
         $this
             ->addDirective(Directive::BASE, Keyword::SELF)

@@ -6,7 +6,7 @@ use Spatie\Csp\Directive;
 
 class GoogleFontsPolicy extends Policy
 {
-    public function configure()
+    public function configure(): void
     {
         $this
             ->addDirective(Directive::STYLE, 'fonts.googleapis.com')
