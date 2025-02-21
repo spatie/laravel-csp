@@ -121,11 +121,15 @@ This package allows you to define CSP policies. A CSP policy determines which CS
 
 This package ships with a few commonly used policies to get your started. We're happy to receive PRs for more services!
 
-| Policy              | Description                                               |
+| Policy              | Services                                                  |
 |---------------------|-----------------------------------------------------------|
 | `BasicPolicy`       | Allow requests to scripts, images… within the application |
-| `GoogleFontsPolicy` | When using Google Fonts                                   |       
-| `HubSpotPolicy`     | When using HubSpot tracking, cookie banners…              |       
+| `FathomPolicy`      | [usefathom.com](https://usefathom.com)                    |       
+| `GooglePolicy`      | Google Analytics & Tag Manager                            |       
+| `GoogleFontsPolicy` | [fonts.google.com](https://fonts.google.com)              |       
+| `HubSpotPolicy`     | [hubspot.com](https://hubspot.com) (full suite)           |       
+| `JsDelivr`          | [jsdelivr.com](https://jsdelivr.com)                      |       
+| `ToltPolicy`        | [tolt.io](https://tolt.io)                                |       
 
 Register your policies in your own `config/csp.php` configuration file.
 
