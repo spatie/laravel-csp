@@ -4,7 +4,7 @@ namespace Spatie\Csp\Policies;
 
 use Spatie\Csp\Directive;
 
-class JsDelivr extends Policy
+class JsDelivrPolicy extends Policy
 {
 
     public function configure(): void

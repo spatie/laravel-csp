@@ -1,0 +1,1 @@
+script-src *.googletagmanager.com;img-src *.google-analytics.com *.analytics.google.com *.googletagmanager.com *.g.doubleclick.net *.google.com;connect-src *.google-analytics.com *.analytics.google.com *.googletagmanager.com *.g.doubleclick.net *.google.com
