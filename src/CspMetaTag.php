@@ -12,7 +12,7 @@ class CspMetaTag
     ) {
     }
 
-    public static function create(string|array $presets, bool $reportOnly = false): static
+    public static function create(string|array $presets = [], bool $reportOnly = false): static
     {
         if (! config('csp.enabled')) {
             return new static();
@@ -41,7 +41,7 @@ class CspMetaTag
         return new static($policy, $reportOnlyPolicy);
     }
 
-    public static function createReportOnly(string|array $presets): static
+    public static function createReportOnly(string|array $presets = []): static
     {
         return static::create($presets, reportOnly: true);
     }
