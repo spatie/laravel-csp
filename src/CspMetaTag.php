@@ -43,7 +43,7 @@ class CspMetaTag
 
     public function __toString(): string
     {
-        if  ($this->policy->isEmpty()) {
+        if ($this->policy->isEmpty()) {
             return '';
         }
 

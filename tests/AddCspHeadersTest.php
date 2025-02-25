@@ -2,21 +2,20 @@
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNull;
+use function PHPUnit\Framework\assertStringContainsString;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidPreset;
 use Spatie\Csp\Exceptions\InvalidValueSet;
 use Spatie\Csp\Keyword;
 use Spatie\Csp\Policy;
-use Spatie\Csp\Presets\Basic;
 use Spatie\Csp\Preset;
+use Spatie\Csp\Presets\Basic;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\HeaderBag;
-use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertNotNull;
-use function PHPUnit\Framework\assertNull;
-use function PHPUnit\Framework\assertStringContainsString;
 
 function getResponseHeaders(string $url = 'test-route'): HeaderBag
 {

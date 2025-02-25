@@ -4,8 +4,8 @@ use Illuminate\View\ViewException;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Keyword;
 use Spatie\Csp\Policy;
-use Spatie\Csp\Presets\Basic;
 use Spatie\Csp\Preset;
+use Spatie\Csp\Presets\Basic;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
 

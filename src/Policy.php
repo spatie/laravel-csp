@@ -32,7 +32,7 @@ class Policy
 
             $values = array_filter(
                 Arr::flatten(
-                    array_map(fn($value) => explode(' ', $value), Arr::wrap($values))
+                    array_map(fn ($value) => explode(' ', $value), Arr::wrap($values))
                 )
             );
 
@@ -49,7 +49,7 @@ class Policy
             foreach ($values as $value) {
                 $sanitizedValue = $this->sanitizeValue($value);
 
-                if (!in_array($sanitizedValue, $this->directives[$directive] ?? [])) {
+                if (! in_array($sanitizedValue, $this->directives[$directive] ?? [])) {
                     $this->directives[$directive][] = $sanitizedValue;
                 }
             }
@@ -146,7 +146,7 @@ class Policy
         return array_reduce($presets, function (Policy $policy, string $className) {
             $preset = app($className);
 
-            if (!is_a($preset, Preset::class, true)) {
+            if (! is_a($preset, Preset::class, true)) {
                 throw InvalidPreset::create($preset);
             }
 
