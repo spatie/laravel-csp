@@ -40,6 +40,20 @@ it('will set csp headers with default configuration', function (): void {
     assertNull($headers->get('Content-Security-Policy-Report-Only'));
 });
 
+it('will add additional directives', function (): void {
+    config([
+        'csp.nonce_enabled' => false,
+        'csp.directives' => [
+            Directive::SCRIPT => [Keyword::UNSAFE_EVAL],
+        ],
+    ]);
+
+    $headers = getResponseHeaders();
+
+    assertStringContainsString("script-src 'self' 'unsafe-eval';", $headers->get('Content-Security-Policy'));
+    assertNull($headers->get('Content-Security-Policy-Report-Only'));
+});
+
 it('can set report only csp headers', function (): void {
     config([
         'csp.presets' => [],
@@ -50,6 +64,18 @@ it('can set report only csp headers', function (): void {
 
     assertStringContainsString("default-src 'self';", $headers->get('Content-Security-Policy-Report-Only'));
     assertNull($headers->get('Content-Security-Policy'));
+});
+
+it('will add additional report only directives', function (): void {
+    config([
+        'csp.report_only_directives' => [
+            Directive::SCRIPT => [Keyword::UNSAFE_EVAL],
+        ],
+    ]);
+
+    $headers = getResponseHeaders();
+
+    assertStringContainsString("script-src 'unsafe-eval'", $headers->get('Content-Security-Policy-Report-Only'));
 });
 
 it('wont set any headers if not enabled in the config', function (): void {

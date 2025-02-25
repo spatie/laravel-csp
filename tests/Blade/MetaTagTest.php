@@ -9,7 +9,7 @@ use Spatie\Csp\Presets\Basic;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
 
-function renderView($policyName = Basic::class)
+function renderView($policyName = null)
 {
     return app('view')
         ->file(__DIR__.'/../fixtures/csp-meta-tags.blade.php')
@@ -39,9 +39,12 @@ it('wont output any meta tag if not enabled in the config', function (): void {
 it('will use configuration when passing no policy class', function (): void {
     config([
         'csp.nonce_enabled' => false,
+        'csp.directives' => [
+            Directive::SCRIPT => [Keyword::UNSAFE_EVAL],
+        ],
     ]);
 
-    expect(renderView())->toHaveMetaContent("base-uri 'self';connect-src 'self';default-src 'self';font-src 'self';form-action 'self';img-src 'self';media-src 'self';object-src 'none';script-src 'self';style-src 'self'");
+    expect(renderView())->toHaveMetaContent("base-uri 'self';connect-src 'self';default-src 'self';font-src 'self';form-action 'self';img-src 'self';media-src 'self';object-src 'none';script-src 'self' 'unsafe-eval';style-src 'self'");
 });
 
 it('will throw an exception when using an invalid policy class', function (): void {

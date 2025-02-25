@@ -22,19 +22,31 @@ class CspMetaTag
 
         if (! empty($presets)) {
             if ($reportOnly) {
-                return new static(reportOnlyPolicy: Policy::create($presets, config('csp.report_uri')));
+                $reportOnlyPolicy = Policy::create(
+                    presets: $presets,
+                    reportUri: config('csp.report_uri')
+                );
+
+                return new static(reportOnlyPolicy: $reportOnlyPolicy);
             } else {
-                return new static(policy: Policy::create($presets, config('csp.report_uri')));
+                $policy = Policy::create(
+                    presets: $presets,
+                    reportUri: config('csp.report_uri'),
+                );
+
+                return new static(policy: $policy);
             }
         }
 
         $policy = Policy::create(
             presets: config('csp.presets'),
+            directives: config('csp.directives'),
             reportUri: config('csp.report_uri'),
         );
 
         $reportOnlyPolicy = Policy::create(
             presets: config('csp.report_only_presets'),
+            directives: config('csp.report_only_directives'),
             reportUri: config('csp.report_uri'),
         );
 

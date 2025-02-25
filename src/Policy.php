@@ -140,10 +140,11 @@ class Policy
 
     /** @param class-string<Preset>[] $presets */
     public static function create(
-        array $presets,
+        array $presets = [],
+        array $directives = [],
         ?string $reportUri = null,
     ): self {
-        return array_reduce($presets, function (Policy $policy, string $className) {
+        $policy = array_reduce($presets, function (Policy $policy, string $className) {
             $preset = app($className);
 
             if (! is_a($preset, Preset::class, true)) {
@@ -154,5 +155,11 @@ class Policy
 
             return $policy;
         }, new static($reportUri));
+
+        foreach ($directives as $directive => $contents) {
+            $policy->add($directive, $contents);
+        }
+
+        return $policy;
     }
 }

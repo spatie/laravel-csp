@@ -10,12 +10,26 @@ return [
         Spatie\Csp\Presets\Basic::class,
     ],
 
+    /**
+     * Register additional global CSP directives here.
+     */
+    'directives' => [
+        // Directive::SCRIPT => [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE],
+    ],
+
     /*
      * These presets which will be put in a report-only policy. This is great for testing out
      * a new policy or changes to existing CSP policy without breaking anything.
      */
     'report_only_presets' => [
         //
+    ],
+
+    /**
+     * Register additional global report-only CSP directives here.
+     */
+    'report_only_directives' => [
+        // Directive::SCRIPT => [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE],
     ],
 
     /*

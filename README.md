@@ -49,12 +49,26 @@ return [
         Spatie\Csp\Presets\Basic::class,
     ],
 
+    /**
+     * Register additional global CSP directives here.
+     */
+    'directives' => [
+        // Directive::SCRIPT => [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE],
+    ],
+
     /*
      * These presets which will be put in a report-only policy. This is great for testing out
      * a new policy or changes to existing CSP policy without breaking anything.
      */
     'report_only_presets' => [
         //
+    ],
+
+    /**
+     * Register additional global report-only CSP directives here.
+     */
+    'report_only_directives' => [
+        // Directive::SCRIPT => [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE],
     ],
 
     /*
@@ -81,6 +95,7 @@ return [
      */
     'nonce_enabled' => env('CSP_NONCE_ENABLED', true),
 ];
+
 ```
 
 You can add CSP headers to all responses of your app by registering `Spatie\Csp\AddCspHeaders::class` as global middleware in `bootstrap/app.php`.
@@ -137,7 +152,17 @@ This package ships with a few commonly used presets to get your started. *We're 
 
 Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
 
-If you have app-specific needs or the service you're integrated isn't included in this package, you can create your own preset.
+If you have app-specific needs or the service you're integrated isn't included in this package, you can create your own preset as explained below. You can also register global directives in the configuration file.
+
+```php
+'directives' => [
+    Directive::SCRIPT => [Keyword::UNSAFE_EVAL],
+],
+
+'report_only_directives' => [
+    Directive::SCRIPT => [Keyword::UNSAFE_INLINE],
+],
+```
 
 ## Creating a preset
 
