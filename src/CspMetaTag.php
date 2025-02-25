@@ -3,37 +3,42 @@
 namespace Spatie\Csp;
 
 use Illuminate\Support\Arr;
-use Spatie\Csp\Exceptions\MissingCspMetaTagPolicy;
 
 class CspMetaTag
 {
     public function __construct(
-        protected Policy $policy,
-        protected bool $reportOnly = false,
+        protected Policy $policy = new Policy(),
+        protected Policy $reportOnlyPolicy = new Policy(),
     ) {
     }
 
     public static function create(string|array $presets, bool $reportOnly = false): static
     {
         if (! config('csp.enabled')) {
-            return new static(Policy::create([]));
+            return new static();
         }
 
         $presets = Arr::wrap($presets);
 
-        if (empty($presets)) {
-            $presets = $reportOnly
-                ? config('csp.report_only_presets', [])
-                : config('csp.presets', []);
+        if (! empty($presets)) {
+            if ($reportOnly) {
+                return new static(reportOnlyPolicy: Policy::create($presets, config('csp.report_uri')));
+            } else {
+                return new static(policy: Policy::create($presets, config('csp.report_uri')));
+            }
         }
 
-        $policy = Policy::create($presets, config('csp.report_uri'));
+        $policy = Policy::create(
+            presets: config('csp.presets'),
+            reportUri: config('csp.report_uri'),
+        );
 
-        if ($policy->isEmpty()) {
-            throw MissingCspMetaTagPolicy::create();
-        }
+        $reportOnlyPolicy = Policy::create(
+            presets: config('csp.report_only_presets'),
+            reportUri: config('csp.report_uri'),
+        );
 
-        return new static($policy, $reportOnly);
+        return new static($policy, $reportOnlyPolicy);
     }
 
     public static function createReportOnly(string|array $presets): static
@@ -43,12 +48,16 @@ class CspMetaTag
 
     public function __toString(): string
     {
-        if ($this->policy->isEmpty()) {
-            return '';
+        $tags = [];
+
+        if (! $this->policy->isEmpty()) {
+            $tags[] = "<meta http-equiv=\"Content-Security-Policy\" content=\"{$this->policy->getContents()}\">";
         }
 
-        $header = $this->reportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
+        if (! $this->reportOnlyPolicy->isEmpty()) {
+            $tags[] = "<meta http-equiv=\"Content-Security-Policy-Report-Only\" content=\"{$this->reportOnlyPolicy->getContents()}\">";
+        }
 
-        return "<meta http-equiv=\"{$header}\" content=\"{$this->policy->getContents()}\">";
+        return implode(PHP_EOL, $tags);
     }
 }
