@@ -46,7 +46,7 @@ return [
      * any class that extends `Spatie\Csp\Policies\Policy`
      */
     'policies' => [
-        Spatie\Csp\Policies\BasicPolicy::class,
+        Spatie\Csp\Presets\Basic::class,
     ],
 
     /*
@@ -142,9 +142,9 @@ return [
      * any class that extends `Spatie\Csp\Policies\Policy`
      */
     'policies' => [
-        Spatie\Csp\Policies\BasicPolicy::class,
-        Spatie\Csp\Policies\GoogleFontsPolicy::class,
-        Spatie\Csp\Policies\HubSpotPolicy::class,
+        Spatie\Csp\Presets\Basic::class,
+        Spatie\Csp\Presets\GoogleFonts::class,
+        Spatie\Csp\Presets\HubSpot::class,
     ],
 ```
 
@@ -228,9 +228,9 @@ You can allow fetching scripts from `www.google.com` by extending this class:
 namespace App\Support;
 
 use Spatie\Csp\Directive;
-use Spatie\Csp\Policies\BasicPolicy;
+use Spatie\Csp\Presets\Basic;
 
-class MyCustomPolicy extends BasicPolicy
+class MyCustomPolicy extends Basic
 {
     public function configure()
     {
@@ -387,11 +387,9 @@ Another approach is to overwrite the `Spatie\Csp\Policies\Policy::shouldBeApplie
 ```php
 namespace App\Services\Csp\Policies;
 
-use Illuminate\Http\Request;
-use Spatie\Csp;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;use Spatie\Csp;use Symfony\Component\HttpFoundation\Response;
 
-class MyCustomPolicy extends Csp\Policies\Policy
+class MyCustomPolicy extends Csp\Preset
 {
     public function configure()
     {

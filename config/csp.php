@@ -3,26 +3,24 @@
 return [
 
     /*
-     * Policies will determine which CSP headers will be set. A valid CSP policy is
-     * any class that extends `Spatie\Csp\Policies\Policy`
+     * Presets will determine which CSP headers will be set. A valid CSP preset is
+     * any class that extends `Spatie\Csp\Preset`
      */
-    'policies' => [
-        Spatie\Csp\Policies\BasicPolicy::class,
+    'presets' => [
+        Spatie\Csp\Presets\Basic::class,
     ],
 
     /*
-     * These policies which will be put in report only mode. This is great for testing out
-     * a new policy or changes to existing csp policy without breaking anything.
+     * These presets which will be put in a report-only policy. This is great for testing out
+     * a new policy or changes to existing CSP policy without breaking anything.
      */
-    'report_only_policies' => [
+    'report_only_presets' => [
         //
     ],
 
     /*
      * All violations against a policy will be reported to this url.
      * A great service you could use for this is https://report-uri.com/
-     *
-     * You can override this setting by calling `reportTo` on your policy.
      */
     'report_uri' => env('CSP_REPORT_URI', ''),
 

@@ -4,53 +4,58 @@ namespace Spatie\Csp;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Spatie\Csp\Policies\Policy;
+use Illuminate\Http\Response;
 
 class AddCspHeaders
 {
-    public function handle(Request $request, Closure $next, ?string $customPolicyClass = null)
-    {
+    public function handle(
+        Request $request,
+        Closure $next,
+        ?string $customPreset = null
+    ): Response {
         $response = $next($request);
 
-        if (
-            $response->headers->has('Content-Security-Policy')
-            || $response->headers->has('Content-Security-Policy-Report-Only')
-        ) {
+        if (! config('csp.enabled')) {
             return $response;
         }
 
-        $this
-            ->getPolicies($customPolicyClass)
-            ->filter(fn (Policy $policy) => $policy->shouldBeApplied($request, $response))
-            ->each(fn (Policy $policy) => $policy->applyTo($response));
+        // Ensure custom CSP middleware registered later in the stack gets precedence
+        if ($this->hasCspHeader($response)) {
+            return $response;
+        }
+
+        if ($customPreset) {
+            $policy = Policy::create([$customPreset]);
+
+            $response->headers->set('Content-Security-Policy', $policy->getContents());
+
+            return $response;
+        }
+
+        $policy = Policy::create(
+            presets: config('csp.presets'),
+            reportUri: config('csp.report_uri'),
+        );
+
+        if (! $policy->isEmpty()) {
+            $response->headers->set('Content-Security-Policy', $policy->getContents());
+        }
+
+        $reportOnlyPolicy = Policy::create(
+            presets: config('csp.report_only_presets'),
+            reportUri: config('report_uri'),
+        );
+
+        if (! $reportOnlyPolicy->isEmpty()) {
+            $response->headers->set('Content-Security-Policy-Report-Only', $reportOnlyPolicy->getContents());
+        }
 
         return $response;
     }
 
-    protected function getPolicies(?string $customPolicyClass = null): Collection
+    public function hasCspHeader(Response $response): bool
     {
-        $policies = collect();
-
-        if ($customPolicyClass) {
-            $policies->push(PolicyFactory::create($customPolicyClass));
-
-            return $policies;
-        }
-
-        foreach (config('csp.policies', []) as $policyClass) {
-            $policies->push(
-                PolicyFactory::create($policyClass)
-            );
-        }
-
-        foreach (config('csp.report_only_policies', []) as $reportOnlyPolicyClass) {
-            $policies->push(
-                PolicyFactory::create($reportOnlyPolicyClass)
-                    ->reportOnly()
-            );
-        }
-
-        return $policies;
+        return $response->headers->has('Content-Security-Policy')
+            || $response->headers->has('Content-Security-Policy-Report-Only');
     }
 }

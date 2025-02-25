@@ -1,7 +1,7 @@
 <?php
 
 it('will output correct nonce', function (): void {
-    $nonce = csp_nonce();
+    $nonce = app('csp-nonce');
 
     $view = app('view')
         ->file(__DIR__.'/../fixtures/view.blade.php')

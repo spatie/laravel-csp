@@ -19,7 +19,7 @@ class CspServiceProvider extends PackageServiceProvider
     {
         if (config('csp.nonce_enabled', true)) {
             $this->app->singleton(NonceGenerator::class, config('csp.nonce_generator'));
-            
+
             $this->app->singleton('csp-nonce', function () {
                 return app(NonceGenerator::class)->generate();
             });
@@ -35,11 +35,15 @@ class CspServiceProvider extends PackageServiceProvider
         $bladeCompiler = $this->app->make('view.engine.resolver')->resolve('blade')->getCompiler();
 
         $bladeCompiler->directive('nonce', function () {
-            return '<?php echo "nonce=\"" . csp_nonce() . "\""; ?>';
+            return '<?php echo "nonce=\"" . app(\'csp-nonce\') . "\""; ?>';
         });
 
         $bladeCompiler->directive('cspMetaTag', function ($policyClass) {
-            return "<?php echo csp_meta_tag({$policyClass}) ?>";
+            return "<?php echo \Spatie\Csp\CspMetaTag::create({$policyClass}) ?>";
+        });
+
+        $bladeCompiler->directive('cspMetaTagReportOnly', function ($policyClass) {
+            return "<?php echo \Spatie\Csp\CspMetaTag::createReportOnly({$policyClass}) ?>";
         });
     }
 }
