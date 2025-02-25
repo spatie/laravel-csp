@@ -355,8 +355,6 @@ Or use the `@cspMetaTagReportOnly` tag to render a specific preset in report-onl
 </head>
 ```
 
-Note that because blade files don't always have access to the `Response` object, the `shouldBeApplied` method will have be checked.
-
 ### Reporting CSP errors
 
 #### In the browser
