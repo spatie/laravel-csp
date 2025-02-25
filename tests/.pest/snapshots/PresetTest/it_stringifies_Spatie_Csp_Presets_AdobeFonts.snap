@@ -1,4 +1,5 @@
-script-src 'self' use.typekit.net
-style-src 'self' 'unsafe-inline' use.typekit.net
-img-src 'self' p.typekit.net
 connect-src performance.typekit.net
+font-src use.typekit.net
+img-src 'self' p.typekit.net
+script-src 'self' use.typekit.net
+style-src 'self' 'unsafe-inline' p.typekit.net use.typekit.net

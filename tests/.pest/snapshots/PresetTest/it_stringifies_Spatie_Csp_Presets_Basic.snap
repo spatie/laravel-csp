@@ -1,6 +1,7 @@
 base-uri 'self'
 connect-src 'self'
 default-src 'self'
+font-src 'self'
 form-action 'self'
 img-src 'self'
 media-src 'self'

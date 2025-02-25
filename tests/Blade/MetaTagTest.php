@@ -41,7 +41,7 @@ it('will use configuration when passing no policy class', function (): void {
         'csp.nonce_enabled' => false,
     ]);
 
-    expect(renderView())->toHaveMetaContent("base-uri 'self';connect-src 'self';default-src 'self';form-action 'self';img-src 'self';media-src 'self';object-src 'none';script-src 'self';style-src 'self'");
+    expect(renderView())->toHaveMetaContent("base-uri 'self';connect-src 'self';default-src 'self';font-src 'self';form-action 'self';img-src 'self';media-src 'self';object-src 'none';script-src 'self';style-src 'self'");
 });
 
 it('will throw an exception when using an invalid policy class', function (): void {
