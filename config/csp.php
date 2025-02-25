@@ -35,7 +35,7 @@ return [
     'nonce_generator' => Spatie\Csp\Nonce\RandomString::class,
 
     /*
-     * Set to false to disable automatic nonce generation and handling.
+     * Set false to disable automatic nonce generation and handling.
      * This is useful when you want to use 'unsafe-inline' for scripts/styles
      * and cannot add inline nonces.
      * Note that this will make your CSP policy less secure.
