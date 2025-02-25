@@ -2,33 +2,53 @@
 
 ## 2.x to 3.x
 
-The configuration has been updated to support multiple policies. and the `Basic` policy has been renamed to `BasicPolicy`.
+### Changed: Policies have been replaced by presets.
+
+Presets are similar to policies, but laravel-csp v3 allows multiple presets to be used simultaneously. 
+
+The configuration keys `policy` and `report_only_policy` have been replaced by `presets` and `report_only_presets`.
 
 ```diff
  return [
- 
-     /*
-      * A policy will determine which CSP headers will be set. A valid CSP policy is
-      * any class that extends `Spatie\Csp\Policies\Policy`
-      */
 -    'policy' => Spatie\Csp\Policies\Basic::class,
-+    'policies' => [
-+        Spatie\Csp\Policies\BasicPolicy::class,
++    'presets' => [
++        Spatie\Csp\Presets\Basic::class,
 +    ],
- 
-     /*
-      * This policy which will be put in report only mode. This is great for testing out
-      * a new policy or changes to existing csp policy without breaking anything.
-      */
 -    'report_only_policy' => '',
-+    'report_only_policies' => [
++    'report_only_presets' => [
 +        //    
 +    ],
 ```
 
-Custom policies have updated return type. Add a `void` return type to methods you might have overridden.
+Your custom policies should be refactored to custom presets. Differences are:
+
+- Presets must implement the `Spatie\Csp\Preset` interface instead of extending the `Spatie\Csp\Policues\Policy` class
+- The `configure` method has an updated signature
+- `addDirective` has been renamed to `add`, `addNonceForDirective` has been renamed to `addNonce`
+
+Here's an example diff for a policy to preset refactor:
 
 ```diff
--public function configure()
-+public function configure(): void
+ use Spatie\Csp\Directive;
+ use Spatie\Csp\Keyword;
+-use Spatie\Csp\Policies\Policy;
++use Spatie\Csp\Policy;
++use Spatie\Csp\Preset;
+
+-class MyPolicy extends Policy
++class MyPolicy implements Preset
+ {
+-    public function configure()
++    public function configure(Policy $policy): void
+     {
+-        return $this
+-            ->addDirective(Directive::SCRIPT, Keyword::SELF)
+-            ->addNonceForDirective(Directive::SCRIPT);
++        return $this
++            ->add(Directive::SCRIPT, Keyword::SELF)
++            ->addNonce(Directive::SCRIPT);
+     }
+ }
 ```
+
+There's no more support for `reportOnly` and `shouldBeApplied` in presets, as there are other ways to accommodate this functionality.
