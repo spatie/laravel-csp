@@ -2,8 +2,6 @@
 
 namespace Spatie\Csp;
 
-use ReflectionClass;
-
 enum Directive: string
 {
     case BASE = 'base-uri';
