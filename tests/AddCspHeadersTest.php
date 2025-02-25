@@ -44,7 +44,7 @@ it('will add additional directives', function (): void {
     config([
         'csp.nonce_enabled' => false,
         'csp.directives' => [
-            Directive::SCRIPT => [Keyword::UNSAFE_EVAL],
+            [Directive::SCRIPT, [Keyword::UNSAFE_EVAL]],
         ],
     ]);
 
@@ -69,7 +69,7 @@ it('can set report only csp headers', function (): void {
 it('will add additional report only directives', function (): void {
     config([
         'csp.report_only_directives' => [
-            Directive::SCRIPT => [Keyword::UNSAFE_EVAL],
+            [Directive::SCRIPT, [Keyword::UNSAFE_EVAL]],
         ],
     ]);
 
@@ -271,27 +271,6 @@ it('will automatically quote hashed values', function (): void {
 
     assertEquals(
         "script-src 'sha256-hash1' 'sha384-hash2' 'sha512-hash3'",
-        $headers->get('Content-Security-Policy')
-    );
-});
-
-it('will automatically check values when they are given in a single string separated by spaces', function (): void {
-    $policy = new class implements Preset {
-        public function configure(Policy $policy): void
-        {
-            $policy->add(
-                Directive::SCRIPT,
-                'sha256-hash1 '.Keyword::SELF.'  source'
-            );
-        }
-    };
-
-    config(['csp.presets' => [$policy::class]]);
-
-    $headers = getResponseHeaders();
-
-    assertEquals(
-        "script-src 'sha256-hash1' 'self' source",
         $headers->get('Content-Security-Policy')
     );
 });

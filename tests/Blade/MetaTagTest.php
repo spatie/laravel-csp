@@ -39,7 +39,7 @@ it('will use configuration when passing no policy class', function (): void {
     config([
         'csp.nonce_enabled' => false,
         'csp.directives' => [
-            Directive::SCRIPT => [Keyword::UNSAFE_EVAL],
+            [Directive::SCRIPT, [Keyword::UNSAFE_EVAL]],
         ],
     ]);
 
@@ -165,20 +165,6 @@ it('will automatically quote hashed values', function (): void {
     };
 
     expect(renderView($policy::class))->toHaveMetaContent("script-src 'sha256-hash1' 'sha384-hash2' 'sha512-hash3'");
-});
-
-it('will automatically check values when they are given in a single string separated by spaces', function (): void {
-    $policy = new class implements Preset {
-        public function configure(Policy $policy): void
-        {
-            $policy->add(
-                Directive::SCRIPT,
-                'sha256-hash1 '.Keyword::SELF.'  source'
-            );
-        }
-    };
-
-    expect(renderView($policy::class))->toHaveMetaContent("script-src 'sha256-hash1' 'self' source");
 });
 
 it('will not output the same directive values twice', function (): void {

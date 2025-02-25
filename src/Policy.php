@@ -18,39 +18,43 @@ class Policy
     ) {
     }
 
-    public function add(string|array $directives, string|array|bool $values): self
+    public function add(Directive|array $directives, Keyword|string|array|bool $values): self
     {
         foreach (Arr::wrap($directives) as $directive) {
+            /** @var Directive $directive */
+
             $this->guardAgainstInvalidDirectives($directive);
             $this->guardAgainstInvalidValues(Arr::wrap($values));
 
             if ($values === Value::NO_VALUE) {
-                $this->directives[$directive][] = Value::NO_VALUE;
+                $this->directives[$directive->value][] = Value::NO_VALUE;
 
                 return $this;
             }
 
             $values = array_filter(
                 Arr::flatten(
-                    array_map(fn ($value) => explode(' ', $value), Arr::wrap($values))
+                    array_map(function (Keyword|string $value) {
+                        return $value instanceof Keyword ? $value : explode(' ', $value);
+                    }, Arr::wrap($values))
                 )
             );
 
             if (in_array(Keyword::NONE, $values, true)) {
-                $this->directives[$directive] = [$this->sanitizeValue(Keyword::NONE)];
+                $this->directives[$directive->value] = [$this->sanitizeValue(Keyword::NONE)];
 
                 return $this;
             }
 
-            $this->directives[$directive] = array_filter($this->directives[$directive] ?? [], function ($value) {
+            $this->directives[$directive->value] = array_filter($this->directives[$directive->value] ?? [], function ($value) {
                 return $value !== $this->sanitizeValue(Keyword::NONE);
             });
 
             foreach ($values as $value) {
                 $sanitizedValue = $this->sanitizeValue($value);
 
-                if (! in_array($sanitizedValue, $this->directives[$directive] ?? [])) {
-                    $this->directives[$directive][] = $sanitizedValue;
+                if (! in_array($sanitizedValue, $this->directives[$directive->value] ?? [])) {
+                    $this->directives[$directive->value][] = $sanitizedValue;
                 }
             }
         }
@@ -58,7 +62,7 @@ class Policy
         return $this;
     }
 
-    public function addNonce(string $directive): self
+    public function addNonce(Directive $directive): self
     {
         if (! config('csp.nonce_enabled', true)) {
             return $this;
@@ -82,7 +86,7 @@ class Policy
         $directives = $this->directives;
 
         if ($this->reportUri) {
-            $directives[Directive::REPORT] = [$this->reportUri];
+            $directives[Directive::REPORT->value] = [$this->reportUri];
         }
 
         return collect($directives)
@@ -94,9 +98,9 @@ class Policy
             ->implode(';');
     }
 
-    protected function guardAgainstInvalidDirectives(string $directive): void
+    protected function guardAgainstInvalidDirectives(mixed $directive): void
     {
-        if (! Directive::isValid($directive)) {
+        if (! $directive instanceof Directive) {
             throw InvalidDirective::notSupported($directive);
         }
     }
@@ -126,12 +130,13 @@ class Policy
         return in_array($value, $keywords);
     }
 
-    protected function sanitizeValue(string $value): string
+    protected function sanitizeValue(Keyword|string $value): string
     {
-        if (
-            $this->isKeyword($value)
-            || $this->isHash($value)
-        ) {
+        if ($value instanceof Keyword) {
+            return "'{$value->value}'";
+        }
+
+        if ($this->isHash($value)) {
             return "'{$value}'";
         }
 
@@ -156,7 +161,7 @@ class Policy
             return $policy;
         }, new static($reportUri));
 
-        foreach ($directives as $directive => $contents) {
+        foreach ($directives as [$directive, $contents]) {
             $policy->add($directive, $contents);
         }
 

@@ -152,15 +152,23 @@ This package ships with a few commonly used presets to get your started. *We're 
 
 Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
 
-If you have app-specific needs or the service you're integrated isn't included in this package, you can create your own preset as explained below. You can also register global directives in the configuration file.
+If you have app-specific needs or the service you're integrated isn't included in this package, you can create your own preset as explained below. You can also register global directives in the configuration file using a tuple notation.
 
 ```php
 'directives' => [
-    Directive::SCRIPT => [Keyword::UNSAFE_EVAL],
+    [Directive::SCRIPT, Keyword::UNSAFE_EVAL],
 ],
 
 'report_only_directives' => [
-    Directive::SCRIPT => [Keyword::UNSAFE_INLINE],
+    [Directive::SCRIPT, Keyword::UNSAFE_INLINE],
+],
+```
+
+Here you may also create multiple directive & value combinations by padding multiple values in the tuple.
+
+```php
+'directives' => [
+    [[Directive::SCRIPT, Directive::STYLE], [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE]],
 ],
 ```
 
@@ -181,28 +189,23 @@ public function configure(Policy $policy): void
 }
 ```
 
-You can add multiple keywords in the same directive giving an array as second parameter to `add` or a single string in which every option is separated by one or more spaces.
-
-```php
-public function configure(Policy $policy): void
-{
-    // Both `adds` would output `'strict_dynamic' 'self' www.google.com` when outputting headers
-    $policy
-        ->add(Directive::SCRIPT, [
-           Keyword::STRICT_DYNAMIC,
-           Keyword::SELF,
-           'www.google.com',
-        ])
-        ->add(Directive::SCRIPT, 'strict-dynamic self  www.google.com');
-}
-```
-
 You may also use the same keywords for multiple directives by passing an array of directives.
 
 ```php
 public function configure(Policy $policy): void
 {
     $policy->add([Directive::SCRIPT, DIRECTIVE::STYLE], 'www.google.com');
+}
+```
+
+Or multiple keywords for one or more directives.
+
+```php
+public function configure(Policy $policy): void
+{
+    $policy
+        ->add(Directive::SCRIPT, [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE]],)
+        ->add([Directive::SCRIPT, DIRECTIVE::STYLE], ['www.google.com', 'analytics.google.com']);
 }
 ```
 
