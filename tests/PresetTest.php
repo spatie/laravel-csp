@@ -17,7 +17,7 @@ it(
 
         expect(str_replace(';', PHP_EOL, $policy->getContents()))
             ->toMatchSnapshot();
-        }
+    }
 )->with([
     Presets\AdobeFonts::class,
     Presets\Basic::class,
