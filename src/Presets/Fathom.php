@@ -11,6 +11,6 @@ class Fathom implements Preset
     public function configure(Policy $policy): void
     {
         $policy
-            ->add(Directive::SCRIPT, 'cdn.usefathom.com');
+            ->add([Directive::IMG, Directive::SCRIPT], 'cdn.usefathom.com');
     }
 }

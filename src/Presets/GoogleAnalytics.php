@@ -6,13 +6,12 @@ use Spatie\Csp\Directive;
 use Spatie\Csp\Policy;
 use Spatie\Csp\Preset;
 
-class Google implements Preset
+class GoogleAnalytics implements Preset
 {
     public function configure(Policy $policy): void
     {
         $policy
-            ->add([Directive::SCRIPT, Directive::IMG, Directive::CONNECT], '*.googletagmanager.com')
-            ->add([Directive::IMG, Directive::CONNECT], [
+            ->add([Directive::CONNECT, Directive::IMG, Directive::SCRIPT], [
                 '*.google-analytics.com',
                 '*.analytics.google.com',
                 '*.g.doubleclick.net',
