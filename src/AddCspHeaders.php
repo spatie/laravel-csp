@@ -4,7 +4,7 @@ namespace Spatie\Csp;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class AddCspHeaders
 {
@@ -12,7 +12,7 @@ class AddCspHeaders
         Request $request,
         Closure $next,
         ?string $customPreset = null
-    ): Response {
+    ) {
         $response = $next($request);
 
         if (! config('csp.enabled')) {
@@ -55,8 +55,12 @@ class AddCspHeaders
         return $response;
     }
 
-    public function hasCspHeader(Response $response): bool
+    public function hasCspHeader(mixed $response): bool
     {
+        if (! $response instanceof Response) {
+            return false;
+        }
+
         return $response->headers->has('Content-Security-Policy')
             || $response->headers->has('Content-Security-Policy-Report-Only');
     }
