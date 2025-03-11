@@ -34,7 +34,7 @@ class CspServiceProvider extends PackageServiceProvider
     {
         $bladeCompiler = $this->app->make('view.engine.resolver')->resolve('blade')->getCompiler();
 
-        $bladeCompiler->directive('nonce', function () {
+        $bladeCompiler->directive('cspNonce', function () {
             return '<?php echo "nonce=\"" . app(\'csp-nonce\') . "\""; ?>';
         });
 

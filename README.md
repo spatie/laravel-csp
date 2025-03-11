@@ -95,7 +95,6 @@ return [
      */
     'nonce_enabled' => env('CSP_NONCE_ENABLED', true),
 ];
-
 ```
 
 You can add CSP headers to all responses of your app by registering `Spatie\Csp\AddCspHeaders::class` as global middleware in `bootstrap/app.php`.
