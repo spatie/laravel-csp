@@ -7,5 +7,5 @@ it('will output correct nonce', function (): void {
         ->file(__DIR__.'/../fixtures/view.blade.php')
         ->render();
 
-    expect($view)->toBe('<script nonce="'.$nonce.'"></script>');
+    expect(trim($view))->toBe('<script nonce="'.$nonce.'"></script>');
 });
