@@ -26,6 +26,8 @@ Your custom policies should be refactored to custom presets. Differences are:
 - The `configure` method has an updated signature
 - `addDirective` has been renamed to `add`, `addNonceForDirective` has been renamed to `addNonce`
 
+That said, you might not need a preset anymore. If you're just adding directives without additional logic, you can now directly register them in the configuration file under the `directives` and `report_only_directives` keys.
+
 Here's an example diff for a policy to preset refactor:
 
 ```diff
