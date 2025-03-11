@@ -1,1 +1,1 @@
-<script @nonce></script>
+<script @cspNonce></script>
