@@ -1,0 +1,3 @@
+connect-src *.google-analytics.com *.analytics.google.com *.g.doubleclick.net *.google.com
+img-src *.google-analytics.com *.analytics.google.com *.g.doubleclick.net *.google.com
+script-src *.google-analytics.com *.analytics.google.com *.g.doubleclick.net *.google.com

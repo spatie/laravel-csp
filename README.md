@@ -42,22 +42,38 @@ This is the contents of the file which will be published at `config/csp.php`:
 return [
 
     /*
-     * A policy will determine which CSP headers will be set. A valid CSP policy is
-     * any class that extends `Spatie\Csp\Policies\Policy`
+     * Presets will determine which CSP headers will be set. A valid CSP preset is
+     * any class that extends `Spatie\Csp\Preset`
      */
-    'policy' => Spatie\Csp\Policies\Basic::class,
+    'presets' => [
+        Spatie\Csp\Presets\Basic::class,
+    ],
+
+    /**
+     * Register additional global CSP directives here.
+     */
+    'directives' => [
+        // Directive::SCRIPT => [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE],
+    ],
 
     /*
-     * This policy which will be put in report only mode. This is great for testing out
-     * a new policy or changes to existing csp policy without breaking anything.
+     * These presets which will be put in a report-only policy. This is great for testing out
+     * a new policy or changes to existing CSP policy without breaking anything.
      */
-    'report_only_policy' => '',
+    'report_only_presets' => [
+        //
+    ],
+
+    /**
+     * Register additional global report-only CSP directives here.
+     */
+    'report_only_directives' => [
+        // Directive::SCRIPT => [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE],
+    ],
 
     /*
-     * All violations against the policy will be reported to this url.
+     * All violations against a policy will be reported to this url.
      * A great service you could use for this is https://report-uri.com/
-     *
-     * You can override this setting by calling `reportTo` on your policy.
      */
     'report_uri' => env('CSP_REPORT_URI', ''),
 
@@ -70,78 +86,137 @@ return [
      * The class responsible for generating the nonces used in inline tags and headers.
      */
     'nonce_generator' => Spatie\Csp\Nonce\RandomString::class,
+
+    /*
+     * Set false to disable automatic nonce generation and handling.
+     * This is useful when you want to use 'unsafe-inline' for scripts/styles
+     * and cannot add inline nonces.
+     * Note that this will make your CSP policy less secure.
+     */
+    'nonce_enabled' => env('CSP_NONCE_ENABLED', true),
 ];
 ```
 
-You can add CSP headers to all responses of your app by registering `Spatie\Csp\AddCspHeaders::class` in the http kernel.
+You can add CSP headers to all responses of your app by registering `Spatie\Csp\AddCspHeaders::class` as global middleware in `bootstrap/app.php`.
 
 ```php
-// app/Http/Kernel.php
+use Spatie\Csp\AddCspHeaders;
 
-...
-
-protected $middlewareGroups = [
-   'web' => [
-       ...
-       \Spatie\Csp\AddCspHeaders::class,
-   ],
+->withMiddleware(function (Middleware $middleware) {
+     $middleware->append(AddCspHeaders::class);
+})
 ```
  
 Alternatively you can apply the middleware on the route or route group level.
 
 ```php
-// in a routes file
-Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class);
+// In your routes file
+Route::get('my-page', 'MyController')
+    ->middleware(AddCspHeaders::class);
 ```
 
-You can also pass a policy class as a parameter to the middleware:
+You can also pass a preset class as a parameter to the middleware:
  
 ```php
-// in a routes file
-Route::get('my-page', 'MyController')->middleware(Spatie\Csp\AddCspHeaders::class . ':' . MyPolicy::class);
+// In your routes file
+Route::get('my-page', 'MyController')
+    ->middleware(AddCspHeaders::class . ':' . MyPreset::class);
 ``` 
 
-The given policy will override the one configured in the config file for that specific route or group of routes.
+The given preset will override the ones configured in the `config/csp.php` config file for that specific route or group of routes.
+
+Alternatively, you can register your CSP policies as a meta tag using our Blade directives.
+
+```blade
+{{-- app/layout.blade.php --}}
+<head>
+    @cspMetaTag
+</head>
+```
 
 ## Usage
 
-This package allows you to define CSP policies. A CSP policy determines which CSP directives will be set in the headers of the response. 
+This package ships with a few commonly used presets to get your started. *We're happy to receive PRs for more services!*
 
-An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from it's own domain or `www.google.com`. You'll find [a list with all CSP directives](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/#Directives) at Mozilla's excellent developer site.
+| Policy              | Services                                                             |
+|---------------------|----------------------------------------------------------------------|
+| `Basic`       | Allow requests to scripts, images… within the application            |
+| `AdobeFonts`  | [fonts.adobe.com](https://fonts.adobe.com) (previously typekit.com)  |
+| `Fathom`      | [usefathom.com](https://usefathom.com)                               |
+| `Google`      | Google Analytics & Tag Manager                                       |       
+| `GoogleFonts` | [fonts.google.com](https://fonts.google.com)                         |       
+| `HubSpot`     | [hubspot.com](https://hubspot.com) (full suite)                      |       
+| `JsDelivr`          | [jsdelivr.com](https://jsdelivr.com)                                 |       
+| `Tolt`        | [tolt.io](https://tolt.io)                                           |       
 
-According to the spec certain directive values need to be surrounded by quotes. Examples of this are `'self'`, `'none'` and `'unsafe-inline'`. When using `addDirective` function you're not required to surround the directive value with quotes manually. We will automatically add quotes. Script/style hashes, as well, will be auto-detected and surrounded with quotes.
+Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
+
+If you have app-specific needs or the service you're integrated isn't included in this package, you can create your own preset as explained below. You can also register global directives in the configuration file using a tuple notation.
 
 ```php
-// in a policy
-...
-   ->addDirective(Directive::SCRIPT, Keyword::SELF) // will output `'self'` when outputting headers
-   ->addDirective(Directive::STYLE, 'sha256-hash') // will output `'sha256-hash'` when outputting headers
-...
+'directives' => [
+    [Directive::SCRIPT, Keyword::UNSAFE_EVAL],
+],
+
+'report_only_directives' => [
+    [Directive::SCRIPT, Keyword::UNSAFE_INLINE],
+],
 ```
 
-You can add multiple policy options in the same directive giving an array as second parameter to `addDirective` or a single string in which every option is separated by one or more spaces.
+Here you may also create multiple directive & value combinations by padding multiple values in the tuple.
 
 ```php
-// in a policy
-...
-   ->addDirective(Directive::SCRIPT, [
-       Keyword::STRICT_DYNAMIC,
-       Keyword::SELF,
-       'www.google.com',
-   ])
-   ->addDirective(Directive::SCRIPT, 'strict-dynamic self  www.google.com')
-   // will both output `'strict_dynamic' 'self' www.google.com` when outputting headers
-...
+'directives' => [
+    [[Directive::SCRIPT, Directive::STYLE], [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE]],
+],
+```
+
+## Creating a preset
+
+An example of a CSP directive is `script-src`. If this has the value `'self' www.google.com` then your site can only load scripts from its own domain or `www.google.com`. You'll find [a list with all CSP directives](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/#Directives) at Mozilla's excellent developer site.
+
+According to the spec certain directive values need to be surrounded by quotes. Examples of this are `'self'`, `'none'` and `'unsafe-inline'`. When using `add` function you're not required to surround the directive value with quotes manually. We will automatically add quotes. Script/style hashes, as well, will be auto-detected and surrounded with quotes.
+
+```php
+public function configure(Policy $policy): void
+{
+    $policy
+        // Will output `'self'` when outputting headers
+        ->add(Directive::SCRIPT, Keyword::SELF)
+        // Will output `'sha256-hash'` when outputting headers
+        ->add(Directive::STYLE, 'sha256-hash');
+}
+```
+
+You may also use the same keywords for multiple directives by passing an array of directives.
+
+```php
+public function configure(Policy $policy): void
+{
+    $policy->add([Directive::SCRIPT, DIRECTIVE::STYLE], 'www.google.com');
+}
+```
+
+Or multiple keywords for one or more directives.
+
+```php
+public function configure(Policy $policy): void
+{
+    $policy
+        ->add(Directive::SCRIPT, [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE]],)
+        ->add([Directive::SCRIPT, DIRECTIVE::STYLE], ['www.google.com', 'analytics.google.com']);
+}
 ```
 
 There are also a few cases where you don't have to or don't need to specify a value, eg. upgrade-insecure-requests, block-all-mixed-content, ... In this case you can use the following value:
 
 ```php
-// in a policy
-...
-    ->addDirective(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)
-    ->addDirective(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NO_VALUE);
-...
+public function configure(Policy $policy): void
+{
+    $policy
+        ->add(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)
+        ->add(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NO_VALUE);
+}
 ```
 
 This will output a CSP like this:
@@ -149,56 +224,61 @@ This will output a CSP like this:
 Content-Security-Policy: upgrade-insecure-requests;block-all-mixed-content
 ```
 
-### Creating policies
+The `presets` key of the `csp` config file is set to `[\Spatie\Csp\Presets\Basic::class]` by default. This class allows your site to only use images, scripts, form actions of your own site.
 
-In the `policy` key of the `csp` config file is set to `\Spatie\Csp\Policies\Basic::class` by default. This class allows your site to only use images, scripts, form actions of your own site. This is how the class looks:
+```php
+namespace Spatie\Csp\Presets;
+
+use Spatie\Csp\Directive;
+use Spatie\Csp\Keyword;
+use Spatie\Csp\Policy;
+use Spatie\Csp\Preset;
+
+class Basic implements Preset
+{
+    public function configure(Policy $policy): void
+    {
+        $policy
+            ->add(Directive::BASE, Keyword::SELF)
+            ->add(Directive::CONNECT, Keyword::SELF)
+            ->add(Directive::DEFAULT, Keyword::SELF)
+            ->add(Directive::FORM_ACTION, Keyword::SELF)
+            ->add(Directive::IMG, Keyword::SELF)
+            ->add(Directive::MEDIA, Keyword::SELF)
+            ->add(Directive::OBJECT, Keyword::NONE)
+            ->add(Directive::SCRIPT, Keyword::SELF)
+            ->add(Directive::STYLE, Keyword::SELF)
+            ->addNonce(Directive::SCRIPT)
+            ->addNonce(Directive::STYLE);
+    }
+}
+```
+
+You can allow fetching scripts from `www.google.com` by writing a custom preset.
 
 ```php
 namespace App\Support;
 
 use Spatie\Csp\Directive;
-use Spatie\Csp\Value;
+use Spatie\Csp\Policy;
 
-class Basic extends Policy
+class MyCspPreset implements Preset
 {
-    public function configure()
+    public function configure(Policy $policy): void
     {
-        $this
-            ->addDirective(Directive::BASE, Keyword::SELF)
-            ->addDirective(Directive::CONNECT, Keyword::SELF)
-            ->addDirective(Directive::DEFAULT, Keyword::SELF)
-            ->addDirective(Directive::FORM_ACTION, Keyword::SELF)
-            ->addDirective(Directive::IMG, Keyword::SELF)
-            ->addDirective(Directive::MEDIA, Keyword::SELF)
-            ->addDirective(Directive::OBJECT, Keyword::NONE)
-            ->addDirective(Directive::SCRIPT, Keyword::SELF)
-            ->addDirective(Directive::STYLE, Keyword::SELF)
-            ->addNonceForDirective(Directive::SCRIPT)
-            ->addNonceForDirective(Directive::STYLE);
+        $policy->add(Directive::SCRIPT, 'www.google.com');
     }
 }
 ```
 
-You can allow fetching scripts from `www.google.com` by extending this class:
+Don't forget to update the `presets` key in the `csp` config file to the class name of your preset.
 
 ```php
-namespace App\Support;
-
-use Spatie\Csp\Directive;
-use Spatie\Csp\Policies\Basic;
-
-class MyCustomPolicy extends Basic
-{
-    public function configure()
-    {
-        parent::configure();
-        
-        $this->addDirective(Directive::SCRIPT, 'www.google.com');
-    }
-}
+'presets' => [
+    Spatie\Csp\Presets\Basic::class,
+    App\Support\MyCspPreset::class,
+],
 ```
-
-Don't forget to set the `policy` key in the `csp` config file to the class name of your policy (in this case it would be `App\Support\MyCustomPolicy`).
 
 ### Using inline scripts and styles
 
@@ -207,28 +287,24 @@ When using CSP you must specifically allow the use of inline scripts or styles. 
 First you must add the nonce to the right directives in your policy:
 
 ```php
-// in a policy
-
-public function configure()
-  {
-      $this
-        ->addDirective(Directive::SCRIPT, 'self')
-        ->addDirective(Directive::STYLE, 'self')
-        ->addNonceForDirective(Directive::SCRIPT)
-        ->addNonceForDirective(Directive::STYLE)
-        ...
+public function configure(Policy $policy): void
+{
+    $this
+        ->add(Directive::SCRIPT, 'self')
+        ->add(Directive::STYLE, 'self')
+        ->addNonce(Directive::SCRIPT)
+        ->addNonce(Directive::STYLE);
 }
 ```
 
 Next you must add the nonce to the html:
 
-```
-{{-- in a view --}}
-<style nonce="{{ csp_nonce() }}">
+```blade
+<style nonce="@cspNonce">
    ...
 </style>
 
-<script nonce="{{ csp_nonce() }}">
+<script nonce="@cspNonce">
    ...
 </script>
 ```
@@ -268,7 +344,8 @@ class RandomString implements NonceGenerator
 {
     public function generate(): string
     {
-        $myNonce = ''; // determine the value for `$myNonce` however you want
+        // Determine the value for `$myNonce` however you want
+        $myNonce = '';
     
         Vite::useCspNonce($myNonce);
         
@@ -279,94 +356,41 @@ class RandomString implements NonceGenerator
 
 ### Outputting a CSP Policy as a meta tag
 
-In rare circumstances, a large site may have so many external connections that the CSP header actually exceeds the max header size.
-Thankfully, the [CSP specification](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#using_the_html_meta_element) allows for outputting information as a meta tag in the head of a webpage.
+In rare circumstances, a large site may have so many external connections that the CSP header actually exceeds the max header size. Or you might be generating a static page with Laravel and don't have control over the headers when the response is sent. Thankfully, the [CSP specification](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#using_the_html_meta_element) allows for outputting information as a meta tag in the head of a webpage.
 
-To support this use case, this package provides a `@cspMetaTag` blade directive that you may place in the `<head>` of your site.
+This package provides a `@cspMetaTag` blade directive that you may place in the `<head>` of your site. This will render a header for all configured presets (both default and report-only).
 
 ```blade
 <head>
-    @cspMetaTag(App\Support\MyCustomPolicy::class)
+    @cspMetaTag
 </head>
 ```
 
-You should be aware of the following implementation details when using the meta tag blade directive:
-- Note that you should manually pass the fully qualified class name of the policy we want to output a meta tag for. 
-  The `csp.policy` and `csp.report_only_policy` config options have no effect here.
-- Because blade files don't have access to the `Response` object, the `shouldBeApplied` method will have no effect. 
-  If you have declared the `@cspMetaTag` directive and the `csp.enabled` config option is set to true, the meta tag will be output regardless.
-- Any configuration (such as setting your policy to report only) should be done in the `configure` method of the policy,
-  rather than relying on settings in the `csp` config file. The `csp.report_uri` option will be respected, so there is no need to configure that manually.
+You may also use this tag to render a specific preset.
+
+```blade
+<head>
+    @cspMetaTag(App\Support\MyCustomPreset::class)
+</head>
+```
+
+Or use the `@cspMetaTagReportOnly` tag to render a specific preset in report-only mode.
+
+```blade
+<head>
+    @cspMetaTagReportOnly(App\Support\MyCustomPreset::class)
+</head>
+```
 
 ### Reporting CSP errors
 
 #### In the browser
 
-Instead of outright blocking all violations, you can put a policy in report only mode. In this case all requests will be made, but all violations will display in your favourite browser's console.
-
-To put a policy in report only mode just call `reportOnly()` in the `configure()` function of a report:
-
-```php
-public function configure()
-{
-    parent::configure();
-    
-    $this->reportOnly();
-}
-```
+Instead of outright blocking all violations, you can put configure a CSP policy in report only mode by registering presets in the `report_only_presets` configuration option. In this case all requests will be made, but all violations will display in your favourite browser's console.
 
 #### To an external url
 
 Any violations against the policy can be reported to a given url. You can set that url in the `report_uri` key of the `csp` config file. A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/). 
-
-#### Using multiple policies
-
-To test changes to your CSP policy you can specify a second policy in the `report_only_policy` in the `csp` config key. The policy specified in `policy` will be enforced, the one in `report_only_policy` will not. This is great for testing a new policy or changes to existing CSP policy without breaking anything.
-
-### Using whoops
-
-Laravel comes with [whoops](https://github.com/filp/whoops), an error handling framework that helps you debug your application with a pretty visualization of exceptions. Whoops uses inline scripts and styles because it can't make any assumptions about the environment it is being used in, so it won't work unless you allow `unsafe-inline` for scripts and styles.
-
-One approach to this problem is to check `config('app.debug')` when setting your policy. Unfortunately this bears the risk of forgetting to test your code with all CSP rules enabled and having your app break at deployment. Alternatively, you could allow `unsafe-inline` only on error pages by adding this to the `render` method of your exception handler (usually in `app/Exceptions/Handler.php`):
-```php
-$this->container->singleton(AppPolicy::class, function ($app) {
-    return new AppPolicy();
-});
-app(AppPolicy::class)->addDirective(Directive::SCRIPT, Keyword::UNSAFE_INLINE);
-app(AppPolicy::class)->addDirective(Directive::STYLE, Keyword::UNSAFE_INLINE);
-```
-where `AppPolicy` is the name of your CSP policy. This also works in every other situation to change the policy at runtime, in which case the singleton registration should be done in a service provider instead of the exception handler.
-
-Note that `unsafe-inline` only works if you're not also sending a nonce or a `strict-dynamic` directive, so to be able to use this workaround, you have to specify all your inline scripts' and styles' hashes in the CSP header.
-
-Another approach is to overwrite the `Spatie\Csp\Policies\Policy::shouldBeApplied()`-function in case Laravel responds with an error:
-
-```php
-namespace App\Services\Csp\Policies;
-
-use Illuminate\Http\Request;
-use Spatie\Csp;
-use Symfony\Component\HttpFoundation\Response;
-
-class MyCustomPolicy extends Csp\Policies\Policy
-{
-    public function configure()
-    {
-        // Add directives
-    }
-    
-    public function shouldBeApplied(Request $request, Response $response): bool
-    {
-        if (config('app.debug') && ($response->isClientError() || $response->isServerError())) {
-            return false;
-        }
-
-        return parent::shouldBeApplied($request, $response);
-    }
-}
-```
-
-This approach completely deactivates the CSP and therefore also works if a strict CSP is used.
 
 ### Testing
 
@@ -391,6 +415,7 @@ If you've found a bug regarding security please mail [security@spatie.be](mailto
 ## Credits
 
 - [Freek Van der Herten](https://github.com/freekmurze)
+- [Sebastian De Deyne](https://github.com/sebastiandedeyne)
 - [Thomas Verhelst](https://github.com/TVke)
 - [All Contributors](../../contributors)
 
