@@ -138,16 +138,17 @@ Alternatively, you can register your CSP policies as a meta tag using our Blade 
 
 This package ships with a few commonly used presets to get your started. *We're happy to receive PRs for more services!*
 
-| Policy              | Services                                                             |
-|---------------------|----------------------------------------------------------------------|
-| `Basic`       | Allow requests to scripts, images… within the application            |
-| `AdobeFonts`  | [fonts.adobe.com](https://fonts.adobe.com) (previously typekit.com)  |
-| `Fathom`      | [usefathom.com](https://usefathom.com)                               |
-| `Google`      | Google Analytics & Tag Manager                                       |       
-| `GoogleFonts` | [fonts.google.com](https://fonts.google.com)                         |       
-| `HubSpot`     | [hubspot.com](https://hubspot.com) (full suite)                      |       
-| `JsDelivr`          | [jsdelivr.com](https://jsdelivr.com)                                 |       
-| `Tolt`        | [tolt.io](https://tolt.io)                                           |       
+| Policy                 | Services                                                                              |
+|------------------------|---------------------------------------------------------------------------------------|
+| `Basic`                | Allow requests to scripts, images… within the application                             |
+| `AdobeFonts`           | [fonts.adobe.com](https://fonts.adobe.com) (previously typekit.com)                   |
+| `Cloudflare Turnstile` | [cloudflare.com](https://www.cloudflare.com/application-services/products/turnstile/) |
+| `Fathom`               | [usefathom.com](https://usefathom.com)                                                |
+| `Google`               | Google Analytics & Tag Manager                                                        |       
+| `GoogleFonts`          | [fonts.google.com](https://fonts.google.com)                                          |       
+| `HubSpot`              | [hubspot.com](https://hubspot.com) (full suite)                                       |       
+| `JsDelivr`             | [jsdelivr.com](https://jsdelivr.com)                                                  |       
+| `Tolt`                 | [tolt.io](https://tolt.io)                                                            |       
 
 Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
 
