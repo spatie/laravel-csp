@@ -46,7 +46,7 @@ Here's an example diff for a policy to preset refactor:
 -        return $this
 -            ->addDirective(Directive::SCRIPT, Keyword::SELF)
 -            ->addNonceForDirective(Directive::SCRIPT);
-+        return $this
++        return $policy
 +            ->add(Directive::SCRIPT, Keyword::SELF)
 +            ->addNonce(Directive::SCRIPT);
      }
