@@ -347,7 +347,7 @@ it('removes null values', function (): void {
                 Scheme::DATA,
                 null,
                 Scheme::HTTPS,
-                null
+                null,
             ]);
         }
     };
