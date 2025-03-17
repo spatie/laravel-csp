@@ -36,7 +36,7 @@ class Policy
                 Arr::flatten(
                     array_map(function (Keyword|string $value) {
                         return $value instanceof Keyword ? $value : explode(' ', $value);
-                    }, Arr::wrap($values))
+                    }, array_filter(Arr::wrap($values)))
                 )
             );
 

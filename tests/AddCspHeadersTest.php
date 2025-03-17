@@ -338,6 +338,31 @@ it('will handle scheme values', function (): void {
     );
 });
 
+
+it('removes null values', function (): void {
+    $policy = new class implements Preset {
+        public function configure(Policy $policy): void
+        {
+            $policy->add(Directive::IMG, [
+                Scheme::DATA,
+                null,
+                Scheme::HTTPS,
+                null
+            ]);
+        }
+    };
+
+    config(['csp.presets' => [$policy::class]]);
+
+    $headers = getResponseHeaders();
+
+    assertEquals(
+        'img-src data: https:',
+        $headers->get('Content-Security-Policy')
+    );
+});
+
+
 it('can use an empty value for a directive', function (): void {
     $policy = new class implements Preset {
         public function configure(Policy $policy): void
