@@ -300,11 +300,11 @@ public function configure(Policy $policy): void
 Next you must add the nonce to the html:
 
 ```blade
-<style nonce="@cspNonce">
+<style @cspNonce
    ...
 </style>
 
-<script nonce="@cspNonce">
+<script @cspNonce>
    ...
 </script>
 ```
