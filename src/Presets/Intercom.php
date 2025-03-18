@@ -58,6 +58,9 @@ class Intercom implements Preset
             ])
             ->add(Directive::MEDIA, [
                 'https://js.intercomcdn.com',
+                'https://downloads.intercomcdn.com',
+                'https://downloads.intercomcdn.eu',
+                'https://downloads.au.intercomcdn.com',
             ])
             ->add(Directive::IMG, [
                 'https://js.intercomcdn.com',
