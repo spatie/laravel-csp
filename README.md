@@ -149,6 +149,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `HubSpot`              | [hubspot.com](https://hubspot.com) (full suite)                                       |       
 | `JsDelivr`             | [jsdelivr.com](https://jsdelivr.com)                                                  |       
 | `Tolt`                 | [tolt.io](https://tolt.io)                                                            |       
+| `Posthog`              | [posthog.com](https://posthog.com/)                                                   |       
 
 Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
 
