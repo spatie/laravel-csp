@@ -2,6 +2,23 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.1.0 - 2025-03-18
+
+### What's Changed
+
+* Update migration guide to use `$policy` by @patrickomeara in https://github.com/spatie/laravel-csp/pull/144
+* Update README.md by @jackbayliss in https://github.com/spatie/laravel-csp/pull/145
+* Ensure null values are removed by @jackbayliss in https://github.com/spatie/laravel-csp/pull/146
+* Cloudflare Turnstile preset by @ohiader in https://github.com/spatie/laravel-csp/pull/143
+
+### New Contributors
+
+* @patrickomeara made their first contribution in https://github.com/spatie/laravel-csp/pull/144
+* @jackbayliss made their first contribution in https://github.com/spatie/laravel-csp/pull/145
+* @ohiader made their first contribution in https://github.com/spatie/laravel-csp/pull/143
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.0.0...3.1.0
+
 ## 2.10.3 - 2025-02-14
 
 ### What's Changed
