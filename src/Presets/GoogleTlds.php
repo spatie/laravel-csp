@@ -11,7 +11,7 @@ class GoogleTlds implements Preset
     public function configure(Policy $policy): void
     {
         $policy
-            ->add([Directive::CONNECT, Directive::IMG], ... $this->getDomains());
+            ->add([Directive::CONNECT, Directive::IMG], $this->getDomains());
     }
 
     private function getDomains(): array
