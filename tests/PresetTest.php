@@ -21,6 +21,7 @@ it(
 )->with([
     Presets\AdobeFonts::class,
     Presets\Basic::class,
+    Presets\CloudflareTurnstile::class,
     Presets\Fathom::class,
     Presets\GoogleFonts::class,
     Presets\GoogleAnalytics::class,
