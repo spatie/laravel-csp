@@ -2,8 +2,8 @@
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
-use function PHPUnit\Framework\assertArrayNotHasKey;
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertStringContainsString;
 use Spatie\Csp\AddCspHeaders;
@@ -328,10 +328,7 @@ test('route middleware is skipped when laravel renders exceptions', function ():
         ->assertServerError()
         ->headers;
 
-    assertArrayNotHasKey(
-        'content-security-policy',
-        $headers,
-    );
+    assertFalse($headers->has('content-security-policy'));
 });
 
 it('will handle scheme values', function (): void {
