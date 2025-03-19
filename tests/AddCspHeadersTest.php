@@ -2,6 +2,7 @@
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
+use function PHPUnit\Framework\assertArrayNotHasKey;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertStringContainsString;
@@ -312,6 +313,24 @@ test('route middleware will overwrite global middleware for that route', functio
     assertEquals(
         'base-uri custom-policy',
         $headers->get('Content-Security-Policy')
+    );
+});
+
+test('route middleware is skipped when laravel renders exceptions', function (): void {
+    config(['app.debug' => true]);
+
+    Route::get('other-route', function (): string {
+        throw new Exception('I am a server error');
+    })->middleware(AddCspHeaders::class.':'.Basic::class);
+
+    $headers = test()
+        ->get('other-route')
+        ->assertServerError()
+        ->headers;
+
+    assertArrayNotHasKey(
+        'content-security-policy',
+        $headers,
     );
 });
 
