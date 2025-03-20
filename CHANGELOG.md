@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.3.0 - 2025-03-20
+
+### What's Changed
+
+* Google TLDs CSP preset by @christianschoenmakers in https://github.com/spatie/laravel-csp/pull/148
+* Posthog CSP preset by @christianschoenmakers in https://github.com/spatie/laravel-csp/pull/149
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.2.0...3.3.0
+
 ## 3.2.0 - 2025-03-20
 
 ### What's Changed
