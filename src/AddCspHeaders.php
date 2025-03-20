@@ -19,6 +19,11 @@ class AddCspHeaders
             return $response;
         }
 
+        // Skip CSP middleware when Laravel is rendering an exception
+        if (config('app.debug') && $response->isServerError()) {
+            return $response;
+        }
+
         // Ensure custom CSP middleware registered later in the stack gets precedence
         if ($this->hasCspHeader($response)) {
             return $response;
