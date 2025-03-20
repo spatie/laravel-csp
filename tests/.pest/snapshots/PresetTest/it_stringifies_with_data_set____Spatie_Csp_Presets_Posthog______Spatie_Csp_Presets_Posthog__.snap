@@ -1,0 +1,3 @@
+script-src *.posthog.com eu-assets.i.posthog.com us-assets.i.posthog.com
+script-src-elem eu-assets.i.posthog.com us-assets.i.posthog.com
+connect-src eu.i.posthog.com us.i.posthog.com
