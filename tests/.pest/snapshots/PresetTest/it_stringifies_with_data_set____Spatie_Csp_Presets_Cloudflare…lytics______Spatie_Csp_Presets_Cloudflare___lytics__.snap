@@ -1,0 +1,2 @@
+connect-src cloudflareinsights.com
+script-src static.cloudflareinsights.com
