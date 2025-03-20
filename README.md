@@ -146,10 +146,13 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Fathom`               | [usefathom.com](https://usefathom.com)                                                |
 | `Google`               | Google Analytics & Tag Manager                                                        |       
 | `GoogleFonts`          | [fonts.google.com](https://fonts.google.com)                                          |       
+| `Google TLD's`         | Allow all Google Top Level Domains for 'connect' and 'image'                          |       
 | `HubSpot`              | [hubspot.com](https://hubspot.com) (full suite)                                       |       
 | `JsDelivr`             | [jsdelivr.com](https://jsdelivr.com)                                                  |       
 | `Tolt`                 | [tolt.io](https://tolt.io)                                                            |       
 | `Posthog`              | [posthog.com](https://posthog.com/)                                                   |       
+| `Bunny Fonts`          | [fonts.bunny.net](https://fonts.bunny.net/)                                           |       
+| `Intercom`             | [intercom.com](https://intercom.com/)                                                 |       
 
 Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
 

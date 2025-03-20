@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.2.0 - 2025-03-20
+
+### What's Changed
+
+* Intercom preset by @christianschoenmakers in https://github.com/spatie/laravel-csp/pull/147
+* Bunny Fonts preset by @ndeblauw in https://github.com/spatie/laravel-csp/pull/150
+* Skip CSP middleware when Laravel is rendering an exception by @ziadoz in https://github.com/spatie/laravel-csp/pull/151
+
+### New Contributors
+
+* @christianschoenmakers made their first contribution in https://github.com/spatie/laravel-csp/pull/147
+* @ndeblauw made their first contribution in https://github.com/spatie/laravel-csp/pull/150
+* @ziadoz made their first contribution in https://github.com/spatie/laravel-csp/pull/151
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.1.0...3.2.0
+
 ## 3.1.0 - 2025-03-18
 
 ### What's Changed
