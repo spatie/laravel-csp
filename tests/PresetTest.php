@@ -19,18 +19,18 @@ it(
             ->toMatchSnapshot();
     }
 )->with([
-    Presets\AdobeFonts::class,
     Presets\Basic::class,
+    Presets\AdobeFonts::class,
+    Presets\BunnyFonts::class,
     Presets\CloudflareTurnstile::class,
     Presets\Fathom::class,
-    Presets\GoogleFonts::class,
     Presets\GoogleAnalytics::class,
+    Presets\GoogleFonts::class,
     Presets\GoogleTagManager::class,
-    Presets\HubSpot::class,
-    Presets\JsDelivr::class,
-    Presets\Tolt::class,
-    Presets\Posthog::class,
     Presets\GoogleTlds::class,
-    Presets\BunnyFonts::class,
+    Presets\HubSpot::class,
     Presets\Intercom::class,
+    Presets\JsDelivr::class,
+    Presets\Posthog::class,
+    Presets\Tolt::class,
 ]);

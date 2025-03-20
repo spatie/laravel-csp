@@ -142,17 +142,17 @@ This package ships with a few commonly used presets to get your started. *We're 
 |------------------------|---------------------------------------------------------------------------------------|
 | `Basic`                | Allow requests to scripts, images… within the application                             |
 | `AdobeFonts`           | [fonts.adobe.com](https://fonts.adobe.com) (previously typekit.com)                   |
+| `Bunny Fonts`          | [fonts.bunny.net](https://fonts.bunny.net/)                                           |       
 | `Cloudflare Turnstile` | [cloudflare.com](https://www.cloudflare.com/application-services/products/turnstile/) |
 | `Fathom`               | [usefathom.com](https://usefathom.com)                                                |
+| `Google TLD's`         | Allow all Google Top Level Domains for 'connect' and 'image'                          |       
 | `Google`               | Google Analytics & Tag Manager                                                        |       
 | `GoogleFonts`          | [fonts.google.com](https://fonts.google.com)                                          |       
-| `Google TLD's`         | Allow all Google Top Level Domains for 'connect' and 'image'                          |       
 | `HubSpot`              | [hubspot.com](https://hubspot.com) (full suite)                                       |       
-| `JsDelivr`             | [jsdelivr.com](https://jsdelivr.com)                                                  |       
-| `Tolt`                 | [tolt.io](https://tolt.io)                                                            |       
-| `Posthog`              | [posthog.com](https://posthog.com/)                                                   |       
-| `Bunny Fonts`          | [fonts.bunny.net](https://fonts.bunny.net/)                                           |       
 | `Intercom`             | [intercom.com](https://intercom.com/)                                                 |       
+| `JsDelivr`             | [jsdelivr.com](https://jsdelivr.com)                                                  |       
+| `Posthog`              | [posthog.com](https://posthog.com/)                                                   |       
+| `Tolt`                 | [tolt.io](https://tolt.io)                                                            |       
 
 Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
 
