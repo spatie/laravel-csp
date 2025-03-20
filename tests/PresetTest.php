@@ -29,5 +29,6 @@ it(
     Presets\HubSpot::class,
     Presets\JsDelivr::class,
     Presets\Tolt::class,
+    Presets\BunnyFonts::class,
     Presets\Intercom::class,
 ]);
