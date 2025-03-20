@@ -3,10 +3,8 @@
 namespace Spatie\Csp\Presets;
 
 use Spatie\Csp\Directive;
-use Spatie\Csp\Keyword;
 use Spatie\Csp\Policy;
 use Spatie\Csp\Preset;
-use Spatie\Csp\Scheme;
 
 class Posthog implements Preset
 {
