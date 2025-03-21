@@ -23,6 +23,7 @@ it(
     Presets\AdobeFonts::class,
     Presets\BunnyFonts::class,
     Presets\CloudflareTurnstile::class,
+    Presets\CloudflareWebAnalytics::class,
     Presets\Fathom::class,
     Presets\GoogleAnalytics::class,
     Presets\GoogleFonts::class,
