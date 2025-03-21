@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.4.0 - 2025-03-21
+
+### What's Changed
+
+* Add Cloudflare Web Analytics preset by @ohiader in https://github.com/spatie/laravel-csp/pull/152
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.3.0...3.4.0
+
 ## 3.3.0 - 2025-03-20
 
 ### What's Changed
