@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Foundation\Vite;
 use Illuminate\Support\Facades\Route;
+use Mockery\MockInterface;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertNull;
@@ -327,6 +329,22 @@ test('route middleware is skipped when laravel renders exceptions', function ():
         ->get('other-route')
         ->assertServerError()
         ->headers;
+
+    assertFalse($headers->has('content-security-policy'));
+});
+
+test('route middleware is skipped when vite is hot reloading', function (): void {
+    config(['app.debug' => true]);
+
+    $this->mock(Vite::class, function (MockInterface $mock): void {
+        $mock->shouldReceive('isRunningHot')->andReturn(true);
+    });
+
+    Route::get('other-route', function () {
+        return 'ok';
+    })->middleware(AddCspHeaders::class.':'.Basic::class);
+
+    $headers = getResponseHeaders('other-route');
 
     assertFalse($headers->has('content-security-policy'));
 });
