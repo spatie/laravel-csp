@@ -4,6 +4,7 @@ namespace Spatie\Csp;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Vite;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddCspHeaders
@@ -19,8 +20,8 @@ class AddCspHeaders
             return $response;
         }
 
-        // Skip CSP middleware when Laravel is rendering an exception
-        if (config('app.debug') && $response->isServerError()) {
+        // Skip CSP middleware when Laravel is rendering an exception or Vite is hot reloading
+        if (config('app.debug') && ($response->isServerError() || Vite::isRunningHot())) {
             return $response;
         }
 
