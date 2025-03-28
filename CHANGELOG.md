@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.5.0 - 2025-03-28
+
+### What's Changed
+
+* docs: remove return from v3 upgrade guide by @audunru in https://github.com/spatie/laravel-csp/pull/153
+* Add Microsoft Clarity Preset by @atomicjam in https://github.com/spatie/laravel-csp/pull/155
+
+### New Contributors
+
+* @audunru made their first contribution in https://github.com/spatie/laravel-csp/pull/153
+* @atomicjam made their first contribution in https://github.com/spatie/laravel-csp/pull/155
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.4.0...3.5.0
+
 ## 3.4.0 - 2025-03-21
 
 ### What's Changed
