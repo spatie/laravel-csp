@@ -34,4 +34,5 @@ it(
     Presets\JsDelivr::class,
     Presets\Posthog::class,
     Presets\Tolt::class,
+    Presets\Clarity::class,
 ]);
