@@ -1,0 +1,3 @@
+connect-src https://*.clarity.ms https://c.bing.com
+script-src https://*.clarity.ms https://c.bing.com
+img-src https://*.clarity.ms https://c.bing.com
