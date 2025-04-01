@@ -1,0 +1,7 @@
+frame-src https://www.tickettailor.com https://cdn.tickettailor.com
+script-src https://www.tickettailor.com https://cdn.tickettailor.com
+font-src https://cdn.tickettailor.com
+img-src https://cdn.tickettailor.com
+connect-src https://cdn.tickettailor.com
+object-src https://cdn.tickettailor.com
+style-src https://cdn.tickettailor.com
