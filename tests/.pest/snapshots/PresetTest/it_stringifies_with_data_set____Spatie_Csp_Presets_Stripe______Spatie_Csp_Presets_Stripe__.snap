@@ -1,0 +1,3 @@
+frame-src https://connect-js.stripe.com https://js.stripe.com
+script-src https://connect-js.stripe.com https://js.stripe.com
+img-src data: https://*.stripe.com

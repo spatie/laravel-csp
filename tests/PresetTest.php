@@ -35,4 +35,7 @@ it(
     Presets\Posthog::class,
     Presets\Tolt::class,
     Presets\Clarity::class,
+    Presets\PlausibleAnalytics::class,
+    Presets\Stripe::class,
+    Presets\TicketTailor::class,
 ]);
