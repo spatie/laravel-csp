@@ -152,12 +152,12 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `HubSpot`                  | [hubspot.com](https://hubspot.com) (full suite)                                       |       
 | `Intercom`                 | [intercom.com](https://intercom.com/)                                                 |       
 | `JsDelivr`                 | [jsdelivr.com](https://jsdelivr.com)                                                  |       
-| `Posthog`                  | [posthog.com](https://posthog.com/)                                                   |       
-| `Tolt`                     | [tolt.io](https://tolt.io)                                                            |
 | `Microsoft Clarity`        | [clarity.microsoft.com](https://clarity.microsoft.com)                                |
 | `Plausible Analytics`      | [plausible.io](http://plausible.io/)                                                  |
+| `Posthog`                  | [posthog.com](https://posthog.com/)                                                   |       
 | `Stripe`                   | [stripe.com](https://stripe.com/)                                                     |
 | `TicketTailor`             | [tickettailor.com](https://www.tickettailor.com)                                      |
+| `Tolt`                     | [tolt.io](https://tolt.io)                                                            |
 
 Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
 
