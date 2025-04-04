@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.6.0 - 2025-04-04
+
+### What's Changed
+
+* 3 Presets (Stripe, Plausible, TicketTailor) by @atomicjam in https://github.com/spatie/laravel-csp/pull/156
+* Skip CSP middleware when Vite is hot reloading by @ziadoz in https://github.com/spatie/laravel-csp/pull/154
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.5.0...3.6.0
+
 ## 3.5.0 - 2025-03-28
 
 ### What's Changed
