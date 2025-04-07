@@ -38,4 +38,5 @@ it(
     Presets\Stripe::class,
     Presets\TicketTailor::class,
     Presets\Tolt::class,
+    Presets\Vimeo::class,
 ]);
