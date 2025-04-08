@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.8.0 - 2025-04-08
+
+### What's Changed
+
+* Preset for Meta Pixels by @atomicjam in https://github.com/spatie/laravel-csp/pull/159
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.7.0...3.8.0
+
 ## 3.7.0 - 2025-04-08
 
 ### What's Changed
