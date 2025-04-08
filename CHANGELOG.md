@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.7.0 - 2025-04-08
+
+### What's Changed
+
+* Add Vimeo preset by @rbibby in https://github.com/spatie/laravel-csp/pull/158
+
+### New Contributors
+
+* @rbibby made their first contribution in https://github.com/spatie/laravel-csp/pull/158
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.6.0...3.7.0
+
 ## 3.6.0 - 2025-04-04
 
 ### What's Changed
