@@ -151,7 +151,8 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `GoogleFonts`              | [fonts.google.com](https://fonts.google.com)                                          |       
 | `HubSpot`                  | [hubspot.com](https://hubspot.com) (full suite)                                       |       
 | `Intercom`                 | [intercom.com](https://intercom.com/)                                                 |       
-| `JsDelivr`                 | [jsdelivr.com](https://jsdelivr.com)                                                  |       
+| `JsDelivr`                 | [jsdelivr.com](https://jsdelivr.com)                                                  |  
+| `Meta Pixel`                 | [facebook.com](https://en-gb.facebook.com/business/tools/meta-pixel)                                                  |       
 | `Microsoft Clarity`        | [clarity.microsoft.com](https://clarity.microsoft.com)                                |
 | `Plausible Analytics`      | [plausible.io](http://plausible.io/)                                                  |
 | `Posthog`                  | [posthog.com](https://posthog.com/)                                                   |       

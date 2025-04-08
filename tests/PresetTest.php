@@ -33,6 +33,7 @@ it(
     Presets\HubSpot::class,
     Presets\Intercom::class,
     Presets\JsDelivr::class,
+    Presets\MetaPixel::class,
     Presets\PlausibleAnalytics::class,
     Presets\Posthog::class,
     Presets\Stripe::class,
