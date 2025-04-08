@@ -1,9 +1,19 @@
-# Set content security policy headers in a Laravel app
+<div align="left">
+    <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=laravel-csp" target="_blank">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/laravel-csp/html/dark.webp">
+        <img alt="Logo for Laravel CSP" src="https://spatie.be/packages/header/laravel-csp/html/light.webp" height="190">
+      </picture>
+    </a>
 
+<h1>Set content security policy headers in a Laravel app</h1>
+    
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-csp/run-tests.yml?branch=main&label=tests&style=flat-square)
 ![Check & fix styling](https://github.com/spatie/laravel-csp/workflows/Check%20&%20fix%20styling/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-csp.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-csp)
+    
+</div>
 
 By default, all scripts on a webpage are allowed to send and fetch data to any site they want. This can be a security problem. Imagine one of your JavaScript dependencies sends all keystrokes, including passwords, to a third party website.
 
@@ -312,7 +322,7 @@ public function configure(Policy $policy): void
 Next you must add the nonce to the html:
 
 ```blade
-<style @cspNonce
+<style @cspNonce>
    ...
 </style>
 
