@@ -1,0 +1,4 @@
+script-src connect.facebook.net
+frame-src www.facebook.com
+form-action www.facebook.com
+img-src www.facebook.com
