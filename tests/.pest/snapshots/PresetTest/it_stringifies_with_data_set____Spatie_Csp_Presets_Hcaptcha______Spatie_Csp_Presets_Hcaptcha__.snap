@@ -1,0 +1,4 @@
+script-src hcaptcha.com *.hcaptcha.com
+frame-src hcaptcha.com *.hcaptcha.com
+style-src hcaptcha.com *.hcaptcha.com
+connect-src hcaptcha.com *.hcaptcha.com
