@@ -158,7 +158,9 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Fathom`                   | [usefathom.com](https://usefathom.com)                                                |
 | `Google TLD's`             | Allow all Google Top Level Domains for 'connect' and 'image'                          |       
 | `Google`                   | Google Analytics & Tag Manager                                                        |       
-| `GoogleFonts`              | [fonts.google.com](https://fonts.google.com)                                          |       
+| `GoogleFonts`              | [fonts.google.com](https://fonts.google.com)                                          | 
+| `GoogleRecaptcha`          | [developers.google.com](https://developers.google.com/recaptcha)                      | 
+| `Hcaptcha`                 | [hcaptcha.com](https://docs.hcaptcha.com)                                             | 
 | `HubSpot`                  | [hubspot.com](https://hubspot.com) (full suite)                                       |       
 | `Intercom`                 | [intercom.com](https://intercom.com/)                                                 |       
 | `JsDelivr`                 | [jsdelivr.com](https://jsdelivr.com)                                                  |  
@@ -169,7 +171,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Stripe`                   | [stripe.com](https://stripe.com/)                                                     |
 | `TicketTailor`             | [tickettailor.com](https://www.tickettailor.com)                                      |
 | `Tolt`                     | [tolt.io](https://tolt.io)                                                            |
-| `Vimeo`                    | [vimeo.com](https://vimeo.com)                                                       |
+| `Vimeo`                    | [vimeo.com](https://vimeo.com)                                                        |
 
 Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
 

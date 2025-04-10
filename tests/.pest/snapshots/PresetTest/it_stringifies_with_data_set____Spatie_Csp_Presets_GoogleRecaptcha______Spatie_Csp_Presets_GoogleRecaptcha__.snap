@@ -1,0 +1,2 @@
+script-src www.google.com/recaptcha/ www.gstatic.com/recaptcha/
+frame-src www.google.com/recaptcha/ recaptcha.google.com/recaptcha/
