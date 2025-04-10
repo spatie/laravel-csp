@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.8.1 - 2025-04-10
+
+### What's Changed
+
+* Captcha Services Presets by @atomicjam in https://github.com/spatie/laravel-csp/pull/160
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.8.0...3.8.1
+
 ## 3.8.0 - 2025-04-08
 
 ### What's Changed
