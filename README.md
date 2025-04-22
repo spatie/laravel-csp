@@ -284,7 +284,9 @@ You can allow fetching scripts from `www.google.com` by writing a custom preset.
 namespace App\Support;
 
 use Spatie\Csp\Directive;
+use Spatie\Csp\Keyword;
 use Spatie\Csp\Policy;
+use Spatie\Csp\Preset;
 
 class MyCspPreset implements Preset
 {
@@ -313,7 +315,7 @@ First you must add the nonce to the right directives in your policy:
 ```php
 public function configure(Policy $policy): void
 {
-    $this
+    $policy
         ->add(Directive::SCRIPT, 'self')
         ->add(Directive::STYLE, 'self')
         ->addNonce(Directive::SCRIPT)
