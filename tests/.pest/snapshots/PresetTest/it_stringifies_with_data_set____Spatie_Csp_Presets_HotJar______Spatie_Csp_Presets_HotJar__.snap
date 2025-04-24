@@ -1,0 +1,3 @@
+frame-src *.hotjar.com
+script-src *.hotjar.com
+connect-src https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com
