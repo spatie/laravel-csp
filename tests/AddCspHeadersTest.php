@@ -416,3 +416,16 @@ it('can use an empty value for a directive', function (): void {
         $headers->get('Content-Security-Policy')
     );
 });
+
+it('can apply report_uri to the report-only CSP policy when configured', function (): void {
+    config([
+        'csp.report_only_presets' => [Basic::class],
+        'csp.report_uri' => 'https://report-uri-report-only.com',
+    ]);
+
+    $headers = getResponseHeaders();
+
+    $reportOnlyHeader = $headers->get('Content-Security-Policy-Report-Only');
+
+    assertStringContainsString('report-uri https://report-uri-report-only.com', $reportOnlyHeader);
+});
