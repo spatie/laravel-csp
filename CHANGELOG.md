@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.9.0 - 2025-04-25
+
+### What's Changed
+
+* Add HotJar preset by @ziadoz in https://github.com/spatie/laravel-csp/pull/163
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.8.2...3.9.0
+
 ## 3.8.2 - 2025-04-25
 
 ### What's Changed
