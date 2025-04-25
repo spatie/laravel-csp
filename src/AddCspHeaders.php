@@ -21,7 +21,7 @@ class AddCspHeaders
         }
 
         // Skip CSP middleware when Laravel is rendering an exception
-        if (config('app.debug') && ($response->isServerError() || Vite::isRunningHot())) {
+        if (config('app.debug') && $response->isServerError()) {
             return $response;
         }
 
