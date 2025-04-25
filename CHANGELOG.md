@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.8.2 - 2025-04-25
+
+### What's Changed
+
+* Update README.md by @nessimabadi in https://github.com/spatie/laravel-csp/pull/162
+* Ensure correct report_uri is applied for report-only CSP policies by @andrextor in https://github.com/spatie/laravel-csp/pull/164
+
+### New Contributors
+
+* @nessimabadi made their first contribution in https://github.com/spatie/laravel-csp/pull/162
+* @andrextor made their first contribution in https://github.com/spatie/laravel-csp/pull/164
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.8.1...3.8.2
+
 ## 3.8.1 - 2025-04-10
 
 ### What's Changed
