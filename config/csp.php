@@ -46,7 +46,7 @@ return [
     /**
      * Headers will be added when Vite is hot reloading.
      */
-    'hot_reloading_enabled' => env('CSP_HOT_RELOADING_ENABLED', false),
+    'enabled_while_hot_reloading' => env('CSP_ENABLED_WHILE_HOT_RELOADING', false),
 
     /*
      * The class responsible for generating the nonces used in inline tags and headers.

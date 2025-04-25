@@ -335,7 +335,7 @@ test('route middleware is skipped when laravel renders exceptions', function ():
 
 test('route middleware is skipped when vite is hot reloading', function (): void {
     config(['app.debug' => true]);
-    config(['csp.hot_reloading_enabled' => false]);
+    config(['csp.enabled_while_hot_reloading' => false]);
 
     $this->mock(Vite::class, function (MockInterface $mock): void {
         $mock->shouldReceive('isRunningHot')->andReturn(true);
