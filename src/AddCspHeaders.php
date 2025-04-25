@@ -20,8 +20,13 @@ class AddCspHeaders
             return $response;
         }
 
-        // Skip CSP middleware when Laravel is rendering an exception or Vite is hot reloading
+        // Skip CSP middleware when Laravel is rendering an exception
         if (config('app.debug') && ($response->isServerError() || Vite::isRunningHot())) {
+            return $response;
+        }
+
+        // Skip CSP middleware when Vite is hot reloading.
+        if (config('app.debug') && ! config('csp.hot_reloading_enabled') && Vite::isRunningHot()) {
             return $response;
         }
 
