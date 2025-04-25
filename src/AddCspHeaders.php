@@ -26,7 +26,7 @@ class AddCspHeaders
         }
 
         // Skip CSP middleware when Vite is hot reloading
-        if (config('app.debug') && ! config('csp.hot_reloading_enabled') && Vite::isRunningHot()) {
+        if (config('app.debug') && ! config('csp.enabled_while_hot_reloading') && Vite::isRunningHot()) {
             return $response;
         }
 
