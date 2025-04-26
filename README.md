@@ -63,7 +63,7 @@ return [
      * Register additional global CSP directives here.
      */
     'directives' => [
-        // Directive::SCRIPT => [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE],
+        // [Directive::SCRIPT, [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE]],
     ],
 
     /*
@@ -78,7 +78,7 @@ return [
      * Register additional global report-only CSP directives here.
      */
     'report_only_directives' => [
-        // Directive::SCRIPT => [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE],
+        // [Directive::SCRIPT, [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE]],
     ],
 
     /*
