@@ -11,7 +11,7 @@ class GoogleTagManager implements Preset
     public function configure(Policy $policy): void
     {
         $policy
-            ->add([Directive::CONNECT, Directive::IMG, Directive::SCRIPT], [
+            ->add([Directive::CONNECT, Directive::IMG, Directive::FRAME, Directive::SCRIPT], [
                 '*.googletagmanager.com',
             ])
             ->addNonce(Directive::SCRIPT);
