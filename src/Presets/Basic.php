@@ -17,6 +17,7 @@ class Basic implements Preset
             ->add(Directive::DEFAULT, Keyword::SELF)
             ->add(Directive::FONT, Keyword::SELF)
             ->add(Directive::FORM_ACTION, Keyword::SELF)
+            ->add(Directive::FRAME, Keyword::SELF)
             ->add(Directive::IMG, Keyword::SELF)
             ->add(Directive::MEDIA, Keyword::SELF)
             ->add(Directive::OBJECT, Keyword::NONE)

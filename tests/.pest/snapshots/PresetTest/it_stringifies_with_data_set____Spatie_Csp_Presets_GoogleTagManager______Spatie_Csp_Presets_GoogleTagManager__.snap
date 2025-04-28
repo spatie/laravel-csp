@@ -1,3 +1,4 @@
 connect-src *.googletagmanager.com
 img-src *.googletagmanager.com
+frame-src *.googletagmanager.com
 script-src *.googletagmanager.com
