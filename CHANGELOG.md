@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.11.0 - 2025-04-28
+
+### What's Changed
+
+* Allow tag manager noscript fallback by @adamjgriffith in https://github.com/spatie/laravel-csp/pull/166
+
+### New Contributors
+
+* @adamjgriffith made their first contribution in https://github.com/spatie/laravel-csp/pull/166
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.10.0...3.11.0
+
 ## 3.10.0 - 2025-04-28
 
 ### What's Changed
