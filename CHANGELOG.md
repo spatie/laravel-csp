@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.10.0 - 2025-04-28
+
+### What's Changed
+
+* Add configuration for Vite hot reloading  by @ziadoz in https://github.com/spatie/laravel-csp/pull/165
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.9.0...3.10.0
+
 ## 3.9.0 - 2025-04-25
 
 ### What's Changed
