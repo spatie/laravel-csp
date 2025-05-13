@@ -16,7 +16,9 @@ class GoogleAnalytics implements Preset
                 '*.analytics.google.com',
                 '*.g.doubleclick.net',
                 '*.google.com',
+                'pagead2.googlesyndication.com',
             ])
+            ->add([Directive::FRAME], 'td.doubleclick.net')
             ->addNonce(Directive::SCRIPT);
     }
 }

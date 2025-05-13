@@ -1,3 +1,4 @@
-connect-src *.google-analytics.com *.analytics.google.com *.g.doubleclick.net *.google.com
-img-src *.google-analytics.com *.analytics.google.com *.g.doubleclick.net *.google.com
-script-src *.google-analytics.com *.analytics.google.com *.g.doubleclick.net *.google.com
+connect-src *.google-analytics.com *.analytics.google.com *.g.doubleclick.net *.google.com pagead2.googlesyndication.com
+img-src *.google-analytics.com *.analytics.google.com *.g.doubleclick.net *.google.com pagead2.googlesyndication.com
+script-src *.google-analytics.com *.analytics.google.com *.g.doubleclick.net *.google.com pagead2.googlesyndication.com
+frame-src td.doubleclick.net
