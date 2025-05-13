@@ -1,4 +1,4 @@
-connect-src *.googletagmanager.com
-img-src *.googletagmanager.com
-frame-src *.googletagmanager.com
-script-src *.googletagmanager.com
+connect-src *.googletagmanager.com *.googleadservices.com
+img-src *.googletagmanager.com *.googleadservices.com
+frame-src *.googletagmanager.com *.googleadservices.com
+script-src *.googletagmanager.com *.googleadservices.com
