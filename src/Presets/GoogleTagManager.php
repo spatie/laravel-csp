@@ -13,6 +13,7 @@ class GoogleTagManager implements Preset
         $policy
             ->add([Directive::CONNECT, Directive::IMG, Directive::FRAME, Directive::SCRIPT], [
                 '*.googletagmanager.com',
+                '*.googleadservices.com',
             ])
             ->addNonce(Directive::SCRIPT);
     }
