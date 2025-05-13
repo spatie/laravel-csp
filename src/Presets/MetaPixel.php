@@ -12,6 +12,6 @@ class MetaPixel implements Preset
     {
         $policy
             ->add(Directive::SCRIPT, 'connect.facebook.net')
-            ->add([Directive::FRAME, Directive::FORM_ACTION, Directive::IMG], 'www.facebook.com');
+            ->add([Directive::FRAME, Directive::FORM_ACTION, Directive::IMG, Directive::CONNECT], 'www.facebook.com');
     }
 }
