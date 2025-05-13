@@ -2,6 +2,23 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.11.1 - 2025-05-13
+
+### What's Changed
+
+* Use correct format for directives by @adamjgriffith in https://github.com/spatie/laravel-csp/pull/167
+* HotJar Updates for FONT/STYLE/IMG Directives by @atomicjam in https://github.com/spatie/laravel-csp/pull/170
+* Fathom Preset Missing Connect by @bashgeek in https://github.com/spatie/laravel-csp/pull/171
+* MetaPixel Preset is missing connect by @bashgeek in https://github.com/spatie/laravel-csp/pull/174
+* GoogleTagManager Preset Missing URL by @bashgeek in https://github.com/spatie/laravel-csp/pull/173
+* GoogleAnalytics Preset Missing Some URL's by @bashgeek in https://github.com/spatie/laravel-csp/pull/172
+
+### New Contributors
+
+* @bashgeek made their first contribution in https://github.com/spatie/laravel-csp/pull/171
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.11.0...3.11.1
+
 ## 3.11.0 - 2025-04-28
 
 ### What's Changed
