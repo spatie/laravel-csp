@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.12.0 - 2025-05-22
+
+### What's Changed
+
+* Add `Policy@setReportUri()` method by @hivokas in https://github.com/spatie/laravel-csp/pull/175
+
+### New Contributors
+
+* @hivokas made their first contribution in https://github.com/spatie/laravel-csp/pull/175
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.11.1...3.12.0
+
 ## 3.11.1 - 2025-05-13
 
 ### What's Changed
