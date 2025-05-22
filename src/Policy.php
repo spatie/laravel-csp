@@ -76,6 +76,13 @@ class Policy
         return $this->add($directive, "'nonce-{$nonce}'");
     }
 
+    public function setReportUri(string $reportUri): self
+    {
+        $this->reportUri = $reportUri;
+
+        return $this;
+    }
+
     public function isEmpty(): bool
     {
         return empty($this->directives);
