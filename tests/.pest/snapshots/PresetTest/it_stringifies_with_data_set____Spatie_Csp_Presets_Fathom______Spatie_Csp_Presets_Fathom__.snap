@@ -1,2 +1,3 @@
 img-src cdn.usefathom.com
 script-src cdn.usefathom.com
+connect-src cdn.usefathom.com
