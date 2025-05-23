@@ -32,6 +32,7 @@ it(
     Presets\GoogleTagManager::class,
     Presets\GoogleTlds::class,
     Presets\Hcaptcha::class,
+    Presets\Hireroad::class,
     Presets\HotJar::class,
     Presets\HubSpot::class,
     Presets\Intercom::class,

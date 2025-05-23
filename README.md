@@ -166,6 +166,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `GoogleFonts`              | [fonts.google.com](https://fonts.google.com)                                          | 
 | `GoogleRecaptcha`          | [developers.google.com](https://developers.google.com/recaptcha)                      | 
 | `Hcaptcha`                 | [hcaptcha.com](https://docs.hcaptcha.com)                                             |
+| `Hireroad`                 | [hireroad.com](https://hireroad.com)                                               |
 | `Hotjar`                   | [hotjar.com](https://help.hotjar.com/hc/en-us/articles/115011640307-Content-Security-Policies) | 
 | `HubSpot`                  | [hubspot.com](https://hubspot.com) (full suite)                                       |       
 | `Intercom`                 | [intercom.com](https://intercom.com/)                                                 |       

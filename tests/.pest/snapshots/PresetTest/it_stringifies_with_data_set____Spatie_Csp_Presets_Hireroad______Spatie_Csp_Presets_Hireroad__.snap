@@ -1,0 +1,3 @@
+script-src *.hireroad.com *.vacancy-filler.co.uk
+font-src *.hireroad.com *.vacancy-filler.co.uk data:
+style-src *.hireroad.com *.vacancy-filler.co.uk
