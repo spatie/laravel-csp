@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.13.0 - 2025-05-23
+
+### What's Changed
+
+* Adds Hireroad/Vacancy Filler Recruitment Preset by @atomicjam in https://github.com/spatie/laravel-csp/pull/176
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.12.0...3.13.0
+
 ## 3.12.0 - 2025-05-22
 
 ### What's Changed
