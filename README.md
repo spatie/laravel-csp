@@ -387,6 +387,10 @@ class RandomString implements NonceGenerator
 }
 ```
 
+The generated nonce should be a **base64-value** derived from at least **16 bytes of secure random data**
+This limits the character set to characters safe for use in HTML attributes and HTTP headers.
+For more details, see the [W3C Content Security Policy Level 3 specification](https://www.w3.org/TR/CSP3/#grammardef-base64-value)
+
 ### Outputting a CSP Policy as a meta tag
 
 In rare circumstances, a large site may have so many external connections that the CSP header actually exceeds the max header size. Or you might be generating a static page with Laravel and don't have control over the headers when the response is sent. Thankfully, the [CSP specification](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#using_the_html_meta_element) allows for outputting information as a meta tag in the head of a webpage.
