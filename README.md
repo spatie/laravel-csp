@@ -53,7 +53,7 @@ return [
 
     /*
      * Presets will determine which CSP headers will be set. A valid CSP preset is
-     * any class that extends `Spatie\Csp\Preset`
+     * any class that implements `Spatie\Csp\Preset`
      */
     'presets' => [
         Spatie\Csp\Presets\Basic::class,

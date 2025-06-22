@@ -6,6 +6,7 @@ enum Keyword: string
 {
     case NONE = 'none';
     case REPORT_SAMPLE = 'report-sample';
+    case SCRIPT = 'script';
     case SELF = 'self';
     case STRICT_DYNAMIC = 'strict-dynamic';
     case UNSAFE_EVAL = 'unsafe-eval';
