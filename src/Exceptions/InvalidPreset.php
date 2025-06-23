@@ -11,6 +11,6 @@ class InvalidPreset extends Exception
     {
         $className = $class::class;
 
-        return new self("The CSP class `{$className}` is not valid. A valid policy extends ".Preset::class);
+        return new self("The CSP class `{$className}` is not valid. A valid policy implements ".Preset::class);
     }
 }
