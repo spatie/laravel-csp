@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.13.1 - 2025-06-23
+
+### What's Changed
+
+* Docs|  Hint the usage of a base64-value for generated nonces by @YasserB94 in https://github.com/spatie/laravel-csp/pull/177
+* Fix Trusted Types keyword and clarify Preset interface implementation by @leopoletto in https://github.com/spatie/laravel-csp/pull/178
+
+### New Contributors
+
+* @YasserB94 made their first contribution in https://github.com/spatie/laravel-csp/pull/177
+* @leopoletto made their first contribution in https://github.com/spatie/laravel-csp/pull/178
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.13.0...3.13.1
+
 ## 3.13.0 - 2025-05-23
 
 ### What's Changed
