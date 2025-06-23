@@ -51,7 +51,7 @@ it('will throw an exception when using an invalid policy class', function (): vo
     });
 
     renderView($invalidPolicyClassName);
-})->throws(ViewException::class, 'A valid policy extends');
+})->throws(ViewException::class, 'A valid policy implements');
 
 it('will throw an exception when passing none with other values', function (): void {
     $invalidPolicy = new class implements Preset {
