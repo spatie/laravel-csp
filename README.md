@@ -351,8 +351,8 @@ When building assets, Laravel's Vite plugin can [generate a nonce](https://larav
 ```php
 namespace App\Support;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Vite;
+use Spatie\Csp\Nonce\NonceGenerator;
 
 class LaravelViteNonceGenerator implements NonceGenerator
 {
