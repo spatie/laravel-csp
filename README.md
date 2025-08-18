@@ -176,6 +176,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Microsoft Clarity`        | [clarity.microsoft.com](https://clarity.microsoft.com)                                |
 | `Plausible Analytics`      | [plausible.io](http://plausible.io/)                                                  |
 | `Posthog`                  | [posthog.com](https://posthog.com/)                                                   |       
+| `Sentry`                   | [sentry.io](https://sentry.io/)                                                       |
 | `Stripe`                   | [stripe.com](https://stripe.com/)                                                     |
 | `TicketTailor`             | [tickettailor.com](https://www.tickettailor.com)                                      |
 | `Tolt`                     | [tolt.io](https://tolt.io)                                                            |
