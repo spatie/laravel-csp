@@ -180,6 +180,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `TicketTailor`             | [tickettailor.com](https://www.tickettailor.com)                                      |
 | `Tolt`                     | [tolt.io](https://tolt.io)                                                            |
 | `Vimeo`                    | [vimeo.com](https://vimeo.com)                                                        |
+| `Whereby`                  | [whereby.com](https://whereby.com)                                                    |
 
 Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
 
