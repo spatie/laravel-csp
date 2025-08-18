@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.14.0 - 2025-08-18
+
+### What's Changed
+
+* Update README.md Vite Nonce Generator Imports by @nessimabadi in https://github.com/spatie/laravel-csp/pull/180
+* Feat: add algolia preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/179
+
+### New Contributors
+
+* @chinmaypurav made their first contribution in https://github.com/spatie/laravel-csp/pull/179
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.13.1...3.14.0
+
 ## 3.13.1 - 2025-06-23
 
 ### What's Changed
