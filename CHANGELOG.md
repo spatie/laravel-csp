@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.16.0 - 2025-08-19
+
+### What's Changed
+
+* feat: add bootstrap preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/189
+* feat: add vwo preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/188
+* feat: add maze preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/187
+* feat: add jquery preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/185
+* feat: heap analytics preset added by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/186
+* feat: add cloudflare cdn preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/183
+* feat: added google lookerstudio preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/184
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.15.0...3.16.0
+
 ## 3.15.0 - 2025-08-19
 
 ### What's Changed
