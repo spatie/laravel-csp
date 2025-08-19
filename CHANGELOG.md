@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.15.0 - 2025-08-19
+
+### What's Changed
+
+* feat: sentry preset added by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/182
+* feat: whereby CSP preset added by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/181
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.14.0...3.15.0
+
 ## 3.14.0 - 2025-08-18
 
 ### What's Changed
