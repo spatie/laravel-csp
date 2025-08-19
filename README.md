@@ -172,6 +172,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `HubSpot`                  | [hubspot.com](https://hubspot.com) (full suite)                                       |       
 | `Intercom`                 | [intercom.com](https://intercom.com/)                                                 |       
 | `JsDelivr`                 | [jsdelivr.com](https://jsdelivr.com)                                                  |  
+| `Maze`                     | [maze.co](https://maze.co)                  |       
 | `Meta Pixel`               | [facebook.com](https://en-gb.facebook.com/business/tools/meta-pixel)                  |       
 | `Microsoft Clarity`        | [clarity.microsoft.com](https://clarity.microsoft.com)                                |
 | `Plausible Analytics`      | [plausible.io](http://plausible.io/)                                                  |
