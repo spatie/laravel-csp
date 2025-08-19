@@ -160,6 +160,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Algolia`                  | [algolia.com](https://www.algolia.com)                                                |
 | `Bootstrap`                | [getbootstrap.com](https://getbootstrap.com)                                          |       
 | `Bunny Fonts`              | [fonts.bunny.net](https://fonts.bunny.net/)                                           |       
+| `Cloudflare Cdn`           | [cloudflare.com](https://www.cloudflare.com/en-in/application-services/products/cdn/) |
 | `Cloudflare Turnstile`     | [cloudflare.com](https://www.cloudflare.com/application-services/products/turnstile/) |
 | `Cloudflare Web Analytics` | [cloudflare.com](https://developers.cloudflare.com/web-analytics/)                    |
 | `Fathom`                   | [usefathom.com](https://usefathom.com)                                                |
