@@ -165,6 +165,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Google TLD's`             | Allow all Google Top Level Domains for 'connect' and 'image'                          |       
 | `Google`                   | Google Analytics & Tag Manager                                                        |       
 | `GoogleFonts`              | [fonts.google.com](https://fonts.google.com)                                          | 
+| `GoogleLookerStudio`       | [lookerstudio.google.com](https://lookerstudio.google.com)                            | 
 | `GoogleRecaptcha`          | [developers.google.com](https://developers.google.com/recaptcha)                      | 
 | `Hcaptcha`                 | [hcaptcha.com](https://docs.hcaptcha.com)                                             |
 | `Hireroad`                 | [hireroad.com](https://hireroad.com)                                               |
