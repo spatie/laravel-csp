@@ -158,6 +158,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Basic`                    | Allow requests to scripts, images… within the application                             |
 | `AdobeFonts`               | [fonts.adobe.com](https://fonts.adobe.com) (previously typekit.com)                   |
 | `Algolia`                  | [algolia.com](https://www.algolia.com)                                                |
+| `Bootstrap`                | [getbootstrap.com](https://getbootstrap.com)                                          |       
 | `Bunny Fonts`              | [fonts.bunny.net](https://fonts.bunny.net/)                                           |       
 | `Cloudflare Turnstile`     | [cloudflare.com](https://www.cloudflare.com/application-services/products/turnstile/) |
 | `Cloudflare Web Analytics` | [cloudflare.com](https://developers.cloudflare.com/web-analytics/)                    |
