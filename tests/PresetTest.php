@@ -21,6 +21,7 @@ it(
 )->with([
     Presets\Basic::class,
     Presets\AdobeFonts::class,
+    Presets\Alchemer::class,
     Presets\BunnyFonts::class,
     Presets\Clarity::class,
     Presets\CloudflareTurnstile::class,
