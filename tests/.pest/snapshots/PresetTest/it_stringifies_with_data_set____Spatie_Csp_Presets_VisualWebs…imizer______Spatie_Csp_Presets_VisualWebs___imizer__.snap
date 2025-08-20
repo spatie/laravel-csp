@@ -1,0 +1,3 @@
+script-src blob: https://dev.visualwebsiteoptimizer.com
+img-src blob: https://dev.visualwebsiteoptimizer.com
+connect-src blob: https://dev.visualwebsiteoptimizer.com
