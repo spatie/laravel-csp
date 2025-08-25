@@ -1,0 +1,3 @@
+script-src https://cdn.heapanalytics.com
+img-src https://heapanalytics.com
+connect-src https://heapanalytics.com
