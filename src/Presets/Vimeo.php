@@ -11,7 +11,8 @@ class Vimeo implements Preset
     public function configure(Policy $policy): void
     {
         $policy
-            ->add(Directive::SCRIPT, 'player.vimeo.com')
-            ->add(Directive::FRAME, 'player.vimeo.com');
+            ->add([Directive::SCRIPT, Directive::FRAME], 'player.vimeo.com')
+            ->add(Directive::CONNECT, 'vimeo.com')
+            ->add(Directive::IMG, '*.vimeocdn.com');
     }
 }

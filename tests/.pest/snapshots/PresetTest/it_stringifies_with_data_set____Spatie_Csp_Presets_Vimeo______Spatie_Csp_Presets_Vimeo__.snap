@@ -1,2 +1,4 @@
 script-src player.vimeo.com
 frame-src player.vimeo.com
+connect-src vimeo.com
+img-src *.vimeocdn.com
