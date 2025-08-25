@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.17.0 - 2025-08-25
+
+### What's Changed
+
+* Chore: add missing tests for presets by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/192
+* Feat: added Alchemer survey preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/191
+* Fix: vimeo preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/190
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.16.0...3.17.0
+
 ## 3.16.0 - 2025-08-19
 
 ### What's Changed
