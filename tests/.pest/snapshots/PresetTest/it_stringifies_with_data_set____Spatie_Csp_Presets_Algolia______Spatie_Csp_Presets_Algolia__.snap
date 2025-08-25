@@ -1,0 +1,1 @@
+connect-src https://*.algolia.net https://*.algolianet.com
