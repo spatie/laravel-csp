@@ -157,6 +157,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 |----------------------------|---------------------------------------------------------------------------------------|
 | `Basic`                    | Allow requests to scripts, images… within the application                             |
 | `AdobeFonts`               | [fonts.adobe.com](https://fonts.adobe.com) (previously typekit.com)                   |
+| `Alchemer Survey`          | [alchemer.com](https://www.alchemer.com)                                                |
 | `Algolia`                  | [algolia.com](https://www.algolia.com)                                                |
 | `Bootstrap`                | [getbootstrap.com](https://getbootstrap.com)                                          |       
 | `Bunny Fonts`              | [fonts.bunny.net](https://fonts.bunny.net/)                                           |       

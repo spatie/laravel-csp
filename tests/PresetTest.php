@@ -21,6 +21,7 @@ it(
 )->with([
     Presets\Basic::class,
     Presets\AdobeFonts::class,
+    Presets\Alchemer::class,
     Presets\Algolia::class,
     Presets\BunnyFonts::class,
     Presets\Bootstrap::class,
