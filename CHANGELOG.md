@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.17.1 - 2025-09-13
+
+### What's Changed
+
+* Update issue template by @AlexVanderbist in https://github.com/spatie/laravel-csp/pull/193
+* Add European/German location URL for Sentry by @pelmered in https://github.com/spatie/laravel-csp/pull/194
+
+### New Contributors
+
+* @AlexVanderbist made their first contribution in https://github.com/spatie/laravel-csp/pull/193
+* @pelmered made their first contribution in https://github.com/spatie/laravel-csp/pull/194
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.17.0...3.17.1
+
 ## 3.17.0 - 2025-08-25
 
 ### What's Changed
