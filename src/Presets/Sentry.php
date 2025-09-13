@@ -12,6 +12,7 @@ class Sentry implements Preset
     {
         $policy
             ->add(Directive::CONNECT, [
+                'https://*.ingest.de.sentry.io',
                 'https://*.ingest.us.sentry.io',
             ]);
     }
