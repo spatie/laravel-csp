@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.17.2 - 2025-09-18
+
+### What's Changed
+
+* Fix: update JsDelivr preset to include connect-src directive by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/195
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.17.1...3.17.2
+
 ## 3.17.1 - 2025-09-13
 
 ### What's Changed
