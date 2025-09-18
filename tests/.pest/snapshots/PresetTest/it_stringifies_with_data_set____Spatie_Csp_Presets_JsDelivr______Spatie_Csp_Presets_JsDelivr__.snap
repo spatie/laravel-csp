@@ -1,3 +1,4 @@
 script-src cdn.jsdelivr.net
 style-src cdn.jsdelivr.net
 font-src cdn.jsdelivr.net
+connect-src cdn.jsdelivr.net

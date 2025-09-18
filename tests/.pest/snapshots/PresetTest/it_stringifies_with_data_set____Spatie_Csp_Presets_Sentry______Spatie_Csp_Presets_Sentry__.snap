@@ -1,1 +1,1 @@
-connect-src https://*.ingest.us.sentry.io
+connect-src https://*.ingest.de.sentry.io https://*.ingest.us.sentry.io
