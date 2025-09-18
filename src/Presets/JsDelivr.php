@@ -12,6 +12,6 @@ class JsDelivr implements Preset
     public function configure(Policy $policy): void
     {
         $policy
-            ->add([Directive::SCRIPT, Directive::STYLE, Directive::FONT], 'cdn.jsdelivr.net');
+            ->add([Directive::SCRIPT, Directive::STYLE, Directive::FONT, Directive::CONNECT], 'cdn.jsdelivr.net');
     }
 }
