@@ -50,6 +50,7 @@ it(
     Presets\Posthog::class,
     Presets\Sentry::class,
     Presets\Stripe::class,
+    Presets\SurveyMonkey::class,
     Presets\TicketTailor::class,
     Presets\Tolt::class,
     Presets\Vimeo::class,
