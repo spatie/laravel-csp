@@ -157,7 +157,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 |----------------------------|---------------------------------------------------------------------------------------|
 | `Basic`                    | Allow requests to scripts, images… within the application                             |
 | `AdobeFonts`               | [fonts.adobe.com](https://fonts.adobe.com) (previously typekit.com)                   |
-| `Alchemer Survey`          | [alchemer.com](https://www.alchemer.com)                                                |
+| `Alchemer Survey`          | [alchemer.com](https://www.alchemer.com)                                              |
 | `Algolia`                  | [algolia.com](https://www.algolia.com)                                                |
 | `Bootstrap`                | [getbootstrap.com](https://getbootstrap.com)                                          |       
 | `Bunny Fonts`              | [fonts.bunny.net](https://fonts.bunny.net/)                                           |       
@@ -185,6 +185,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Posthog`                  | [posthog.com](https://posthog.com/)                                                   |       
 | `Sentry`                   | [sentry.io](https://sentry.io/)                                                       |
 | `Stripe`                   | [stripe.com](https://stripe.com/)                                                     |
+| `SurveyMonkey`             | [surveymonkey.com](https://www.surveymonkey.com/)                                     |
 | `TicketTailor`             | [tickettailor.com](https://www.tickettailor.com)                                      |
 | `Tolt`                     | [tolt.io](https://tolt.io)                                                            |
 | `Vimeo`                    | [vimeo.com](https://vimeo.com)                                                        |
