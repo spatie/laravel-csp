@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.18.0 - 2025-09-22
+
+### What's Changed
+
+* Feat: add SurveyMonkey preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/196
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.17.2...3.18.0
+
 ## 3.17.2 - 2025-09-18
 
 ### What's Changed
