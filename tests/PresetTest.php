@@ -25,6 +25,7 @@ it(
     Presets\Algolia::class,
     Presets\BunnyFonts::class,
     Presets\Bootstrap::class,
+    Presets\Chargebee::class,
     Presets\Clarity::class,
     Presets\CloudflareCdn::class,
     Presets\CloudflareTurnstile::class,

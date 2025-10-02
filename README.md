@@ -161,6 +161,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Algolia`                  | [algolia.com](https://www.algolia.com)                                                         |
 | `Bootstrap`                | [getbootstrap.com](https://getbootstrap.com)                                                   |       
 | `Bunny Fonts`              | [fonts.bunny.net](https://fonts.bunny.net/)                                                    |       
+| `Chargebee`                | [chargebee.com](https://www.chargebee.com/)                                                    |
 | `Cloudflare Cdn`           | [cloudflare.com](https://www.cloudflare.com/en-in/application-services/products/cdn/)          |
 | `Cloudflare Turnstile`     | [cloudflare.com](https://www.cloudflare.com/application-services/products/turnstile/)          |
 | `Cloudflare Web Analytics` | [cloudflare.com](https://developers.cloudflare.com/web-analytics/)                             |
@@ -188,7 +189,6 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `SurveyMonkey`             | [surveymonkey.com](https://www.surveymonkey.com/)                                              |
 | `TicketTailor`             | [tickettailor.com](https://www.tickettailor.com)                                               |
 | `Tolt`                     | [tolt.io](https://tolt.io)                                                                     |
-| `TrackJS`                  | [trackjs.com](https://trackjs.com)                                                             |
 | `Vimeo`                    | [vimeo.com](https://vimeo.com)                                                                 |
 | `Visual Website Optimizer` | [vwo.com](https://vwo.com)                                                                     |
 | `Whereby`                  | [whereby.com](https://whereby.com)                                                             |
