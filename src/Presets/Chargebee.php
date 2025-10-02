@@ -11,7 +11,9 @@ class Chargebee implements Preset
     public function configure(Policy $policy): void
     {
         $policy
-            ->add([Directive::FRAME, Directive::SCRIPT, Directive::SCRIPT_ELEM, Directive::STYLE_ELEM],
-                ['js.chargebee.com']);
+            ->add(
+                [Directive::FRAME, Directive::SCRIPT, Directive::SCRIPT_ELEM, Directive::STYLE_ELEM],
+                ['js.chargebee.com']
+            );
     }
 }
