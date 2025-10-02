@@ -1,0 +1,4 @@
+frame-src js.chargebee.com
+script-src js.chargebee.com
+script-src-elem js.chargebee.com
+style-src-elem js.chargebee.com
