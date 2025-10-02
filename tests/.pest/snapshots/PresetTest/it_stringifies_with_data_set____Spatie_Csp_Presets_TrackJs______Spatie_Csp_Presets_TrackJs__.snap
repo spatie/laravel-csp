@@ -1,0 +1,4 @@
+connect-src capture.trackjs.com
+img-src usage.trackjs.com
+script-src cdn.trackjs.com
+script-src-elem cdn.trackjs.com js.trackjs.com

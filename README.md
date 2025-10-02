@@ -189,6 +189,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `SurveyMonkey`             | [surveymonkey.com](https://www.surveymonkey.com/)                                              |
 | `TicketTailor`             | [tickettailor.com](https://www.tickettailor.com)                                               |
 | `Tolt`                     | [tolt.io](https://tolt.io)                                                                     |
+| `TrackJS`                  | [trackjs.com](https://trackjs.com)                                                             |
 | `Vimeo`                    | [vimeo.com](https://vimeo.com)                                                                 |
 | `Visual Website Optimizer` | [vwo.com](https://vwo.com)                                                                     |
 | `Whereby`                  | [whereby.com](https://whereby.com)                                                             |
