@@ -153,44 +153,45 @@ Alternatively, you can register your CSP policies as a meta tag using our Blade 
 
 This package ships with a few commonly used presets to get your started. *We're happy to receive PRs for more services!*
 
-| Policy                     | Services                                                                              |
-|----------------------------|---------------------------------------------------------------------------------------|
-| `Basic`                    | Allow requests to scripts, images… within the application                             |
-| `AdobeFonts`               | [fonts.adobe.com](https://fonts.adobe.com) (previously typekit.com)                   |
-| `Alchemer Survey`          | [alchemer.com](https://www.alchemer.com)                                              |
-| `Algolia`                  | [algolia.com](https://www.algolia.com)                                                |
-| `Bootstrap`                | [getbootstrap.com](https://getbootstrap.com)                                          |       
-| `Bunny Fonts`              | [fonts.bunny.net](https://fonts.bunny.net/)                                           |       
-| `Cloudflare Cdn`           | [cloudflare.com](https://www.cloudflare.com/en-in/application-services/products/cdn/) |
-| `Cloudflare Turnstile`     | [cloudflare.com](https://www.cloudflare.com/application-services/products/turnstile/) |
-| `Cloudflare Web Analytics` | [cloudflare.com](https://developers.cloudflare.com/web-analytics/)                    |
-| `Fathom`                   | [usefathom.com](https://usefathom.com)                                                |
-| `Google TLD's`             | Allow all Google Top Level Domains for 'connect' and 'image'                          |       
-| `Google`                   | Google Analytics & Tag Manager                                                        |       
-| `GoogleFonts`              | [fonts.google.com](https://fonts.google.com)                                          | 
-| `GoogleLookerStudio`       | [lookerstudio.google.com](https://lookerstudio.google.com)                            | 
-| `GoogleRecaptcha`          | [developers.google.com](https://developers.google.com/recaptcha)                      | 
-| `Hcaptcha`                 | [hcaptcha.com](https://docs.hcaptcha.com)                                             |
-| `Heap Analytics`           | [heap.io](https://www.heap.io/)                                                       |
-| `Hireroad`                 | [hireroad.com](https://hireroad.com)                                               |
+| Policy                     | Services                                                                                       |
+|----------------------------|------------------------------------------------------------------------------------------------|
+| `Basic`                    | Allow requests to scripts, images… within the application                                      |
+| `AdobeFonts`               | [fonts.adobe.com](https://fonts.adobe.com) (previously typekit.com)                            |
+| `Alchemer Survey`          | [alchemer.com](https://www.alchemer.com)                                                       |
+| `Algolia`                  | [algolia.com](https://www.algolia.com)                                                         |
+| `Bootstrap`                | [getbootstrap.com](https://getbootstrap.com)                                                   |       
+| `Bunny Fonts`              | [fonts.bunny.net](https://fonts.bunny.net/)                                                    |       
+| `Chargebee`                | [chargebee.com](https://www.chargebee.com/)                                                    |
+| `Cloudflare Cdn`           | [cloudflare.com](https://www.cloudflare.com/en-in/application-services/products/cdn/)          |
+| `Cloudflare Turnstile`     | [cloudflare.com](https://www.cloudflare.com/application-services/products/turnstile/)          |
+| `Cloudflare Web Analytics` | [cloudflare.com](https://developers.cloudflare.com/web-analytics/)                             |
+| `Fathom`                   | [usefathom.com](https://usefathom.com)                                                         |
+| `Google TLD's`             | Allow all Google Top Level Domains for 'connect' and 'image'                                   |       
+| `Google`                   | Google Analytics & Tag Manager                                                                 |       
+| `GoogleFonts`              | [fonts.google.com](https://fonts.google.com)                                                   | 
+| `GoogleLookerStudio`       | [lookerstudio.google.com](https://lookerstudio.google.com)                                     | 
+| `GoogleRecaptcha`          | [developers.google.com](https://developers.google.com/recaptcha)                               | 
+| `Hcaptcha`                 | [hcaptcha.com](https://docs.hcaptcha.com)                                                      |
+| `Heap Analytics`           | [heap.io](https://www.heap.io/)                                                                |
+| `Hireroad`                 | [hireroad.com](https://hireroad.com)                                                           |
 | `Hotjar`                   | [hotjar.com](https://help.hotjar.com/hc/en-us/articles/115011640307-Content-Security-Policies) | 
-| `HubSpot`                  | [hubspot.com](https://hubspot.com) (full suite)                                       |       
-| `Intercom`                 | [intercom.com](https://intercom.com/)                                                 |       
-| `JsDelivr`                 | [jsdelivr.com](https://jsdelivr.com)                                                  |  
-| `JQuery`                   | [jquery.com](https://jquery.com)                                                      |  
-| `Maze`                     | [maze.co](https://maze.co)                  |       
-| `Meta Pixel`               | [facebook.com](https://en-gb.facebook.com/business/tools/meta-pixel)                  |       
-| `Microsoft Clarity`        | [clarity.microsoft.com](https://clarity.microsoft.com)                                |
-| `Plausible Analytics`      | [plausible.io](http://plausible.io/)                                                  |
-| `Posthog`                  | [posthog.com](https://posthog.com/)                                                   |       
-| `Sentry`                   | [sentry.io](https://sentry.io/)                                                       |
-| `Stripe`                   | [stripe.com](https://stripe.com/)                                                     |
-| `SurveyMonkey`             | [surveymonkey.com](https://www.surveymonkey.com/)                                     |
-| `TicketTailor`             | [tickettailor.com](https://www.tickettailor.com)                                      |
-| `Tolt`                     | [tolt.io](https://tolt.io)                                                            |
-| `Vimeo`                    | [vimeo.com](https://vimeo.com)                                                        |
-| `Visual Website Optimizer` | [vwo.com](https://vwo.com)                                                        |
-| `Whereby`                  | [whereby.com](https://whereby.com)                                                    |
+| `HubSpot`                  | [hubspot.com](https://hubspot.com) (full suite)                                                |       
+| `Intercom`                 | [intercom.com](https://intercom.com/)                                                          |       
+| `JsDelivr`                 | [jsdelivr.com](https://jsdelivr.com)                                                           |  
+| `JQuery`                   | [jquery.com](https://jquery.com)                                                               |  
+| `Maze`                     | [maze.co](https://maze.co)                                                                     |       
+| `Meta Pixel`               | [facebook.com](https://en-gb.facebook.com/business/tools/meta-pixel)                           |       
+| `Microsoft Clarity`        | [clarity.microsoft.com](https://clarity.microsoft.com)                                         |
+| `Plausible Analytics`      | [plausible.io](http://plausible.io/)                                                           |
+| `Posthog`                  | [posthog.com](https://posthog.com/)                                                            |       
+| `Sentry`                   | [sentry.io](https://sentry.io/)                                                                |
+| `Stripe`                   | [stripe.com](https://stripe.com/)                                                              |
+| `SurveyMonkey`             | [surveymonkey.com](https://www.surveymonkey.com/)                                              |
+| `TicketTailor`             | [tickettailor.com](https://www.tickettailor.com)                                               |
+| `Tolt`                     | [tolt.io](https://tolt.io)                                                                     |
+| `Vimeo`                    | [vimeo.com](https://vimeo.com)                                                                 |
+| `Visual Website Optimizer` | [vwo.com](https://vwo.com)                                                                     |
+| `Whereby`                  | [whereby.com](https://whereby.com)                                                             |
 
 Register the presets you want to use for your application in `config/csp.php` under the `presets` or `report_only_presets` key.
 
