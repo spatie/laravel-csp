@@ -54,6 +54,7 @@ it(
     Presets\SurveyMonkey::class,
     Presets\TicketTailor::class,
     Presets\Tolt::class,
+    Presets\TrackJs::class,
     Presets\Vimeo::class,
     Presets\VisualWebsiteOptimizer::class,
     Presets\Whereby::class,
