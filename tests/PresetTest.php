@@ -34,6 +34,7 @@ it(
     Presets\GoogleAnalytics::class,
     Presets\GoogleFonts::class,
     Presets\GoogleLookerStudio::class,
+    Presets\GoogleMaps::class,
     Presets\GoogleRecaptcha::class,
     Presets\GoogleTagManager::class,
     Presets\GoogleTlds::class,
