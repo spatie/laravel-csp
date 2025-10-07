@@ -1,0 +1,7 @@
+script-src https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:
+img-src https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data:
+frame-src *.google.com
+connect-src https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:
+font-src https://fonts.gstatic.com
+style-src https://fonts.googleapis.com
+worker-src blob:
