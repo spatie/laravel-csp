@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.19.0 - 2025-10-07
+
+### What's Changed
+
+* feat: Chargebee CSP Preset by @shawnhooper in https://github.com/spatie/laravel-csp/pull/197
+* feat: TrackJS CSP Preset by @shawnhooper in https://github.com/spatie/laravel-csp/pull/198
+
+### New Contributors
+
+* @shawnhooper made their first contribution in https://github.com/spatie/laravel-csp/pull/197
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.18.0...3.19.0
+
 ## 3.18.0 - 2025-09-22
 
 ### What's Changed
