@@ -23,7 +23,7 @@ class GoogleMaps implements Preset
             'https://*.gstatic.com',
             '*.google.com',
             '*.googleusercontent.com',
-            'data:'
+            'data:',
         ]);
         $policy->add(Directive::FRAME, '*.google.com');
         $policy->add(Directive::CONNECT, [
