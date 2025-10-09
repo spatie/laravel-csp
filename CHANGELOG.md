@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.20.0 - 2025-10-09
+
+### What's Changed
+
+* Google Maps Preset by @nessimabadi in https://github.com/spatie/laravel-csp/pull/199
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.19.0...3.20.0
+
 ## 3.19.0 - 2025-10-07
 
 ### What's Changed
