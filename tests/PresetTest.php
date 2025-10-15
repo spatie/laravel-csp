@@ -50,6 +50,7 @@ it(
     Presets\MetaPixel::class,
     Presets\PlausibleAnalytics::class,
     Presets\Posthog::class,
+    Presets\Rollbar::class,
     Presets\Sentry::class,
     Presets\Stripe::class,
     Presets\SurveyMonkey::class,
