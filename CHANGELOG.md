@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.21.0 - 2025-10-16
+
+### What's Changed
+
+* feat: Add Rollbar CSP preset by @MoT3rror in https://github.com/spatie/laravel-csp/pull/200
+
+### New Contributors
+
+* @MoT3rror made their first contribution in https://github.com/spatie/laravel-csp/pull/200
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.20.0...3.21.0
+
 ## 3.20.0 - 2025-10-09
 
 ### What's Changed
