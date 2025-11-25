@@ -250,7 +250,7 @@ Or multiple keywords for one or more directives.
 public function configure(Policy $policy): void
 {
     $policy
-        ->add(Directive::SCRIPT, [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE]],)
+        ->add(Directive::SCRIPT, [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE])
         ->add([Directive::SCRIPT, DIRECTIVE::STYLE], ['www.google.com', 'analytics.google.com']);
 }
 ```
