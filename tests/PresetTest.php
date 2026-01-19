@@ -48,6 +48,7 @@ it(
     Presets\JQuery::class,
     Presets\Maze::class,
     Presets\MetaPixel::class,
+    Presets\Plain::class,
     Presets\PlausibleAnalytics::class,
     Presets\Posthog::class,
     Presets\Rollbar::class,
