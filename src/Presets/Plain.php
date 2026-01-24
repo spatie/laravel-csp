@@ -3,7 +3,6 @@
 namespace Spatie\Csp\Presets;
 
 use Spatie\Csp\Directive;
-use Spatie\Csp\Keyword;
 use Spatie\Csp\Policy;
 use Spatie\Csp\Preset;
 
