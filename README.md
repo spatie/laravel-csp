@@ -340,7 +340,8 @@ First you must add the nonce to the right directives in your policy:
 public function configure(Policy $policy): void
 {
     $policy
-        ->add(Directive::SCRIPT, Keyword::SELF) // alternatively use Keyword::STRICT_DYNAMIC on Livewire or Inertia.js
+         // alternatively use Keyword::STRICT_DYNAMIC on Livewire or Inertia.js
+        ->add(Directive::SCRIPT, Keyword::SELF)
         ->add(Directive::STYLE, Keyword::SELF)
         ->addNonce(Directive::SCRIPT)
         ->addNonce(Directive::STYLE);
@@ -369,7 +370,7 @@ There are few other options to use inline styles and scripts. Take a look at the
 
 ### Integration with Vite
 
-When building assets, Laravel's Vite plugin can [generate a nonce](https://laravel.com/docs/12.x/vite#content-security-policy-csp-nonce) that you can generate with `Vite::useCspNonce()` and retrieve with `Vite::cspNonce`:
+When building assets, the Laravel Vite plugin can [handle nonce](https://laravel.com/docs/12.x/vite#content-security-policy-csp-nonce), that can be generated with `Vite::useCspNonce()` and retrieved using `Vite::cspNonce()`:
 
 ```php
 namespace App\Support;
