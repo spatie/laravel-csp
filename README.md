@@ -403,9 +403,7 @@ class LaravelViteNonceGenerator implements NonceGenerator
         // Determine the value for `$myNonce` however you want
         $myNonce = '';
     
-        Vite::useCspNonce($myNonce);
-        
-        return $myNonce;
+        return Vite::useCspNonce($myNonce);
     }
 }
 ```
