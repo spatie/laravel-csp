@@ -340,14 +340,15 @@ First you must add the nonce to the right directives in your policy:
 public function configure(Policy $policy): void
 {
     $policy
-        ->add(Directive::SCRIPT, 'self')
-        ->add(Directive::STYLE, 'self')
+         // alternatively use Keyword::STRICT_DYNAMIC on Livewire or Inertia.js
+        ->add(Directive::SCRIPT, Keyword::SELF)
+        ->add(Directive::STYLE, Keyword::SELF)
         ->addNonce(Directive::SCRIPT)
         ->addNonce(Directive::STYLE);
 }
 ```
 
-Next you must add the nonce to the html:
+Next add the nonce to style and script tags:
 
 ```blade
 <style @cspNonce>
@@ -359,11 +360,17 @@ Next you must add the nonce to the html:
 </script>
 ```
 
+To pass or retrieve the nonce for directives that generate scripts dynamically, use `app('csp-nonce')`:
+
+```blade
+@googlefonts(['nonce' => app('csp-nonce')])
+```
+
 There are few other options to use inline styles and scripts. Take a look at the [CSP docs on the Mozilla developer site](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src) to know more.
 
 ### Integration with Vite
 
-When building assets, Laravel's Vite plugin can [generate a nonce](https://laravel.com/docs/9.x/vite#content-security-policy-csp-nonce) that you can retrieve with `Vite::cspNonce`.  You can use in your own `NonceGenerator`.
+When building assets, the Laravel Vite plugin can [handle nonce](https://laravel.com/docs/12.x/vite#content-security-policy-csp-nonce), that can be generated with `Vite::useCspNonce()` and retrieved using `Vite::cspNonce()`:
 
 ```php
 namespace App\Support;
@@ -375,38 +382,46 @@ class LaravelViteNonceGenerator implements NonceGenerator
 {
     public function generate(): string
     {
-        return Vite::cspNonce();
+        return Vite::useCspNonce();
     }
 }
 ```
 
-Don't forget to specify the fully qualified class name of your `NonceGenerator` in the `nonce_generator` key of the `csp` config file.
-
-Alternatively, you can instruct Vite to use a specific value that it should use as nonce.
+Alternatively, you can instruct Vite to use a specific nonce value:
 
 ```php
 namespace App\Support;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Vite;
+use Spatie\Csp\Nonce\NonceGenerator;
 
-class RandomString implements NonceGenerator
+class LaravelViteNonceGenerator implements NonceGenerator
 {
     public function generate(): string
     {
         // Determine the value for `$myNonce` however you want
         $myNonce = '';
     
-        Vite::useCspNonce($myNonce);
-        
-        return $myNonce;
+        return Vite::useCspNonce($myNonce);
     }
 }
 ```
 
 The generated nonce should be a **base64-value** derived from at least **16 bytes of secure random data**
 This limits the character set to characters safe for use in HTML attributes and HTTP headers.
-For more details, see the [W3C Content Security Policy Level 3 specification](https://www.w3.org/TR/CSP3/#grammardef-base64-value)
+For more details, see the [W3C Content Security Policy Level 3 specification](https://www.w3.org/TR/CSP3/#grammardef-base64-value).
+
+Change the default `nonce_generator` key of the `config/csp.php` config file to the Vite nonce generator:
+
+```php
+/*
+* The class responsible for generating the nonces used in inline tags and headers.
+*/
+'nonce_generator' => App\Support\LaravelViteNonceGenerator::class,
+```
+
+The Vite nonce value will now be used when you call `app('csp-nonce')`  or `Vite::cspNonce()`.
 
 ### Outputting a CSP Policy as a meta tag
 
