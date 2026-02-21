@@ -43,7 +43,7 @@
     "require-dev": {
         "mockery/mockery": "^1.6",
         "orchestra/testbench": "^9.9|^10.0|^11.0",
-        "pestphp/pest": "^3.0",
+        "pestphp/pest": "^3.0|^4.0",
         "roave/security-advisories": "dev-master"
     },
     "autoload": {
