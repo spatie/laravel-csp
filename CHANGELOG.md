@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.23.0 - 2026-02-21
+
+### What's Changed
+
+- Add Laravel 13 support
+
 ## 3.21.0 - 2025-10-16
 
 ### What's Changed
