@@ -36,14 +36,14 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.3",
-        "illuminate/http": "^11.36.1|^12.0",
-        "illuminate/support": "^11.36.1|^12.0",
+        "illuminate/http": "^11.36.1|^12.0|^13.0",
+        "illuminate/support": "^11.36.1|^12.0|^13.0",
         "spatie/laravel-package-tools": "^1.17"
     },
     "require-dev": {
         "mockery/mockery": "^1.6",
-        "orchestra/testbench": "^9.9|^10.0",
-        "pestphp/pest": "^3.0",
+        "orchestra/testbench": "^9.9|^10.0|^11.0",
+        "pestphp/pest": "^3.0|^4.0",
         "roave/security-advisories": "dev-master"
     },
     "autoload": {
