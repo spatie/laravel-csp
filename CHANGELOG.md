@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.23.1 - 2026-04-30
+
+### What's Changed
+
+* Switch to scoped singletons to support Laravel Octane by @m-fi in https://github.com/spatie/laravel-csp/pull/205
+
+### New Contributors
+
+* @m-fi made their first contribution in https://github.com/spatie/laravel-csp/pull/205
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.23.0...3.23.1
+
 ## 3.23.0 - 2026-02-21
 
 ### What's Changed
