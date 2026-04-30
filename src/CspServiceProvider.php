@@ -18,9 +18,9 @@ class CspServiceProvider extends PackageServiceProvider
     public function packageBooted()
     {
         if (config('csp.nonce_enabled', true)) {
-            $this->app->singleton(NonceGenerator::class, config('csp.nonce_generator'));
+            $this->app->scoped(NonceGenerator::class, config('csp.nonce_generator'));
 
-            $this->app->singleton('csp-nonce', function () {
+            $this->app->scoped('csp-nonce', function () {
                 return app(NonceGenerator::class)->generate();
             });
         }
