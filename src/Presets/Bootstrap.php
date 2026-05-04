@@ -5,6 +5,7 @@ namespace Spatie\Csp\Presets;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Policy;
 use Spatie\Csp\Preset;
+use Spatie\Csp\Scheme;
 
 class Bootstrap implements Preset
 {
