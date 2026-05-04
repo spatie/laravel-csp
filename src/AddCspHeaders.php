@@ -47,6 +47,7 @@ class AddCspHeaders
             presets: config('csp.presets'),
             directives: config('csp.directives'),
             reportUri: config('csp.report_uri'),
+            reportTo: config('csp.report_to'),
         );
 
         if (! $policy->isEmpty()) {
@@ -57,13 +58,36 @@ class AddCspHeaders
             presets: config('csp.report_only_presets'),
             directives: config('csp.report_only_directives'),
             reportUri: config('csp.report_uri'),
+            reportTo: config('csp.report_to'),
         );
 
         if (! $reportOnlyPolicy->isEmpty()) {
             $response->headers->set('Content-Security-Policy-Report-Only', $reportOnlyPolicy->getContents());
         }
 
+        $this->addReportingEndpointsHeader($response);
+
         return $response;
+    }
+
+    protected function addReportingEndpointsHeader(Response $response): void
+    {
+        $endpoints = config('csp.reporting_endpoints');
+
+        if (empty($endpoints) || ! is_array($endpoints)) {
+            return;
+        }
+
+        $value = collect($endpoints)
+            ->map(fn (string $url, string $name) => "{$name}=\"{$url}\"")
+            ->values()
+            ->implode(', ');
+
+        if ($value === '') {
+            return;
+        }
+
+        $response->headers->set('Reporting-Endpoints', $value);
     }
 
     public function hasCspHeader(mixed $response): bool

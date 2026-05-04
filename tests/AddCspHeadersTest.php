@@ -430,3 +430,60 @@ it('can apply report_uri to the report-only CSP policy when configured', functio
 
     assertStringContainsString('report-uri https://report-uri-report-only.com', $reportOnlyHeader);
 });
+
+test('a report_to endpoint name can be set in the config', function (): void {
+    config(['csp.report_to' => 'csp-endpoint']);
+
+    $headers = getResponseHeaders();
+
+    $cspHeader = $headers->get('Content-Security-Policy');
+
+    assertStringContainsString('report-to csp-endpoint', $cspHeader);
+});
+
+it('emits both report-uri and report-to when both are configured', function (): void {
+    config([
+        'csp.report_uri' => 'https://example.com/csp-reports',
+        'csp.report_to' => 'csp-endpoint',
+    ]);
+
+    $cspHeader = getResponseHeaders()->get('Content-Security-Policy');
+
+    assertStringContainsString('report-uri https://example.com/csp-reports', $cspHeader);
+    assertStringContainsString('report-to csp-endpoint', $cspHeader);
+});
+
+it('adds the Reporting-Endpoints header when reporting_endpoints is configured', function (): void {
+    config([
+        'csp.reporting_endpoints' => [
+            'csp-endpoint' => 'https://example.com/csp-reports',
+            'fallback' => 'https://example.com/fallback',
+        ],
+    ]);
+
+    $reportingEndpoints = getResponseHeaders()->get('Reporting-Endpoints');
+
+    assertEquals(
+        'csp-endpoint="https://example.com/csp-reports", fallback="https://example.com/fallback"',
+        $reportingEndpoints,
+    );
+});
+
+it('does not add the Reporting-Endpoints header when reporting_endpoints is empty', function (): void {
+    config(['csp.reporting_endpoints' => []]);
+
+    $reportingEndpoints = getResponseHeaders()->get('Reporting-Endpoints');
+
+    assertNull($reportingEndpoints);
+});
+
+it('can apply report_to to the report-only CSP policy when configured', function (): void {
+    config([
+        'csp.report_only_presets' => [Basic::class],
+        'csp.report_to' => 'report-only-endpoint',
+    ]);
+
+    $reportOnlyHeader = getResponseHeaders()->get('Content-Security-Policy-Report-Only');
+
+    assertStringContainsString('report-to report-only-endpoint', $reportOnlyHeader);
+});
