@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.24.0 - 2026-05-04
+
+### What's Changed
+
+* Remove deprecated `block-all-mixed-content` directive from README by @weshooper in https://github.com/spatie/laravel-csp/pull/206
+* Add report-to support without removing report-uri by @freekmurze in https://github.com/spatie/laravel-csp/pull/208
+
+### New Contributors
+
+* @weshooper made their first contribution in https://github.com/spatie/laravel-csp/pull/206
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.23.1...3.24.0
+
 ## 3.23.1 - 2026-04-30
 
 ### What's Changed
