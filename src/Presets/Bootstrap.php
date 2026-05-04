@@ -14,6 +14,7 @@ class Bootstrap implements Preset
             ->add([Directive::STYLE, Directive::FONT], [
                 'data:',
                 'https://maxcdn.bootstrapcdn.com',
-            ]);
+            ])
+            ->add(Directive::IMG, Scheme::DATA); // For checkboxes/radios.
     }
 }
