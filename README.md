@@ -256,20 +256,19 @@ public function configure(Policy $policy): void
 }
 ```
 
-There are also a few cases where you don't have to or don't need to specify a value, eg. upgrade-insecure-requests, block-all-mixed-content, ... In this case you can use the following value:
+There are also a few cases where you don't have to or don't need to specify a value, eg. upgrade-insecure-requests, ... In this case you can use the following value:
 
 ```php
 public function configure(Policy $policy): void
 {
     $policy
-        ->add(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)
-        ->add(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NO_VALUE);
+        ->add(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE);
 }
 ```
 
 This will output a CSP like this:
 ```
-Content-Security-Policy: upgrade-insecure-requests;block-all-mixed-content
+Content-Security-Policy: upgrade-insecure-requests
 ```
 
 The `presets` key of the `csp` config file is set to `[\Spatie\Csp\Presets\Basic::class]` by default. This class allows your site to only use images, scripts, form actions of your own site.
