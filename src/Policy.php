@@ -14,7 +14,7 @@ class Policy
     protected array $directives = [];
 
     public function __construct(
-        protected ?string $reportUri = null,
+        protected ?string $reportTo = null,
     ) {
     }
 
@@ -76,9 +76,9 @@ class Policy
         return $this->add($directive, "'nonce-{$nonce}'");
     }
 
-    public function setReportUri(string $reportUri): self
+    public function setReportTo(string $reportTo): self
     {
-        $this->reportUri = $reportUri;
+        $this->reportTo = $reportTo;
 
         return $this;
     }
@@ -92,8 +92,8 @@ class Policy
     {
         $directives = $this->directives;
 
-        if ($this->reportUri) {
-            $directives[Directive::REPORT->value] = [$this->reportUri];
+        if ($this->reportTo) {
+            $directives[Directive::REPORT_TO->value] = [$this->reportTo];
         }
 
         return collect($directives)
@@ -154,7 +154,7 @@ class Policy
     public static function create(
         array $presets = [],
         array $directives = [],
-        ?string $reportUri = null,
+        ?string $reportTo = null,
     ): self {
         $policy = array_reduce($presets, function (Policy $policy, string $className) {
             $preset = app($className);
@@ -166,7 +166,7 @@ class Policy
             $preset->configure($policy);
 
             return $policy;
-        }, new static($reportUri));
+        }, new static($reportTo));
 
         foreach ($directives as [$directive, $contents]) {
             $policy->add($directive, $contents);

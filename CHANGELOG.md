@@ -213,7 +213,7 @@ All notable changes to `laravel-csp` will be documented in this file
 ### What's Changed
 
 * Update README.md by @nessimabadi in https://github.com/spatie/laravel-csp/pull/162
-* Ensure correct report_uri is applied for report-only CSP policies by @andrextor in https://github.com/spatie/laravel-csp/pull/164
+* Ensure correct report_to is applied for report-only CSP policies by @andrextor in https://github.com/spatie/laravel-csp/pull/164
 
 ### New Contributors
 

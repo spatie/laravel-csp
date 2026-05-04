@@ -19,7 +19,6 @@ enum Directive: string
     case OBJECT = 'object-src';
     case PLUGIN = 'plugin-types';
     case PREFETCH = 'prefetch-src';
-    case REPORT = 'report-uri';
     case REPORT_TO = 'report-to';
     case REQUIRE_TRUSTED_TYPES_FOR = 'require-trusted-types-for';
     case SANDBOX = 'sandbox';

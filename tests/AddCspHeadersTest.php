@@ -92,13 +92,13 @@ it('wont set any headers if not enabled in the config', function (): void {
 });
 
 test('a report uri can be set in the config', function (): void {
-    config(['csp.report_uri' => 'https://report-uri.com']);
+    config(['csp.report_to' => 'https://report-uri.com']);
 
     $headers = getResponseHeaders();
 
     $cspHeader = $headers->get('Content-Security-Policy');
 
-    assertStringContainsString('report-uri https://report-uri.com', $cspHeader);
+    assertStringContainsString('report-to https://report-uri.com', $cspHeader);
 });
 
 it('will throw an exception when using an invalid policy class', function (): void {
@@ -418,15 +418,15 @@ it('can use an empty value for a directive', function (): void {
     );
 });
 
-it('can apply report_uri to the report-only CSP policy when configured', function (): void {
+it('can apply report_to to the report-only CSP policy when configured', function (): void {
     config([
         'csp.report_only_presets' => [Basic::class],
-        'csp.report_uri' => 'https://report-uri-report-only.com',
+        'csp.report_to' => 'https://report-uri-report-only.com',
     ]);
 
     $headers = getResponseHeaders();
 
     $reportOnlyHeader = $headers->get('Content-Security-Policy-Report-Only');
 
-    assertStringContainsString('report-uri https://report-uri-report-only.com', $reportOnlyHeader);
+    assertStringContainsString('report-to https://report-uri-report-only.com', $reportOnlyHeader);
 });

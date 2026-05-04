@@ -24,14 +24,14 @@ class CspMetaTag
             if ($reportOnly) {
                 $reportOnlyPolicy = Policy::create(
                     presets: $presets,
-                    reportUri: config('csp.report_uri')
+                    reportTo: config('csp.report_to')
                 );
 
                 return new static(reportOnlyPolicy: $reportOnlyPolicy);
             } else {
                 $policy = Policy::create(
                     presets: $presets,
-                    reportUri: config('csp.report_uri'),
+                    reportTo: config('csp.report_to'),
                 );
 
                 return new static(policy: $policy);
@@ -41,13 +41,13 @@ class CspMetaTag
         $policy = Policy::create(
             presets: config('csp.presets'),
             directives: config('csp.directives'),
-            reportUri: config('csp.report_uri'),
+            reportTo: config('csp.report_to'),
         );
 
         $reportOnlyPolicy = Policy::create(
             presets: config('csp.report_only_presets'),
             directives: config('csp.report_only_directives'),
-            reportUri: config('csp.report_uri'),
+            reportTo: config('csp.report_to'),
         );
 
         return new static($policy, $reportOnlyPolicy);

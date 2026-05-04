@@ -46,7 +46,7 @@ class AddCspHeaders
         $policy = Policy::create(
             presets: config('csp.presets'),
             directives: config('csp.directives'),
-            reportUri: config('csp.report_uri'),
+            reportTo: config('csp.report_to'),
         );
 
         if (! $policy->isEmpty()) {
@@ -56,7 +56,7 @@ class AddCspHeaders
         $reportOnlyPolicy = Policy::create(
             presets: config('csp.report_only_presets'),
             directives: config('csp.report_only_directives'),
-            reportUri: config('csp.report_uri'),
+            reportTo: config('csp.report_to'),
         );
 
         if (! $reportOnlyPolicy->isEmpty()) {
