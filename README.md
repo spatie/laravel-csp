@@ -85,7 +85,7 @@ return [
      * All violations against a policy will be reported to this url.
      * A great service you could use for this is https://report-uri.com/
      */
-    'report_uri' => env('CSP_REPORT_URI', ''),
+    'report_to' => env('CSP_REPORT_TO', ''),
 
     /*
      * Headers will only be added if this setting is set to true.
@@ -256,19 +256,20 @@ public function configure(Policy $policy): void
 }
 ```
 
-There are also a few cases where you don't have to or don't need to specify a value, eg. upgrade-insecure-requests, ... In this case you can use the following value:
+There are also a few cases where you don't have to or don't need to specify a value, eg. upgrade-insecure-requests, block-all-mixed-content, ... In this case you can use the following value:
 
 ```php
 public function configure(Policy $policy): void
 {
     $policy
-        ->add(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE);
+        ->add(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE)
+        ->add(Directive::BLOCK_ALL_MIXED_CONTENT, Value::NO_VALUE);
 }
 ```
 
 This will output a CSP like this:
 ```
-Content-Security-Policy: upgrade-insecure-requests
+Content-Security-Policy: upgrade-insecure-requests;block-all-mixed-content
 ```
 
 The `presets` key of the `csp` config file is set to `[\Spatie\Csp\Presets\Basic::class]` by default. This class allows your site to only use images, scripts, form actions of your own site.
@@ -458,7 +459,7 @@ Instead of outright blocking all violations, you can put configure a CSP policy 
 
 #### To an external url
 
-Any violations against the policy can be reported to a given url. You can set that url in the `report_uri` key of the `csp` config file. A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/). 
+Any violations against the policy can be reported to a given url. You can set that url in the `report_to` key of the `csp` config file. A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/). 
 
 ### Testing
 
