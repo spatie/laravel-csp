@@ -42,6 +42,23 @@ return [
     'report_uri' => env('CSP_REPORT_URI', ''),
 
     /*
+     * The name of the reporting endpoint that violations should be sent to.
+     * The endpoint itself must be defined in `reporting_endpoints` below.
+     */
+    'report_to' => env('CSP_REPORT_TO', ''),
+
+    /*
+     * Reporting endpoints that will be sent in the `Reporting-Endpoints` HTTP
+     * header. The keys are the endpoint names that can be referenced from
+     * `report_to` above.
+     *
+     * Example: ['default' => 'https://example.com/csp-reports']
+     */
+    'reporting_endpoints' => [
+        //
+    ],
+
+    /*
      * Headers will only be added if this setting is set to true.
      */
     'enabled' => env('CSP_ENABLED', true),

@@ -88,6 +88,21 @@ return [
     'report_uri' => env('CSP_REPORT_URI', ''),
 
     /*
+     * The name of the reporting endpoint that violations should be sent to.
+     * The endpoint itself must be defined in `reporting_endpoints` below.
+     */
+    'report_to' => env('CSP_REPORT_TO', ''),
+
+    /*
+     * Reporting endpoints that will be sent in the `Reporting-Endpoints` HTTP
+     * header. The keys are the endpoint names that can be referenced from
+     * `report_to` above.
+     */
+    'reporting_endpoints' => [
+        // 'default' => 'https://example.com/csp-reports',
+    ],
+
+    /*
      * Headers will only be added if this setting is set to true.
      */
     'enabled' => env('CSP_ENABLED', true),
@@ -458,7 +473,25 @@ Instead of outright blocking all violations, you can put configure a CSP policy 
 
 #### To an external url
 
-Any violations against the policy can be reported to a given url. You can set that url in the `report_uri` key of the `csp` config file. A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/). 
+Any violations against the policy can be reported to a given url. There are two CSP directives for this:
+
+* `report-uri`: the original directive. It is deprecated, but still supported by most browsers. Set the url in the `report_uri` key of the `csp` config file.
+* `report-to`: the modern replacement. It points to a named endpoint defined in the `Reporting-Endpoints` HTTP header. Set the endpoint name in the `report_to` key, and define the endpoint url in the `reporting_endpoints` array.
+
+While the new directive is rolling out across browsers, you can configure both at the same time. Older browsers will use `report-uri`, newer ones will use `report-to`.
+
+```php
+// config/csp.php
+'report_uri' => env('CSP_REPORT_URI', 'https://example.com/csp-reports'),
+
+'report_to' => env('CSP_REPORT_TO', 'default'),
+
+'reporting_endpoints' => [
+    'default' => 'https://example.com/csp-reports',
+],
+```
+
+A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/).
 
 ### Testing
 
