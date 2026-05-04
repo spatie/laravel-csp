@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.24.1 - 2026-05-04
+
+### What's Changed
+
+* Add `Directive::IMG:Scheme::DATA` for Bootstrap by @weshooper in https://github.com/spatie/laravel-csp/pull/209
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.24.0...3.24.1
+
 ## 3.24.0 - 2026-05-04
 
 ### What's Changed
