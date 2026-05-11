@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.25.0 - 2026-05-11
+
+### What's Changed
+
+* Support separate report endpoints for the report-only CSP policy by @freekmurze in https://github.com/spatie/laravel-csp/pull/211
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.24.1...3.25.0
+
 ## 3.24.1 - 2026-05-04
 
 ### What's Changed
