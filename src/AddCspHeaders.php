@@ -57,8 +57,8 @@ class AddCspHeaders
         $reportOnlyPolicy = Policy::create(
             presets: config('csp.report_only_presets'),
             directives: config('csp.report_only_directives'),
-            reportUri: config('csp.report_uri'),
-            reportTo: config('csp.report_to'),
+            reportUri: config('csp.report_only_uri') ?: config('csp.report_uri'),
+            reportTo: config('csp.report_only_to') ?: config('csp.report_to'),
         );
 
         if (! $reportOnlyPolicy->isEmpty()) {

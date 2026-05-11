@@ -88,10 +88,22 @@ return [
     'report_uri' => env('CSP_REPORT_URI', ''),
 
     /*
+     * Optional separate report url for the report-only policy. When empty,
+     * the report-only policy falls back to `report_uri` above.
+     */
+    'report_only_uri' => env('CSP_REPORT_ONLY_URI', ''),
+
+    /*
      * The name of the reporting endpoint that violations should be sent to.
      * The endpoint itself must be defined in `reporting_endpoints` below.
      */
     'report_to' => env('CSP_REPORT_TO', ''),
+
+    /*
+     * Optional separate reporting endpoint name for the report-only policy.
+     * When empty, the report-only policy falls back to `report_to` above.
+     */
+    'report_only_to' => env('CSP_REPORT_ONLY_TO', ''),
 
     /*
      * Reporting endpoints that will be sent in the `Reporting-Endpoints` HTTP
@@ -492,6 +504,16 @@ While the new directive is rolling out across browsers, you can configure both a
 ```
 
 A great service that is specifically built for handling these violation reports is [http://report-uri.io/](http://report-uri.io/).
+
+If you are running an enforcing and a report-only policy side-by-side and need them to report to different endpoints (for example, report-uri.com requires `/enforce` for `Content-Security-Policy` and `/reportOnly` for `Content-Security-Policy-Report-Only`), you can configure `report_only_uri` and/or `report_only_to`:
+
+```php
+// config/csp.php
+'report_uri' => env('CSP_REPORT_URI', 'https://example.report-uri.com/r/d/csp/enforce'),
+'report_only_uri' => env('CSP_REPORT_ONLY_URI', 'https://example.report-uri.com/r/d/csp/reportOnly'),
+```
+
+When `report_only_uri` (or `report_only_to`) is empty, the report-only policy reuses `report_uri` (or `report_to`).
 
 ### Testing
 
