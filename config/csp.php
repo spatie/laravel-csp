@@ -42,10 +42,24 @@ return [
     'report_uri' => env('CSP_REPORT_URI', ''),
 
     /*
+     * Optional separate report url for the report-only policy. When empty,
+     * the report-only policy falls back to `report_uri` above. Useful for
+     * services like report-uri.com that require different paths for enforcing
+     * (`/enforce`) and report-only (`/reportOnly`) policies.
+     */
+    'report_only_uri' => env('CSP_REPORT_ONLY_URI', ''),
+
+    /*
      * The name of the reporting endpoint that violations should be sent to.
      * The endpoint itself must be defined in `reporting_endpoints` below.
      */
     'report_to' => env('CSP_REPORT_TO', ''),
+
+    /*
+     * Optional separate reporting endpoint name for the report-only policy.
+     * When empty, the report-only policy falls back to `report_to` above.
+     */
+    'report_only_to' => env('CSP_REPORT_ONLY_TO', ''),
 
     /*
      * Reporting endpoints that will be sent in the `Reporting-Endpoints` HTTP
