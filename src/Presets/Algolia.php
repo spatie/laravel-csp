@@ -14,6 +14,7 @@ class Algolia implements Preset
             ->add(Directive::CONNECT, [
                 'https://*.algolia.net',
                 'https://*.algolianet.com',
+                'https://*.algolia.io',
             ]);
     }
 }
