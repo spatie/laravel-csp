@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.25.1 - 2026-06-02
+
+### What's Changed
+
+* Chore: add Algolia insights domain by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/212
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.25.0...3.25.1
+
 ## 3.25.0 - 2026-05-11
 
 ### What's Changed
