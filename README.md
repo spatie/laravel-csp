@@ -217,6 +217,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Sentry`                   | [sentry.io](https://sentry.io/)                                                                |
 | `Stripe`                   | [stripe.com](https://stripe.com/)                                                              |
 | `SurveyMonkey`             | [surveymonkey.com](https://www.surveymonkey.com/)                                              |
+| `ThereThere`               | [there-there.app](https://there-there.app) (support bubble widget)                            |
 | `TicketTailor`             | [tickettailor.com](https://www.tickettailor.com)                                               |
 | `Tolt`                     | [tolt.io](https://tolt.io)                                                                     |
 | `TrackJS`                  | [trackjs.com](https://trackjs.com)                                                             |
