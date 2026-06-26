@@ -55,6 +55,7 @@ it(
     Presets\Sentry::class,
     Presets\Stripe::class,
     Presets\SurveyMonkey::class,
+    Presets\ThereThere::class,
     Presets\TicketTailor::class,
     Presets\Tolt::class,
     Presets\TrackJs::class,

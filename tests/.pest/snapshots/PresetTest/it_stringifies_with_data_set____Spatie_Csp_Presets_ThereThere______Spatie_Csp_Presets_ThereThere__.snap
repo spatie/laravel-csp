@@ -1,0 +1,4 @@
+script-src https://files.there-there.app
+frame-src https://there-there.app
+connect-src https://there-there.app wss://there-there.app
+style-src 'unsafe-inline'
