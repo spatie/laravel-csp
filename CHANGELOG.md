@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.26.0 - 2026-06-26
+
+### What's Changed
+
+* Add a There There preset by @freekmurze in https://github.com/spatie/laravel-csp/pull/213
+* Drop roave/security-advisories to unblock CI by @freekmurze in https://github.com/spatie/laravel-csp/pull/214
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.25.1...3.26.0
+
 ## 3.25.1 - 2026-06-02
 
 ### What's Changed
