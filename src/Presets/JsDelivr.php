@@ -8,7 +8,6 @@ use Spatie\Csp\Preset;
 
 class JsDelivr implements Preset
 {
-
     public function configure(Policy $policy): void
     {
         $policy

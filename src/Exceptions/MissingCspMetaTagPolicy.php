@@ -8,6 +8,6 @@ class MissingCspMetaTagPolicy extends Exception
 {
     public static function create(): self
     {
-        return new self("The [@cspMetaTag] directive expects to be passed a valid policy class name");
+        return new self('The [@cspMetaTag] directive expects to be passed a valid policy class name');
     }
 }

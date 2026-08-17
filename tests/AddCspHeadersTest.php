@@ -4,10 +4,6 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Foundation\Vite;
 use Illuminate\Support\Facades\Route;
 use Mockery\MockInterface;
-use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertFalse;
-use function PHPUnit\Framework\assertNull;
-use function PHPUnit\Framework\assertStringContainsString;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Exceptions\InvalidPreset;
@@ -19,6 +15,11 @@ use Spatie\Csp\Presets\Basic;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\HeaderBag;
+
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertNull;
+use function PHPUnit\Framework\assertStringContainsString;
 
 function getResponseHeaders(string $url = 'test-route'): HeaderBag
 {
@@ -104,8 +105,7 @@ test('a report uri can be set in the config', function (): void {
 it('will throw an exception when using an invalid policy class', function (): void {
     withoutExceptionHandling();
 
-    $invalidPolicyClassName = get_class(new class {
-    });
+    $invalidPolicyClassName = get_class(new class {});
 
     config(['csp.presets' => [$invalidPolicyClassName]]);
 
@@ -115,7 +115,8 @@ it('will throw an exception when using an invalid policy class', function (): vo
 it('will throw an exception when passing none with other values', function (): void {
     withoutExceptionHandling();
 
-    $invalidPolicy = new class implements Preset {
+    $invalidPolicy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::CONNECT, [Keyword::NONE, 'connect']);
@@ -128,7 +129,8 @@ it('will throw an exception when passing none with other values', function (): v
 })->throws(InvalidValueSet::class);
 
 it('can use multiple values for the same directive', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy
@@ -150,7 +152,8 @@ it('can use multiple values for the same directive', function (): void {
 });
 
 it('can use multiple presets', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy
@@ -159,7 +162,8 @@ it('can use multiple presets', function (): void {
         }
     };
 
-    $anotherPolicy = new class implements Preset {
+    $anotherPolicy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy
@@ -179,7 +183,8 @@ it('can use multiple presets', function (): void {
 });
 
 test('none overrides other values for the same directive', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy
@@ -200,7 +205,8 @@ test('none overrides other values for the same directive', function (): void {
 });
 
 test('values override none value for the same directive', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy
@@ -221,7 +227,8 @@ test('values override none value for the same directive', function (): void {
 });
 
 it('can add multiple values for the same directive in one go', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::FRAME, ['src-1', 'src-2']);
@@ -239,7 +246,8 @@ it('can add multiple values for the same directive in one go', function (): void
 });
 
 it('will automatically quote special directive values', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::SCRIPT, [Keyword::SELF]);
@@ -257,7 +265,8 @@ it('will automatically quote special directive values', function (): void {
 });
 
 it('will automatically quote hashed values', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::SCRIPT, [
@@ -279,7 +288,8 @@ it('will automatically quote hashed values', function (): void {
 });
 
 it('will not output the same directive values twice', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::SCRIPT, [Keyword::SELF, Keyword::SELF]);
@@ -299,7 +309,8 @@ it('will not output the same directive values twice', function (): void {
 test('route middleware will overwrite global middleware for that route', function (): void {
     withoutExceptionHandling();
 
-    $customPolicy = new class implements Preset {
+    $customPolicy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::BASE, 'custom-policy');
@@ -351,7 +362,8 @@ test('route middleware is skipped when vite is hot reloading', function (): void
 });
 
 it('will handle scheme values', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::IMG, [
@@ -373,9 +385,9 @@ it('will handle scheme values', function (): void {
     );
 });
 
-
 it('removes null values', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::IMG, [
@@ -397,9 +409,9 @@ it('removes null values', function (): void {
     );
 });
 
-
 it('can use an empty value for a directive', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy

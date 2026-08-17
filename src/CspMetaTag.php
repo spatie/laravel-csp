@@ -7,15 +7,14 @@ use Illuminate\Support\Arr;
 class CspMetaTag
 {
     public function __construct(
-        protected Policy $policy = new Policy(),
-        protected Policy $reportOnlyPolicy = new Policy(),
-    ) {
-    }
+        protected Policy $policy = new Policy,
+        protected Policy $reportOnlyPolicy = new Policy,
+    ) {}
 
     public static function create(string|array $presets = [], bool $reportOnly = false): static
     {
         if (! config('csp.enabled')) {
-            return new static();
+            return new static;
         }
 
         $presets = Arr::wrap($presets);
