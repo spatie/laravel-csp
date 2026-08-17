@@ -47,14 +47,14 @@ it('will use configuration when passing no policy class', function (): void {
 });
 
 it('will throw an exception when using an invalid policy class', function (): void {
-    $invalidPolicyClassName = get_class(new class {
-    });
+    $invalidPolicyClassName = get_class(new class {});
 
     renderView($invalidPolicyClassName);
 })->throws(ViewException::class, 'A valid policy implements');
 
 it('will throw an exception when passing none with other values', function (): void {
-    $invalidPolicy = new class implements Preset {
+    $invalidPolicy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::CONNECT, [Keyword::NONE, 'connect']);
@@ -65,7 +65,8 @@ it('will throw an exception when passing none with other values', function (): v
 })->throws(ViewException::class, 'The keyword none can only be used on its own');
 
 it('can use multiple values for the same directive', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy
@@ -80,7 +81,8 @@ it('can use multiple values for the same directive', function (): void {
 });
 
 it('can render multiple presets', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy
@@ -89,7 +91,8 @@ it('can render multiple presets', function (): void {
         }
     };
 
-    $anotherPolicy = new class implements Preset {
+    $anotherPolicy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy
@@ -103,7 +106,8 @@ it('can render multiple presets', function (): void {
 });
 
 test('none overrides other values for the same directive', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy
@@ -117,7 +121,8 @@ test('none overrides other values for the same directive', function (): void {
 });
 
 test('values override none value for the same directive', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy
@@ -131,7 +136,8 @@ test('values override none value for the same directive', function (): void {
 });
 
 it('can add multiple values for the same directive in one go', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::FRAME, ['src-1', 'src-2']);
@@ -142,7 +148,8 @@ it('can add multiple values for the same directive in one go', function (): void
 });
 
 it('will automatically quote special directive values', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::SCRIPT, [Keyword::SELF]);
@@ -153,7 +160,8 @@ it('will automatically quote special directive values', function (): void {
 });
 
 it('will automatically quote hashed values', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::SCRIPT, [
@@ -168,7 +176,8 @@ it('will automatically quote hashed values', function (): void {
 });
 
 it('will not output the same directive values twice', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::SCRIPT, [Keyword::SELF, Keyword::SELF]);
@@ -179,7 +188,8 @@ it('will not output the same directive values twice', function (): void {
 });
 
 it('will handle scheme values', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy->add(Directive::IMG, [
@@ -194,7 +204,8 @@ it('will handle scheme values', function (): void {
 });
 
 it('can use an empty value for a directive', function (): void {
-    $policy = new class implements Preset {
+    $policy = new class implements Preset
+    {
         public function configure(Policy $policy): void
         {
             $policy

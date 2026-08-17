@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Spatie\Csp\Presets;
 
@@ -12,7 +14,6 @@ class Rollbar implements Preset
     {
         $policy
             ->add(Directive::CONNECT, 'https://api.rollbar.com')
-            ->add(Directive::SCRIPT, 'https://cdn.rollbar.com')
-        ;
+            ->add(Directive::SCRIPT, 'https://cdn.rollbar.com');
     }
 }

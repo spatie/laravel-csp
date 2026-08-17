@@ -41,6 +41,7 @@
         "spatie/laravel-package-tools": "^1.17"
     },
     "require-dev": {
+        "laravel/pint": "^1.30",
         "mockery/mockery": "^1.6",
         "orchestra/testbench": "^9.9|^10.0|^11.0",
         "pestphp/pest": "^4.0|^5.0"
@@ -56,9 +57,9 @@
         }
     },
     "scripts": {
-        "lint": "php-cs-fixer fix",
+        "format": "vendor/bin/pint",
         "test": "vendor/bin/pest",
-        "test-coverage": "pest --coverage-html coverage"
+        "test-coverage": "vendor/bin/pest --coverage-html coverage"
     },
     "config": {
         "sort-packages": true,

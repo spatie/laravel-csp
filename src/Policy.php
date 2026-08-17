@@ -16,14 +16,12 @@ class Policy
     public function __construct(
         protected ?string $reportUri = null,
         protected ?string $reportTo = null,
-    ) {
-    }
+    ) {}
 
     public function add(Directive|array $directives, Keyword|string|array|bool $values): self
     {
         foreach (Arr::wrap($directives) as $directive) {
             /** @var Directive $directive */
-
             $this->guardAgainstInvalidDirectives($directive);
             $this->guardAgainstInvalidValues(Arr::wrap($values));
 

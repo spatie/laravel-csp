@@ -10,7 +10,7 @@ it(
     function (string $presetClass): void {
         config(['csp.nonce_enabled' => false]);
 
-        $policy = new Policy();
+        $policy = new Policy;
 
         $preset = new $presetClass;
         $preset->configure($policy);
