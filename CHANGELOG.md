@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.27.0 - 2026-08-17
+
+### What's Changed
+
+* chore: update snapshots to Pest V4 by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/216
+* chore: Add Firebase CSP by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/215
+* Add support for Pest 5 by @freekmurze in https://github.com/spatie/laravel-csp/pull/217
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.26.0...3.27.0
+
 ## 3.26.0 - 2026-06-26
 
 ### What's Changed
