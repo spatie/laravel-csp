@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.28.1 - 2026-09-01
+
+### What's Changed
+
+* Add child-src to the Sentry preset and correct its comment by @freekmurze in https://github.com/spatie/laravel-csp/pull/223
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.28.0...3.28.1
+
 ## 3.28.0 - 2026-09-01
 
 ### What's Changed
