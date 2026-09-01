@@ -1,1 +1,2 @@
 connect-src https://*.ingest.de.sentry.io https://*.ingest.us.sentry.io
+worker-src 'self' blob:
