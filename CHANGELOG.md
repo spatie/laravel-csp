@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.28.0 - 2026-09-01
+
+### What's Changed
+
+* Remove dead matrix excludes by @freekmurze in https://github.com/spatie/laravel-csp/pull/220
+* Fix #219: replace php-cs-fixer with Pint by @freekmurze in https://github.com/spatie/laravel-csp/pull/221
+* Allow blob workers in the Sentry preset by @chinmaypurav in https://github.com/spatie/laravel-csp/pull/222
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.27.0...3.28.0
+
 ## 3.27.0 - 2026-08-17
 
 ### What's Changed
