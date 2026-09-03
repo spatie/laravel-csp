@@ -1,2 +1,3 @@
 style-src https://cdnjs.cloudflare.com
 script-src https://cdnjs.cloudflare.com
+font-src https://cdnjs.cloudflare.com
