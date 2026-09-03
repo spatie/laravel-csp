@@ -11,7 +11,7 @@ class Intercom implements Preset
     public function configure(Policy $policy): void
     {
         $policy
-            ->add(Directive::SCRIPT_ELEM, [
+            ->add(Directive::SCRIPT, [
                 'https://app.intercom.io',
                 'https://widget.intercom.io',
                 'https://js.intercomcdn.com',
@@ -39,7 +39,7 @@ class Intercom implements Preset
                 'https://uploads.eu.intercomcdn.com',
                 'https://uploads.intercomusercontent.com',
             ])
-            ->add(Directive::CHILD, [
+            ->add(Directive::FRAME, [
                 'https://intercom-sheets.com',
                 'https://www.intercom-reporting.com',
                 'https://www.youtube.com',

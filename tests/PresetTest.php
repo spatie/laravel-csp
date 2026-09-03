@@ -64,3 +64,18 @@ it(
     Presets\VisualWebsiteOptimizer::class,
     Presets\Whereby::class,
 ]);
+
+it('combines the Basic and Intercom source directives', function (): void {
+    config(['csp.nonce_enabled' => false]);
+
+    $contents = Policy::create([
+        Presets\Basic::class,
+        Presets\Intercom::class,
+    ])->getContents();
+
+    expect($contents)
+        ->toContain("frame-src 'self' https://intercom-sheets.com")
+        ->toContain("script-src 'self' https://app.intercom.io")
+        ->not->toContain('child-src')
+        ->not->toContain('script-src-elem');
+});
