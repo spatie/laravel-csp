@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.28.3 - 2026-09-03
+
+### What's Changed
+
+* Fix Intercom preset conflicting with Basic preset by @Seb33300 in https://github.com/spatie/laravel-csp/pull/224
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.28.2...3.28.3
+
 ## 3.28.2 - 2026-09-03
 
 ### What's Changed
