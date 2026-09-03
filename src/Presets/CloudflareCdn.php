@@ -11,7 +11,7 @@ class CloudflareCdn implements Preset
     public function configure(Policy $policy): void
     {
         $policy
-            ->add([Directive::STYLE, Directive::SCRIPT], [
+            ->add([Directive::STYLE, Directive::SCRIPT, Directive::FONT], [
                 'https://cdnjs.cloudflare.com',
             ]);
     }
