@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.28.2 - 2026-09-03
+
+### What's Changed
+
+* Add FONT directive to Cloudflare CDN preset by @Seb33300 in https://github.com/spatie/laravel-csp/pull/225
+
+### New Contributors
+
+* @Seb33300 made their first contribution in https://github.com/spatie/laravel-csp/pull/225
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.28.1...3.28.2
+
 ## 3.28.1 - 2026-09-01
 
 ### What's Changed
