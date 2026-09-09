@@ -1,0 +1,4 @@
+connect-src www.googleadservices.com pagead2.googlesyndication.com googleads.g.doubleclick.net www.google.com google.com ad.doubleclick.net
+img-src www.googleadservices.com pagead2.googlesyndication.com googleads.g.doubleclick.net www.google.com www.googletagmanager.com google.com
+script-src www.googleadservices.com pagead2.googlesyndication.com googleads.g.doubleclick.net www.google.com www.googletagmanager.com
+frame-src www.googletagmanager.com
