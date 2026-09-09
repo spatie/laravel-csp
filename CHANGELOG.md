@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.29.0 - 2026-09-09
+
+### What's Changed
+
+* Add Google Ads preset by @jhhazelaar in https://github.com/spatie/laravel-csp/pull/226
+
+### New Contributors
+
+* @jhhazelaar made their first contribution in https://github.com/spatie/laravel-csp/pull/226
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.28.3...3.29.0
+
 ## 3.28.3 - 2026-09-03
 
 ### What's Changed
