@@ -32,6 +32,7 @@ it(
     Presets\CloudflareWebAnalytics::class,
     Presets\Fathom::class,
     Presets\Firebase::class,
+    Presets\GoogleAds::class,
     Presets\GoogleAnalytics::class,
     Presets\GoogleFonts::class,
     Presets\GoogleLookerStudio::class,
