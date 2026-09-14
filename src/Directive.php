@@ -29,6 +29,7 @@ enum Directive: string
     case STYLE = 'style-src';
     case STYLE_ATTR = 'style-src-attr';
     case STYLE_ELEM = 'style-src-elem';
+    case TRUSTED_TYPES = 'trusted-types';
     case UPGRADE_INSECURE_REQUESTS = 'upgrade-insecure-requests';
     case WEB_RTC = 'webrtc-src';
     case WORKER = 'worker-src';
