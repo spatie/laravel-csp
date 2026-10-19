@@ -50,7 +50,9 @@ class Policy
             });
 
             foreach ($values as $value) {
-                $sanitizedValue = $this->sanitizeValue($value);
+                $sanitizedValue = $directive === Directive::TRUSTED_TYPES && is_string($value)
+                    ? $value
+                    : $this->sanitizeValue($value);
 
                 if (! in_array($sanitizedValue, $this->directives[$directive->value] ?? [])) {
                     $this->directives[$directive->value][] = $sanitizedValue;

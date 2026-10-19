@@ -4,6 +4,7 @@ namespace Spatie\Csp;
 
 enum Keyword: string
 {
+    case ALLOW_DUPLICATES = 'allow-duplicates';
     case NONE = 'none';
     case REPORT_SAMPLE = 'report-sample';
     case SCRIPT = 'script';
