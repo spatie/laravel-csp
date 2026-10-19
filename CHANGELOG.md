@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.30.0 - 2026-10-19
+
+### What's Changed
+
+- Add the trusted-types CSP directive and the allow-duplicates keyword, with documentation and regression coverage for enforcing and report-only policies.
+- Preserve valid hash-like Trusted Types policy names without quoting them as script hashes.
+- Test PHP 8.3, 8.4, and 8.5 with Laravel 12 and 13, using Pest 5 where supported and Pest 4 for compatible older environments. Update the test checkout action to v7.
+- Drop end-of-life Laravel 11 support. PHP 8.3 remains supported.
+
+Thanks to @alex-ng-wesoft for the original contribution in #227.
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.29.0...3.30.0
+
 ## 3.29.0 - 2026-09-09
 
 ### What's Changed
