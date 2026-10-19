@@ -12,7 +12,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [8.5, 8.4]
+        php: [8.5, 8.4, 8.3]
         laravel: [^12, ^13]
         dependency-version: [prefer-lowest, prefer-stable]
         include:
@@ -20,6 +20,8 @@ jobs:
             pest: ^4
           - laravel: ^13
             pest: ^5
+          - php: 8.3
+            pest: ^4
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 

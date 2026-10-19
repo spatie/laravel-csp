@@ -34,7 +34,7 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 
 ## Installation
 
-This package requires PHP 8.4 or higher and Laravel 12 or 13.
+This package requires PHP 8.3 or higher and Laravel 12 or 13.
 
 You can install the package via composer:
 
