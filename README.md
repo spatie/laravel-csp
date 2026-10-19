@@ -34,6 +34,8 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 
 ## Installation
 
+This package requires PHP 8.3 or higher and Laravel 12 or 13.
+
 You can install the package via composer:
 
 ```bash
@@ -358,6 +360,21 @@ Don't forget to update the `presets` key in the `csp` config file to the class n
     App\Support\MyCspPreset::class,
 ],
 ```
+
+### Trusted Types
+
+Use `Directive::TRUSTED_TYPES` to allow specific Trusted Types policy names. Combine it with `Directive::REQUIRE_TRUSTED_TYPES_FOR` to require Trusted Types for script injection sinks:
+
+```php
+public function configure(Policy $policy): void
+{
+    $policy
+        ->add(Directive::TRUSTED_TYPES, ['default', 'my-policy'])
+        ->add(Directive::REQUIRE_TRUSTED_TYPES_FOR, Keyword::SCRIPT);
+}
+```
+
+Policy names are not quoted. Use `Keyword::ALLOW_DUPLICATES` alongside policy names to allow creating more than one policy with the same name. Use `Keyword::NONE` on its own to disallow policy creation, or `'*'` to allow any policy name.
 
 ### Using inline scripts and styles
 

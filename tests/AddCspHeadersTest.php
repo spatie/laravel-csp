@@ -82,6 +82,40 @@ it('will add additional report only directives', function (): void {
     assertStringContainsString("script-src 'unsafe-eval'", $headers->get('Content-Security-Policy-Report-Only'));
 });
 
+it('can configure trusted types in enforcing and report only policies', function (array|string|bool|Keyword $values, string $expected): void {
+    config([
+        'csp.presets' => [],
+        'csp.directives' => [[Directive::TRUSTED_TYPES, $values]],
+        'csp.report_only_directives' => [[Directive::TRUSTED_TYPES, $values]],
+    ]);
+
+    $headers = getResponseHeaders();
+
+    expect($headers->get('Content-Security-Policy'))->toBe($expected)
+        ->and($headers->get('Content-Security-Policy-Report-Only'))->toBe($expected);
+})->with([
+    'named policies' => [['default', 'my-policy'], 'trusted-types default my-policy'],
+    'duplicate policies' => [['default', Keyword::ALLOW_DUPLICATES], "trusted-types default 'allow-duplicates'"],
+    'hash-like policy names' => [['sha256-policy', 'sha384-policy', 'sha512-policy'], 'trusted-types sha256-policy sha384-policy sha512-policy'],
+    'keyword-like policy names' => [['self', 'none'], 'trusted-types self none'],
+    'wildcard' => ['*', 'trusted-types *'],
+    'no policies' => [Keyword::NONE, "trusted-types 'none'"],
+    'empty directive' => [Value::NO_VALUE, 'trusted-types'],
+]);
+
+it('can restrict trusted type policy names and require trusted types together', function (): void {
+    config([
+        'csp.presets' => [],
+        'csp.directives' => [
+            [Directive::TRUSTED_TYPES, 'my-policy'],
+            [Directive::REQUIRE_TRUSTED_TYPES_FOR, Keyword::SCRIPT],
+        ],
+    ]);
+
+    expect(getResponseHeaders()->get('Content-Security-Policy'))
+        ->toBe("trusted-types my-policy;require-trusted-types-for 'script'");
+});
+
 it('wont set any headers if not enabled in the config', function (): void {
     config([
         'csp.enabled' => false,

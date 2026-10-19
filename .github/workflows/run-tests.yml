@@ -13,14 +13,21 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         php: [8.5, 8.4, 8.3]
-        laravel: [^11.36.1, ^12, ^13]
+        laravel: [^12, ^13]
         dependency-version: [prefer-lowest, prefer-stable]
+        include:
+          - laravel: ^12
+            pest: ^4
+          - laravel: ^13
+            pest: ^5
+          - php: 8.3
+            pest: ^4
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -32,7 +39,8 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+          composer require "pestphp/pest:${{ matrix.pest }}" --dev --no-interaction --no-update
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/pest
