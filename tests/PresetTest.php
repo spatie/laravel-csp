@@ -66,6 +66,31 @@ it(
     Presets\Whereby::class,
 ]);
 
+it('only adds HTTPS Hotjar migration sources for scripts images and connections', function (bool $withBasic): void {
+    config(['csp.nonce_enabled' => false]);
+
+    $contents = Policy::create($withBasic
+        ? [Presets\Basic::class, Presets\HotJar::class]
+        : [Presets\HotJar::class]
+    )->getContents();
+
+    $self = $withBasic ? "'self' " : '';
+
+    expect(explode(';', $contents))->toContain(
+        "frame-src {$self}*.hotjar.com",
+        "script-src {$self}*.hotjar.com https://*.hotjar.io",
+        "font-src {$self}*.hotjar.com",
+        "style-src {$self}*.hotjar.com",
+        "img-src {$self}*.hotjar.com https://*.hotjar.io",
+        "connect-src {$self}https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com",
+    );
+
+    expect($contents)->not->toContain('script-src-elem');
+})->with([
+    'standalone' => false,
+    'with Basic' => true,
+]);
+
 it('combines the Basic and Intercom source directives', function (): void {
     config(['csp.nonce_enabled' => false]);
 

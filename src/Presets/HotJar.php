@@ -13,7 +13,8 @@ class HotJar implements Preset
     public function configure(Policy $policy): void
     {
         $policy
-            ->add([Directive::FRAME, Directive::SCRIPT, Directive::FONT, Directive::STYLE, Directive::IMG], ['*.hotjar.com', '*.hotjar.io'])
+            ->add([Directive::FRAME, Directive::SCRIPT, Directive::FONT, Directive::STYLE, Directive::IMG], '*.hotjar.com')
+            ->add([Directive::SCRIPT, Directive::IMG], 'https://*.hotjar.io')
             ->add(Directive::CONNECT, ['https://*.hotjar.com', 'https://*.hotjar.io', 'wss://*.hotjar.com']);
     }
 }

@@ -1,6 +1,6 @@
-frame-src *.hotjar.com *.hotjar.io
-script-src *.hotjar.com *.hotjar.io
-font-src *.hotjar.com *.hotjar.io
-style-src *.hotjar.com *.hotjar.io
-img-src *.hotjar.com *.hotjar.io
+frame-src *.hotjar.com
+script-src *.hotjar.com https://*.hotjar.io
+font-src *.hotjar.com
+style-src *.hotjar.com
+img-src *.hotjar.com https://*.hotjar.io
 connect-src https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com
