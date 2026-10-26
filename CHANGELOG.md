@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.30.1 - 2026-10-26
+
+### What's Changed
+
+- Fix the HotJar preset for the Hotjar-to-Contentsquare migration by allowing https://*.hotjar.io for scripts and images. Existing connection, WebSocket and .com permissions are preserved; no new frame, font or style permissions are added.
+- Add regression coverage for standalone HotJar policies and policies combined with the Basic preset.
+- Use the Spatie-hosted README ad image.
+
+No API, dependency requirement or supported-version changes. Applications that explicitly define script-src-elem must also add https://*.hotjar.io there; otherwise script elements inherit script-src as before. See [Hotjar's migration FAQ](https://help.hotjar.com/hc/en-us/articles/46691014447761-Moving-from-Hotjar-to-Contentsquare-FAQs).
+
+Thanks to @jackbayliss for the contribution in https://github.com/spatie/laravel-csp/pull/228.
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.30.0...3.30.1
+
 ## 3.30.0 - 2026-10-19
 
 ### What's Changed
