@@ -31,6 +31,7 @@ it(
     Presets\CloudflareTurnstile::class,
     Presets\CloudflareWebAnalytics::class,
     Presets\Fathom::class,
+    Presets\Featurebase::class,
     Presets\Firebase::class,
     Presets\GoogleAds::class,
     Presets\GoogleAnalytics::class,
