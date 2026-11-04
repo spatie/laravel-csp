@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.31.0 - 2026-11-04
+
+### What's Changed
+
+* Add a Featurebase preset by @kachelle in https://github.com/spatie/laravel-csp/pull/230
+* Add a Cookiebot preset by @kachelle in https://github.com/spatie/laravel-csp/pull/229
+
+### New Contributors
+
+* @kachelle made their first contribution in https://github.com/spatie/laravel-csp/pull/230
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.30.1...3.31.0
+
 ## 3.30.1 - 2026-10-26
 
 ### What's Changed
