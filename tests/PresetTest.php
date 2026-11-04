@@ -30,6 +30,7 @@ it(
     Presets\CloudflareCdn::class,
     Presets\CloudflareTurnstile::class,
     Presets\CloudflareWebAnalytics::class,
+    Presets\Cookiebot::class,
     Presets\Fathom::class,
     Presets\Featurebase::class,
     Presets\Firebase::class,

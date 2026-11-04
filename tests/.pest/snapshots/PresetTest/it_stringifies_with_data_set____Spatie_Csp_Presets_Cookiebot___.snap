@@ -1,0 +1,5 @@
+script-src https://consent.cookiebot.com https://consentcdn.cookiebot.com https://consent.cookiebot.eu https://consentcdn.cookiebot.eu
+connect-src https://consent.cookiebot.com https://consentcdn.cookiebot.com https://consent.cookiebot.eu https://consentcdn.cookiebot.eu
+frame-src https://consentcdn.cookiebot.com https://consentcdn.cookiebot.eu
+img-src https://imgsct.cookiebot.com
+style-src 'unsafe-inline'

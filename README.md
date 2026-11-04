@@ -194,6 +194,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Cloudflare Cdn`           | [cloudflare.com](https://www.cloudflare.com/en-in/application-services/products/cdn/)          |
 | `Cloudflare Turnstile`     | [cloudflare.com](https://www.cloudflare.com/application-services/products/turnstile/)          |
 | `Cloudflare Web Analytics` | [cloudflare.com](https://developers.cloudflare.com/web-analytics/)                             |
+| `Cookiebot`                | [cookiebot.com](https://www.cookiebot.com) (consent banner)                                    |
 | `Fathom`                   | [usefathom.com](https://usefathom.com)                                                         |
 | `Featurebase`              | [featurebase.app](https://www.featurebase.app) (feedback, changelog and messenger widgets)     |
 | `Firebase`                 | [firebase.google.com](https://firebase.google.com)                                             |
