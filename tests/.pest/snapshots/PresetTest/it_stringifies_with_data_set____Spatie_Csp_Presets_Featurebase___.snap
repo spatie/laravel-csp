@@ -1,0 +1,7 @@
+script-src https://do.featurebase.app https://sdk.featurebase.app
+style-src https://do.featurebase.app https://fonts.googleapis.com
+font-src https://fonts.gstatic.com
+connect-src https://*.featurebase.app wss://*.featurebase.app
+frame-src https://*.featurebase.app
+img-src https://featurebase.app https://*.featurebase.app https://*.featurebase-attachments.com https://fb-usercontent.fra1.cdn.digitaloceanspaces.com
+media-src https://*.featurebase.app https://*.featurebase-attachments.com

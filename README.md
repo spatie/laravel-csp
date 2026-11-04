@@ -195,6 +195,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Cloudflare Turnstile`     | [cloudflare.com](https://www.cloudflare.com/application-services/products/turnstile/)          |
 | `Cloudflare Web Analytics` | [cloudflare.com](https://developers.cloudflare.com/web-analytics/)                             |
 | `Fathom`                   | [usefathom.com](https://usefathom.com)                                                         |
+| `Featurebase`              | [featurebase.app](https://www.featurebase.app) (feedback, changelog and messenger widgets)     |
 | `Firebase`                 | [firebase.google.com](https://firebase.google.com)                                             |
 | `Google TLD's`             | Allow all Google Top Level Domains for 'connect' and 'image'                                   |       
 | `Google`                   | Google Analytics & Tag Manager                                                                 |       
