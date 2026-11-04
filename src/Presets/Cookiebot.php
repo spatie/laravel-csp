@@ -15,7 +15,13 @@ class Cookiebot implements Preset
     public function configure(Policy $policy): void
     {
         $policy
-            ->add([Directive::SCRIPT, Directive::CONNECT], [
+            ->add(Directive::SCRIPT, [
+                'https://consent.cookiebot.com',
+                'https://consentcdn.cookiebot.com',
+                'https://consent.cookiebot.eu',
+                'https://consentcdn.cookiebot.eu',
+            ])
+            ->add(Directive::CONNECT, [
                 'https://consent.cookiebot.com',
                 'https://consentcdn.cookiebot.com',
                 'https://consent.cookiebot.eu',
