@@ -1,2 +1,3 @@
 script-src https://snippet.maze.co
-connect-src https://prompts.maze.co
+connect-src https://api.maze.co https://prompts.maze.co
+frame-src https://t.maze.co

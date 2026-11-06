@@ -15,7 +15,11 @@ class Maze implements Preset
                 'https://snippet.maze.co',
             ])
             ->add(Directive::CONNECT, [
+                'https://api.maze.co',
                 'https://prompts.maze.co',
+            ])
+            ->add(Directive::FRAME, [
+                'https://t.maze.co',
             ]);
     }
 }
