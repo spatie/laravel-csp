@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.31.1 - 2026-11-06
+
+### What's Changed
+
+- Fix the Maze preset by allowing `https://api.maze.co` in `connect-src` alongside the existing `https://prompts.maze.co`, and `https://t.maze.co` in `frame-src`, matching [Maze's granular CSP guidance](https://help.maze.co/articles/1170376655-installing-the-maze-snippet-on-your-website).
+- Preserve `script-src https://snippet.maze.co`; no wildcards or unrelated preset permissions are added. Update the exact-output preset snapshot.
+- Extend the CI matrix to test PHP 8.6 with Laravel 13 (#231).
+
+No API, dependency requirement, or supported-version changes in this patch. Applications with additional CSP headers should ensure those policies also permit the Maze endpoints where intended.
+
+Thanks to @chinmaypurav for the fix in https://github.com/spatie/laravel-csp/pull/232.
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.31.0...3.31.1
+
 ## 3.31.0 - 2026-11-04
 
 ### What's Changed
