@@ -26,7 +26,7 @@ class LaravelPulse implements Preset
             ->add(Directive::FORM_ACTION, Keyword::NONE)
             ->add(Directive::FRAME_ANCESTORS, Keyword::NONE)
             ->add(Directive::IMG, ['data:', 'https://gravatar.com/avatar/', 'https://unavatar.io/'])
-            ->add(Directive::STYLE, [Keyword::UNSAFE_INLINE, 'fonts.bunny.net'])
+            ->add(Directive::STYLE, [Keyword::UNSAFE_INLINE, 'https://fonts.bunny.net/css'])
             ->add(Directive::SCRIPT, [Keyword::UNSAFE_INLINE, Keyword::UNSAFE_EVAL]);
     }
 }
