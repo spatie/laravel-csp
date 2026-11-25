@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-csp` will be documented in this file
 
+## 3.32.0 - 2026-11-25
+
+### What's Changed
+
+- Add the opt-in `LaravelPulse` preset for Pulse routes, with a deny-by-default policy and path-scoped Bunny font and stylesheet sources.
+- Document the standalone route middleware setup and the inline script/style and `unsafe-eval` permissions required by Pulse's bundled assets.
+- Add preset snapshot coverage and a regression test confirming that other routes retain the application's stricter CSP.
+
+No existing presets, dependency requirements, or supported versions change.
+
+Thanks to @sgilberg for the contribution in https://github.com/spatie/laravel-csp/pull/233.
+
+**Full Changelog**: https://github.com/spatie/laravel-csp/compare/3.31.1...3.32.0
+
 ## 3.31.1 - 2026-11-06
 
 ### What's Changed
