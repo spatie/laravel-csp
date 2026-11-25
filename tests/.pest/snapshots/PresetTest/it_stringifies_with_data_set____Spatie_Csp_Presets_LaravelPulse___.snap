@@ -1,0 +1,9 @@
+base-uri 'self'
+connect-src 'self'
+default-src 'none'
+font-src https://fonts.bunny.net/figtree/files/
+form-action 'none'
+frame-ancestors 'none'
+img-src data: https://gravatar.com/avatar https://gravatar.com/avatar/ https://unavatar.io/
+style-src 'unsafe-inline' https://fonts.bunny.net/css
+script-src 'unsafe-inline' 'unsafe-eval'

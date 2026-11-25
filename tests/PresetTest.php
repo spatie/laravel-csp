@@ -50,6 +50,7 @@ it(
     Presets\Intercom::class,
     Presets\JsDelivr::class,
     Presets\JQuery::class,
+    Presets\LaravelPulse::class,
     Presets\Maze::class,
     Presets\MetaPixel::class,
     Presets\Plain::class,
