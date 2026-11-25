@@ -213,6 +213,7 @@ This package ships with a few commonly used presets to get your started. *We're 
 | `Intercom`                 | [intercom.com](https://intercom.com/)                                                          |       
 | `JsDelivr`                 | [jsdelivr.com](https://jsdelivr.com)                                                           |  
 | `JQuery`                   | [jquery.com](https://jquery.com)                                                               |  
+| `LaravelPulse`             | [Laravel Pulse](https://laravel.com/docs/pulse) (standalone, Pulse routes only)                 |
 | `Maze`                     | [maze.co](https://maze.co)                                                                     |       
 | `Meta Pixel`               | [facebook.com](https://en-gb.facebook.com/business/tools/meta-pixel)                           |       
 | `Microsoft Clarity`        | [clarity.microsoft.com](https://clarity.microsoft.com)                                         |
@@ -252,6 +253,26 @@ Here you may also create multiple directive & value combinations by padding mult
     [[Directive::SCRIPT, Directive::STYLE], [Keyword::UNSAFE_EVAL, Keyword::UNSAFE_INLINE]],
 ],
 ```
+
+### Laravel Pulse
+
+The `LaravelPulse` preset is a standalone policy for the default Pulse dashboard. Add it to the `middleware` array in `config/pulse.php` so it replaces your application's CSP only on Pulse routes:
+
+```php
+use Laravel\Pulse\Http\Middleware\Authorize;
+use Spatie\Csp\AddCspHeaders;
+use Spatie\Csp\Presets\LaravelPulse;
+
+'middleware' => [
+    'web',
+    Authorize::class,
+    AddCspHeaders::class . ':' . LaravelPulse::class,
+],
+```
+
+Keep any other middleware you have added to this array. Do not add this preset to the global `csp.presets` array or combine it with `Basic`.
+
+Pulse uses inline scripts and styles, and its bundled Livewire/Alpine JavaScript requires `unsafe-eval`. This preset allows those features while blocking other resources by default. It allows same-origin connections, Bunny's Figtree fonts, data images, Gravatar avatars, and Unavatar icons. Custom Pulse cards or avatar URLs may need a custom preset with additional sources.
 
 ## Creating a preset
 

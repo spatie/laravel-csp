@@ -12,6 +12,7 @@ use Spatie\Csp\Keyword;
 use Spatie\Csp\Policy;
 use Spatie\Csp\Preset;
 use Spatie\Csp\Presets\Basic;
+use Spatie\Csp\Presets\LaravelPulse;
 use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
 use Symfony\Component\HttpFoundation\HeaderBag;
@@ -361,6 +362,28 @@ test('route middleware will overwrite global middleware for that route', functio
         'base-uri custom-policy',
         $headers->get('Content-Security-Policy')
     );
+});
+
+it('can apply the Pulse preset without weakening other routes', function (): void {
+    Route::get('pulse', fn (): string => 'ok')
+        ->middleware(AddCspHeaders::class.':'.LaravelPulse::class);
+
+    $pulseHeader = getResponseHeaders('pulse')->get('Content-Security-Policy');
+
+    expect(explode(';', $pulseHeader))->toContain(
+        "default-src 'none'",
+        "script-src 'unsafe-inline' 'unsafe-eval'",
+        "style-src 'unsafe-inline' https://fonts.bunny.net/css",
+        "frame-ancestors 'none'",
+    );
+
+    expect($pulseHeader)->not->toContain('nonce-');
+
+    $defaultHeader = getResponseHeaders()->get('Content-Security-Policy');
+
+    expect($defaultHeader)
+        ->toContain("default-src 'self'", 'nonce-')
+        ->not->toContain('unsafe-inline', 'unsafe-eval', 'fonts.bunny.net');
 });
 
 test('route middleware is skipped when laravel renders exceptions', function (): void {
